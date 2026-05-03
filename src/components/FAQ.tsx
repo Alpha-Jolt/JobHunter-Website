@@ -41,7 +41,9 @@ function FAQItem({ q, a }: { q: string; a: string }) {
     <div className="faq-item" onClick={() => setOpen(!open)} role="button" aria-expanded={open} tabIndex={0} onKeyDown={(e) => e.key === 'Enter' && setOpen(!open)}>
       <div className="faq-question">
         <span>{q}</span>
-        <span className="faq-chevron" style={{ transform: open ? 'rotate(180deg)' : 'none' }}>▾</span>
+        <span className="faq-chevron" style={{ transform: open ? 'rotate(180deg)' : 'none', display: 'flex' }}>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+        </span>
       </div>
       {open && <p className="faq-answer">{a}</p>}
     </div>

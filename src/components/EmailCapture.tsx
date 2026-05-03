@@ -4,12 +4,16 @@ interface Props {
   buttonLabel?: string
   placeholder?: string
   source?: string
+  onSuccess?: () => void
+  className?: string
 }
 
 export default function EmailCapture({
   buttonLabel = 'Join Waitlist',
   placeholder = 'Enter your email',
   source = 'generic',
+  onSuccess,
+  className,
 }: Props) {
   const [email, setEmail] = useState('')
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle')
@@ -31,10 +35,11 @@ export default function EmailCapture({
     setStatus('success')
     setMsg("You're on the list! We'll reach out when we launch.")
     setEmail('')
+    if (onSuccess) onSuccess()
   }
 
   return (
-    <form onSubmit={submit} noValidate>
+    <form onSubmit={submit} noValidate className={className}>
       <div className="email-form">
         <input
           type="email"

@@ -1,16 +1,16 @@
 :root {
-  --bg: #0a0a0f;
-  --bg-card: #111118;
-  --bg-card-hover: #16161f;
-  --border: #1e1e2e;
-  --accent: #6c63ff;
-  --accent-dim: #4f46e5;
-  --accent-glow: rgba(108, 99, 255, 0.15);
-  --text: #e8e8f0;
-  --text-muted: #8888a8;
-  --text-dim: #555570;
-  --success: #22c55e;
-  --error: #ef4444;
+  --bg: #fcfcfd;
+  --bg-card: #ffffff;
+  --bg-card-hover: #f1f3f5;
+  --border: #e9ecef;
+  --accent: #f2711c;
+  --accent-dim: #e0610e;
+  --accent-glow: rgba(242, 113, 28, 0.08);
+  --text: #1a1b1e;
+  --text-muted: #5c5f66;
+  --text-dim: #909296;
+  --success: #2b8a3e;
+  --error: #c92a2a;
   --radius: 12px;
   --radius-sm: 8px;
 }
@@ -85,9 +85,54 @@ body {
   border: 1px solid var(--border);
   border-radius: var(--radius);
   padding: 28px;
-  transition: border-color 0.2s, background 0.2s;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
-.card:hover { border-color: var(--accent); background: var(--bg-card-hover); }
+.card h3, .card p, .card li, .card span {
+  transition: color 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.card:hover { 
+  border-color: var(--accent); 
+  box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.1);
+  transform: translateY(-6px);
+}
+
+.card-orange-hover {
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.card-orange-hover:hover {
+  background: var(--accent);
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 32px 64px -16px rgba(242, 113, 28, 0.25);
+  border-color: var(--accent);
+}
+
+.card-orange-hover:hover h3,
+.card-orange-hover:hover p,
+.card-orange-hover:hover li,
+.card-orange-hover:hover span {
+  color: #fff !important;
+}
+
+.card-orange-hover:hover .btn-primary {
+  background: #fff;
+  color: var(--accent) !important;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+.card-orange-hover:hover .email-input {
+  background: #fff !important;
+  border-color: #fff !important;
+  color: var(--text) !important;
+  backdrop-filter: none;
+}
+
+.card-orange-hover:hover .email-input::placeholder {
+  color: var(--text-dim);
+}
 
 /* Grid */
 .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
@@ -96,13 +141,13 @@ body {
 /* Tag */
 .tag {
   display: inline-block;
-  padding: 4px 10px;
+  padding: 2px 8px;
   border-radius: 20px;
-  font-size: 12px;
-  font-weight: 600;
+  font-size: 11px;
+  font-weight: 700;
   background: var(--accent-glow);
   color: var(--accent);
-  border: 1px solid rgba(108, 99, 255, 0.3);
+  border: 1px solid rgba(242, 113, 28, 0.2);
 }
 
 /* Email input */

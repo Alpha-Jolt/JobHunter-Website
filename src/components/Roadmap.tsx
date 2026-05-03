@@ -33,9 +33,19 @@ const phases = [
   },
 ]
 
-const statusLabel: Record<string, string> = {
-  active: '🟢 In Progress',
-  next: '🔵 Up Next',
+const statusLabel: Record<string, React.ReactNode> = {
+  active: (
+    <span style={{ display: 'inline-flex', alignItems: 'center', gap: 6 }}>
+      <span style={{ width: 8, height: 8, borderRadius: '50%', background: '#22c55e' }} />
+      In Progress
+    </span>
+  ),
+  next: (
+    <span style={{ display: 'inline-flex', alignItems: 'center', gap: 6 }}>
+      <span style={{ width: 8, height: 8, borderRadius: '50%', background: '#ff952cff' }} />
+      Up Next
+    </span>
+  ),
   planned: 'Planned',
 }
 

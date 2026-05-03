@@ -1,0 +1,84 @@
+import { useState } from 'react'
+import EmailCapture from './EmailCapture'
+
+interface Props {
+  isOpen: boolean
+  onClose: () => void
+}
+
+export default function WaitlistModal({ isOpen, onClose }: Props) {
+  const [showConfetti, setShowConfetti] = useState(false)
+
+  // Simple CSS-based confetti trigger
+  const handleSuccess = () => {
+    setShowConfetti(true)
+    setTimeout(() => {
+      setShowConfetti(false)
+      onClose()
+    }, 2500)
+  }
+
+  if (!isOpen) return null
+
+  return (
+    <div className="modal-overlay">
+      <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+        <button className="modal-close" onClick={onClose} aria-label="Close modal">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M18 6 6 18" /><path d="m6 6 12 12" /></svg>
+        </button>
+
+        <div style={{ textAlign: 'center' }}>
+          <div className="modal-badge">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ marginRight: 6 }}><circle cx="12" cy="12" r="10" /><polyline points="12 6 12 12 16 14" /></svg>
+            Phase 3 Onboarding is now Open
+          </div>
+        </div>
+
+        <h2 className="modal-title" style={{ textAlign: 'center' }}>Land Your Next Role Faster</h2>
+        <p className="modal-desc" style={{ textAlign: 'center' }}>
+          Join 100+ professionals using JobHunter to automate their search and master their interviews.
+          Limited spots available for the next placement cohort.
+        </p>
+
+        <div className="modal-form-section">
+          <label className="modal-label">EMAIL ADDRESS</label>
+          <EmailCapture
+            buttonLabel="Get Early Access"
+            placeholder="your@email.com"
+            onSuccess={handleSuccess}
+            className="modal-email-capture"
+          />
+        </div>
+
+        <div className="modal-progress-wrap">
+          <div className="modal-progress-stats">
+            <span><strong>121</strong> of 1,000 seats claimed</span>
+            <span>879 left</span>
+          </div>
+          <div className="modal-progress-bar">
+            <div className="modal-progress-fill" style={{ width: '12.1%' }}></div>
+          </div>
+        </div>
+
+        <p className="modal-footer-note">No spam. No credit card. Cancel anytime.</p>
+
+        {showConfetti && <ConfettiOverlay />}
+      </div>
+    </div>
+  )
+}
+
+function ConfettiOverlay() {
+  return (
+    <div className="confetti-container">
+      {[...Array(50)].map((_, i) => (
+        <div key={i} className="confetti-piece" style={{
+          left: `${Math.random() * 100}%`,
+          backgroundColor: ['#f2711c', '#ff8c42', '#fff', '#22c55e'][Math.floor(Math.random() * 4)],
+          animationDelay: `${Math.random() * 3}s`,
+          animationDuration: `${2 + Math.random() * 2}s`
+        }} />
+      ))}
+    </div>
+  )
+}
