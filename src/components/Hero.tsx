@@ -35,7 +35,7 @@ export default function Hero({ navigate }: Props) {
 
         <div className="hero-stats" role="list" aria-label="Platform highlights">
           {[
-            { num: '4+', label: 'Job sources scraped' },
+            { num: '6+', label: 'Job sources scraped' },
             { num: '0', label: 'Fabricated resume lines' },
             { num: '100%', label: 'User-approved sends' },
           ].map(({ num, label }) => (

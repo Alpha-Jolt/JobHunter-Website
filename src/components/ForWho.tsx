@@ -26,7 +26,7 @@ const audiences = [
 const mentorPoints = [
   'Earn income from one-on-one or group sessions',
   'Scored on student ratings and verified placement rates',
-  '15% monthly commission on earnings',
+  'Maintain score and aqcuire more sessions',
   'Placement guarantee refunds tied to your performance',
 ]
 
