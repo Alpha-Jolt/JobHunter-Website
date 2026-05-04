@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, type FormEvent } from 'react'
+import { useState, useEffect, useRef, useCallback, type FormEvent } from 'react'
 
 interface Props {
   buttonLabel?: string
@@ -44,6 +44,50 @@ export default function EmailCapture({
   )
 
   const isValid = (v: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)
+
+  const performSubmission = useCallback(async (turnstileToken: string) => {
+    setStatus('loading')
+    setMsg('')
+
+    try {
+      const res = await fetch(`${SUPABASE_URL}/functions/v1/submit-waitlist`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${SUPABASE_ANON_KEY}`,
+        },
+        body: JSON.stringify({
+          email,
+          user_type: userType,
+          source,
+          turnstile_token: turnstileToken,
+        }),
+      })
+
+      const data = await res.json()
+
+      if (!res.ok) {
+        setStatus('error')
+        setMsg(data.error ?? 'Something went wrong. Please try again.')
+        if (widgetIdRef.current && window.turnstile) {
+          window.turnstile.reset(widgetIdRef.current)
+        }
+        return
+      }
+
+      setStatus('success')
+      setMsg("You're on the list! We'll reach out when we launch.")
+      setEmail('')
+      setShowTurnstile(false)
+      if (onSuccess) onSuccess()
+    } catch {
+      setStatus('error')
+      setMsg('Network error. Please try again.')
+      if (widgetIdRef.current && window.turnstile) {
+        window.turnstile.reset(widgetIdRef.current)
+      }
+    }
+  }, [email, userType, source, onSuccess])
 
   useEffect(() => {
     if (!isTurnstileConfigured || !showTurnstile) return
@@ -100,51 +144,7 @@ export default function EmailCapture({
         widgetIdRef.current = null
       }
     }
-  }, [isTurnstileConfigured, showTurnstile])
-
-  const performSubmission = async (turnstileToken: string) => {
-    setStatus('loading')
-    setMsg('')
-
-    try {
-      const res = await fetch(`${SUPABASE_URL}/functions/v1/submit-waitlist`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${SUPABASE_ANON_KEY}`,
-        },
-        body: JSON.stringify({
-          email,
-          user_type: userType,
-          source,
-          turnstile_token: turnstileToken,
-        }),
-      })
-
-      const data = await res.json()
-
-      if (!res.ok) {
-        setStatus('error')
-        setMsg(data.error ?? 'Something went wrong. Please try again.')
-        if (widgetIdRef.current && window.turnstile) {
-          window.turnstile.reset(widgetIdRef.current)
-        }
-        return
-      }
-
-      setStatus('success')
-      setMsg("You're on the list! We'll reach out when we launch.")
-      setEmail('')
-      setShowTurnstile(false)
-      if (onSuccess) onSuccess()
-    } catch {
-      setStatus('error')
-      setMsg('Network error. Please try again.')
-      if (widgetIdRef.current && window.turnstile) {
-        window.turnstile.reset(widgetIdRef.current)
-      }
-    }
-  }
+  }, [isTurnstileConfigured, showTurnstile, performSubmission])
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault()

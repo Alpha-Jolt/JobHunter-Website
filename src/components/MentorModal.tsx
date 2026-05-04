@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import EmailCapture from './EmailCapture'
 
 interface Props {
@@ -7,21 +7,34 @@ interface Props {
   triggerRect: DOMRect | null
 }
 
-const ConfettiOverlay = () => (
-  <div className="confetti-container">
-    {[...Array(20)].map((_, i) => (
-      <div 
-        key={i} 
-        className="confetti-piece" 
-        style={{ 
+const ConfettiOverlay = () => {
+  const [pieces, setPieces] = useState<React.CSSProperties[]>([])
+
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      setPieces(
+        [...Array(20)].map(() => ({
           left: `${Math.random() * 100}%`, 
           backgroundColor: ['#ffffff', '#ffed94', '#ffd3ba'][Math.floor(Math.random() * 3)],
           animationDelay: `${Math.random() * 2}s`
-        }} 
-      />
-    ))}
-  </div>
-)
+        }))
+      )
+    }, 0)
+    return () => clearTimeout(timeout)
+  }, [])
+
+  return (
+    <div className="confetti-container">
+      {pieces.map((piece, i) => (
+        <div 
+          key={i} 
+          className="confetti-piece" 
+          style={piece} 
+        />
+      ))}
+    </div>
+  )
+}
 
 export default function MentorModal({ isOpen, onClose, triggerRect }: Props) {
   const [showConfetti, setShowConfetti] = useState(false)
@@ -46,7 +59,7 @@ export default function MentorModal({ isOpen, onClose, triggerRect }: Props) {
         '--start-y': triggerRect ? `${triggerRect.top}px` : '50%',
         '--start-w': triggerRect ? `${triggerRect.width}px` : '540px',
         '--start-h': triggerRect ? `${triggerRect.height}px` : '300px',
-      } as any}
+      } as React.CSSProperties}
     >
       <div 
         className="card" 
