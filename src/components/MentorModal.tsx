@@ -91,9 +91,11 @@ export default function MentorModal({ isOpen, onClose, triggerRect }: Props) {
         </p>
         
         <div className="mentor-modal-form-wrap">
-          <EmailCapture 
-            buttonLabel="Apply as Mentor" 
-            placeholder="your@email.com" 
+          <EmailCapture
+            buttonLabel="Apply as Mentor"
+            placeholder="your@email.com"
+            source="mentor-modal"
+            userType="mentor"
             onSuccess={handleSuccess}
           />
         </div>

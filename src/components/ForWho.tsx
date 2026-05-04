@@ -118,7 +118,7 @@ export default function ForWho({ onOpenMentorModal }: Props) {
                 We're onboarding mentors for Phase 3. Leave your email and we'll reach out with details.
               </p>
               <div style={{ pointerEvents: 'none' }}>
-                <EmailCapture buttonLabel="Apply as Mentor" placeholder="your@email.com" source="mentor" />
+                <EmailCapture buttonLabel="Apply as Mentor" placeholder="your@email.com" source="mentor" userType="mentor" />
               </div>
             </div>
           </div>
