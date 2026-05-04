@@ -126,25 +126,37 @@ export default function EmailCapture({
       }
     }
 
+    const timeoutId = setTimeout(() => {
+      if (!widgetIdRef.current && status === 'loading') {
+        setStatus('error')
+        setMsg('Verification took too long. Please check your connection and try again.')
+      }
+    }, 15000)
+
     if (!script) {
       script = document.createElement('script')
       script.id = scriptId
       script.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit'
       script.async = true
       script.defer = true
-      script.addEventListener('load', tryRender)
+      script.onload = tryRender
+      script.onerror = () => {
+        setStatus('error')
+        setMsg('Failed to load security check. Please check your internet connection and try again.')
+      }
       document.head.appendChild(script)
     } else {
       tryRender()
     }
 
     return () => {
+      clearTimeout(timeoutId)
       if (widgetIdRef.current && window.turnstile) {
         window.turnstile.remove(widgetIdRef.current)
         widgetIdRef.current = null
       }
     }
-  }, [isTurnstileConfigured, showTurnstile, performSubmission])
+  }, [isTurnstileConfigured, showTurnstile, performSubmission, status])
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault()
@@ -158,16 +170,9 @@ export default function EmailCapture({
     }
 
     if (isTurnstileConfigured) {
-      if (!showTurnstile) {
-        setShowTurnstile(true)
-        setMsg('Please complete the verification below.')
-        return
-      }
-      if (!widgetIdRef.current) {
-        setMsg('Loading verification...')
-      } else {
-        setMsg('Please complete the verification below.')
-      }
+      setStatus('loading')
+      setShowTurnstile(true)
+      setMsg('Verifying your request...')
       return
     }
 
