@@ -6,7 +6,7 @@ JobHunter automates job discovery, tailors your resume using AI, sends applicati
 
 The platform is built around one guarantee: **no false data ever enters your resume.** Every AI-generated document requires explicit user approval before it goes anywhere.
 
-> **Status:** Pre-Development | **Target Platforms:** Web _(Beta)_
+> **Status:** Phase 0 - In Progress | **Target Platforms:** Web _(Beta)_
 
 ---
 
