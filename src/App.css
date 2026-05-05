@@ -455,6 +455,18 @@
   margin-top: 2px;
 }
 
+/* Animation helper */
+.animate-in {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.animate-in.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
 /* How It Works */
 .hiw-steps {
   display: flex;
@@ -464,26 +476,58 @@
   position: relative;
 }
 
+/* Static background line */
+.hiw-steps::after {
+  content: '';
+  position: absolute;
+  left: 23px;
+  top: 24px;
+  bottom: 48px;
+  width: 1px;
+  background: var(--border);
+  z-index: -1;
+}
+
+/* Animated accent line */
 .hiw-steps::before {
   content: '';
   position: absolute;
   left: 23px;
-  top: 24px; /* Start at center of first number */
-  bottom: 48px; /* End at center of last number */
+  top: 24px;
   width: 1px;
-  background: var(--border);
+  height: 0;
+  background: var(--accent);
+  transition: height 1s cubic-bezier(0.4, 0, 0.2, 1);
+  transition-delay: 0.2s;
+  z-index: 0;
+}
+
+.hiw-steps.visible::before {
+  height: calc(100% - 72px);
 }
 
 .hiw-step {
   display: flex;
   gap: 24px;
-  padding: 24px 0; /* Slightly tighter */
+  padding: 24px 0;
   position: relative;
+  opacity: 0;
+  transform: translateX(-20px);
+  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.hiw-step:not(:last-child) {
-  border-bottom: none; /* Removed */
+.hiw-step.visible {
+  opacity: 1;
+  transform: translateX(0);
 }
+
+/* Stagger delays for steps */
+.hiw-step:nth-child(1) { transition-delay: 0s; }
+.hiw-step:nth-child(2) { transition-delay: 0.1s; }
+.hiw-step:nth-child(3) { transition-delay: 0.2s; }
+.hiw-step:nth-child(4) { transition-delay: 0.3s; }
+.hiw-step:nth-child(5) { transition-delay: 0.4s; }
+.hiw-step:nth-child(6) { transition-delay: 0.5s; }
 
 .hiw-num {
   width: 48px;
@@ -500,6 +544,16 @@
   flex-shrink: 0;
   position: relative;
   z-index: 1;
+  transform: scale(0.6);
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.hiw-step.visible .hiw-num {
+  transform: scale(1);
+  background: var(--accent);
+  color: #fff;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 4px var(--accent-glow);
 }
 
 .hiw-content h3 {
@@ -907,7 +961,8 @@
     gap: 24px;
   }
 
-  .hiw-steps::before {
+  .hiw-steps::before,
+  .hiw-steps::after {
     display: none;
   }
 

@@ -10,7 +10,7 @@ const phases = [
   {
     phase: 'Phase 1',
     focus: 'Platform Foundation',
-    detail: 'Cross-platform frontend, onboarding, viewer, mailbox',
+    detail: 'Cross-platform App, onboarding, viewer, mailbox',
     status: 'next' as const,
   },
   {
