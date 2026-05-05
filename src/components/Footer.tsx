@@ -26,7 +26,7 @@ export default function Footer({ navigate }: Props) {
             </svg>
           </a>
           <a
-            href="https://instagram.com/jobhunter"
+            href="https://instagram.com/my_jobhunter"
             target="_blank"
             rel="noopener noreferrer"
             className="footer-social"
