@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import EmailCapture from './EmailCapture'
 
 interface Props {
@@ -69,26 +69,15 @@ export default function WaitlistModal({ isOpen, onClose }: Props) {
 }
 
 function ConfettiOverlay() {
-  const [pieces, setPieces] = useState<React.CSSProperties[]>([])
-
-  useEffect(() => {
-    const timeout = setTimeout(() => {
-      setPieces(
-        [...Array(50)].map(() => ({
+  return (
+    <div className="confetti-container">
+      {[...Array(50)].map((_, i) => (
+        <div key={i} className="confetti-piece" style={{
           left: `${Math.random() * 100}%`,
           backgroundColor: ['#f2711c', '#ff8c42', '#fff', '#22c55e'][Math.floor(Math.random() * 4)],
           animationDelay: `${Math.random() * 3}s`,
           animationDuration: `${2 + Math.random() * 2}s`
-        }))
-      )
-    }, 0)
-    return () => clearTimeout(timeout)
-  }, [])
-
-  return (
-    <div className="confetti-container">
-      {pieces.map((piece, i) => (
-        <div key={i} className="confetti-piece" style={piece} />
+        }} />
       ))}
     </div>
   )

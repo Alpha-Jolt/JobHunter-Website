@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useCallback, type FormEvent } from 'react'
+import { useState, useEffect, useRef, type FormEvent } from 'react'
 
 interface Props {
   buttonLabel?: string
@@ -35,7 +35,6 @@ export default function EmailCapture({
   const [email, setEmail] = useState('')
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle')
   const [msg, setMsg] = useState('')
-  const [showTurnstile, setShowTurnstile] = useState(false)
   const containerRef = useRef<HTMLDivElement>(null)
   const widgetIdRef = useRef<string | null>(null)
 
@@ -45,9 +44,68 @@ export default function EmailCapture({
 
   const isValid = (v: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)
 
-  const performSubmission = useCallback(async (turnstileToken: string) => {
+  useEffect(() => {
+    if (!isTurnstileConfigured) return
+
+    const scriptId = 'cf-turnstile-script'
+    let script = document.getElementById(scriptId) as HTMLScriptElement | null
+
+    const tryRender = () => {
+      if (!containerRef.current || widgetIdRef.current) return
+      if (window.turnstile) {
+        widgetIdRef.current = window.turnstile.render(containerRef.current, {
+          sitekey: TURNSTILE_SITE_KEY,
+          theme: 'light',
+          size: 'normal',
+        })
+      } else {
+        setTimeout(tryRender, 200)
+      }
+    }
+
+    if (!script) {
+      script = document.createElement('script')
+      script.id = scriptId
+      script.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit'
+      script.async = true
+      script.defer = true
+      script.addEventListener('load', tryRender)
+      document.head.appendChild(script)
+    } else {
+      tryRender()
+    }
+
+    return () => {
+      if (widgetIdRef.current && window.turnstile) {
+        window.turnstile.remove(widgetIdRef.current)
+        widgetIdRef.current = null
+      }
+    }
+  }, [isTurnstileConfigured])
+
+  const submit = async (e: FormEvent) => {
+    e.preventDefault()
+
+    if (!isValid(email)) {
+      setStatus('error')
+      setMsg('Please enter a valid email address.')
+      return
+    }
+
+    let turnstileToken: string | null = null
+    if (isTurnstileConfigured) {
+      turnstileToken = widgetIdRef.current
+        ? (window.turnstile?.getResponse(widgetIdRef.current) ?? null)
+        : null
+
+      if (!turnstileToken) {
+        setStatus('error')
+        setMsg('Please complete the verification challenge.')
+        return
+      }
+    }
+
     setStatus('loading')
-    setMsg('')
 
     try {
       const res = await fetch(`${SUPABASE_URL}/functions/v1/submit-waitlist`, {
@@ -60,7 +118,7 @@ export default function EmailCapture({
           email,
           user_type: userType,
           source,
-          turnstile_token: turnstileToken,
+          turnstile_token: turnstileToken ?? 'dev-bypass',
         }),
       })
 
@@ -78,7 +136,6 @@ export default function EmailCapture({
       setStatus('success')
       setMsg("You're on the list! We'll reach out when we launch.")
       setEmail('')
-      setShowTurnstile(false)
       if (onSuccess) onSuccess()
     } catch {
       setStatus('error')
@@ -87,115 +144,17 @@ export default function EmailCapture({
         window.turnstile.reset(widgetIdRef.current)
       }
     }
-  }, [email, userType, source, onSuccess])
-
-  useEffect(() => {
-    if (!isTurnstileConfigured || !showTurnstile) return
-
-    const scriptId = 'cf-turnstile-script'
-    let script = document.getElementById(scriptId) as HTMLScriptElement | null
-
-    const tryRender = () => {
-      if (widgetIdRef.current) return
-      
-      if (window.turnstile && containerRef.current) {
-        try {
-          widgetIdRef.current = window.turnstile.render(containerRef.current, {
-            sitekey: TURNSTILE_SITE_KEY,
-            theme: 'light',
-            size: 'normal',
-            callback: (token: string) => {
-              performSubmission(token)
-            },
-            'error-callback': () => {
-              setStatus('error')
-              setMsg('Verification failed. Please check your internet connection or try again.')
-            },
-            'expired-callback': () => {
-              setStatus('idle')
-              setMsg('Verification expired. Please try again.')
-            }
-          })
-        } catch (err) {
-          console.error('Turnstile render error:', err)
-          setStatus('error')
-          setMsg('Failed to load verification widget.')
-        }
-      } else {
-        setTimeout(tryRender, 100)
-      }
-    }
-
-    const timeoutId = setTimeout(() => {
-      if (!widgetIdRef.current && status === 'loading') {
-        setStatus('error')
-        setMsg('Verification took too long. Please check your connection and try again.')
-      }
-    }, 15000)
-
-    if (!script) {
-      script = document.createElement('script')
-      script.id = scriptId
-      script.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit'
-      script.async = true
-      script.defer = true
-      script.onload = tryRender
-      script.onerror = () => {
-        setStatus('error')
-        setMsg('Failed to load security check. Please check your internet connection and try again.')
-      }
-      document.head.appendChild(script)
-    } else {
-      tryRender()
-    }
-
-    return () => {
-      clearTimeout(timeoutId)
-      if (widgetIdRef.current && window.turnstile) {
-        window.turnstile.remove(widgetIdRef.current)
-        widgetIdRef.current = null
-      }
-    }
-  }, [isTurnstileConfigured, showTurnstile, performSubmission, status])
-
-  const handleSubmit = (e: FormEvent) => {
-    e.preventDefault()
-
-    if (status === 'loading' || status === 'success') return
-
-    if (!isValid(email)) {
-      setStatus('error')
-      setMsg('Please enter a valid email address.')
-      return
-    }
-
-    if (isTurnstileConfigured) {
-      setStatus('loading')
-      setShowTurnstile(true)
-      setMsg('Verifying your request...')
-      return
-    }
-
-    if (!isTurnstileConfigured) {
-      performSubmission('dev-bypass')
-    }
   }
 
   return (
-    <form onSubmit={handleSubmit} noValidate className={className}>
+    <form onSubmit={submit} noValidate className={className}>
       <div className="email-form">
         <input
           type="email"
           className={`email-input${status === 'error' ? ' error' : ''}`}
           placeholder={placeholder}
           value={email}
-          onChange={(e) => {
-            setEmail(e.target.value)
-            if (status !== 'loading') {
-              setStatus('idle')
-              setMsg('')
-            }
-          }}
+          onChange={(e) => { setEmail(e.target.value); setStatus('idle'); setMsg('') }}
           disabled={status === 'loading' || status === 'success'}
           aria-label="Email address"
         />
@@ -208,8 +167,8 @@ export default function EmailCapture({
         </button>
       </div>
 
-      {isTurnstileConfigured && showTurnstile && status !== 'success' && (
-        <div ref={containerRef} style={{ marginTop: 12, minHeight: '65px' }} />
+      {isTurnstileConfigured && (
+        <div ref={containerRef} style={{ marginTop: 12 }} />
       )}
 
       {msg && (
