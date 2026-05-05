@@ -52,7 +52,7 @@ const principles = [
 
 export default function Principles() {
   return (
-    <section className="section" style={{ background: 'rgba(108,99,255,0.02)' }} aria-labelledby="principles-heading">
+    <section id="principles" className="section" style={{ background: 'rgba(108,99,255,0.02)' }} aria-labelledby="principles-heading">
       <div className="section-inner">
         <div className="section-label">Our Principles</div>
         <h2 className="section-title" id="principles-heading">

@@ -31,7 +31,7 @@ const steps = [
 
 export default function HowItWorks({ standalone }: Props) {
   return (
-    <section className="section" aria-labelledby="hiw-heading">
+    <section id="how-it-works" className="section" aria-labelledby="hiw-heading">
       {standalone && (
         <div className="page-header" style={{ padding: '64px 24px 0', marginBottom: 0 }}>
           <div className="page-header-inner">

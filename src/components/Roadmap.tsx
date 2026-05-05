@@ -52,7 +52,7 @@ const statusLabel: Record<string, React.ReactNode> = {
 export default function Roadmap() {
   return (
     <>
-      <section className="section" aria-labelledby="roadmap-heading">
+      <section id="roadmap" className="section" aria-labelledby="roadmap-heading">
         <div className="section-inner">
           <div className="section-label">Roadmap</div>
           <h2 className="section-title" id="roadmap-heading">

@@ -56,7 +56,7 @@ export default function ForWho({ onOpenMentorModal }: Props) {
 
   return (
     <>
-      <section className="section" aria-labelledby="forwho-heading">
+      <section id="for-who-audience" className="section" aria-labelledby="forwho-heading">
         <div className="section-inner">
           <div className="section-label">Who It's For</div>
           <h2 className="section-title" id="forwho-heading">
@@ -82,7 +82,7 @@ export default function ForWho({ onOpenMentorModal }: Props) {
 
       <hr className="divider" />
 
-      <section className="section" aria-labelledby="mentor-heading">
+      <section id="for-who-mentor" className="section" aria-labelledby="mentor-heading">
         <div className="section-inner">
           <div className="grid-2" style={{ alignItems: 'center' }}>
             <div>

@@ -35,7 +35,7 @@ export default function App() {
       <Nav current={page} navigate={navigate} onOpenWaitlist={() => setIsModalOpen(true)} />
       {page === 'home' && (
         <>
-          <Hero navigate={navigate} />
+          <Hero />
           <HowItWorks />
           <Principles />
           <Roadmap />

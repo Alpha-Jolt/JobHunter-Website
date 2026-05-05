@@ -52,7 +52,7 @@ function FAQItem({ q, a }: { q: string; a: string }) {
 
 export default function FAQ() {
   return (
-    <section className="section" aria-labelledby="faq-heading">
+    <section id="faq" className="section" aria-labelledby="faq-heading">
       <div className="section-inner" style={{ maxWidth: 720 }}>
         <div className="section-label">FAQ</div>
         <h2 className="section-title" id="faq-heading">Frequently asked questions</h2>

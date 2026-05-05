@@ -1,11 +1,6 @@
-import type { Page } from '../App'
 import EmailCapture from './EmailCapture'
 
-interface Props {
-  navigate: (p: Page) => void
-}
-
-export default function Hero({ navigate }: Props) {
+export default function Hero() {
   return (
     <section className="hero" aria-labelledby="hero-heading">
       <div className="hero-inner">
@@ -47,11 +42,17 @@ export default function Hero({ navigate }: Props) {
         </div>
 
         <div style={{ marginTop: 32, display: 'flex', gap: 12, justifyContent: 'center', flexWrap: 'wrap' }}>
-          <button className="btn btn-ghost" onClick={() => navigate('how-it-works')} style={{ display: 'inline-flex', alignItems: 'center', gap: 8 }}>
+          <button className="btn btn-ghost" onClick={() => {
+            const el = document.getElementById('how-it-works');
+            if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }} style={{ display: 'inline-flex', alignItems: 'center', gap: 8 }}>
             See how it works
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
           </button>
-          <button className="btn btn-ghost" onClick={() => navigate('features')}>
+          <button className="btn btn-ghost" onClick={() => {
+            const el = document.getElementById('features');
+            if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }}>
             Explore features
           </button>
         </div>
