@@ -33,9 +33,14 @@ export default function Nav({ current, navigate, onOpenWaitlist }: Props) {
             </li>
           ))}
         </ul>
-        <button className="btn btn-primary nav-cta" onClick={onOpenWaitlist}>
-          <span>Get Placed</span>
-        </button>
+        <div className="nav-cta-group">
+          <button className="btn btn-primary nav-cta nav-cta-small" onClick={onOpenWaitlist}>
+            <span>Get Placed</span>
+          </button>
+          <button className="btn nav-referral-btn">
+            <span>Referral</span>
+          </button>
+        </div>
       </div>
     </nav>
   )
