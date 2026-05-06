@@ -38,7 +38,7 @@ export default function Nav({ current, navigate, onOpenWaitlist }: Props) {
             <span>Hunt Jobs</span>
           </button>
           <button className="btn nav-referral-btn">
-            <span>Referral</span>
+            <span>Refer your friend</span>
           </button>
         </div>
       </div>
