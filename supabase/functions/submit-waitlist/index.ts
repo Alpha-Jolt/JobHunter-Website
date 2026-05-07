@@ -7,19 +7,13 @@ const corsHeaders = {
   "Access-Control-Allow-Headers": "Content-Type, Authorization, X-Client-Info, Apikey",
 };
 
-/** Strict alphanumeric whitelist for referral codes. */
-function sanitizeCode(raw: string): string | null {
-  const trimmed = (raw ?? "").trim().toUpperCase();
-  return /^[A-Z0-9]{6,10}$/.test(trimmed) ? trimmed : null;
-}
-
 Deno.serve(async (req: Request) => {
   if (req.method === "OPTIONS") {
     return new Response(null, { status: 200, headers: corsHeaders });
   }
 
   try {
-    const { email, user_type, source, turnstile_token, referral_code: rawCode } = await req.json();
+    const { email, user_type, source, turnstile_token } = await req.json();
 
     if (!email || !turnstile_token) {
       return new Response(
@@ -27,9 +21,6 @@ Deno.serve(async (req: Request) => {
         { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
       );
     }
-
-    // Sanitize optional referral code
-    const referralCode: string | null = rawCode ? sanitizeCode(rawCode) : null;
 
     // Verify Cloudflare Turnstile token
     const turnstileSecret = Deno.env.get("TURNSTILE_SECRET_KEY");
@@ -63,20 +54,12 @@ Deno.serve(async (req: Request) => {
       Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!
     );
 
-    const upsertPayload: Record<string, unknown> = {
-      email,
-      user_type: user_type ?? "job_seeker",
-      source: source ?? "",
-    };
-
-    // Only attach referral_code if it passes sanitization
-    if (referralCode) {
-      upsertPayload.referral_code = referralCode;
-    }
-
     const { error: dbError } = await supabase
       .from("waitlist")
-      .upsert(upsertPayload, { onConflict: "email", ignoreDuplicates: true });
+      .upsert(
+        { email, user_type: user_type ?? "job_seeker", source: source ?? "" },
+        { onConflict: "email", ignoreDuplicates: true }
+      );
 
     if (dbError) {
       console.error("DB error:", dbError);
@@ -84,21 +67,6 @@ Deno.serve(async (req: Request) => {
         JSON.stringify({ error: "Failed to save your email. Please try again." }),
         { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } }
       );
-    }
-
-    // Record referral redemption if a valid code was provided
-    if (referralCode) {
-      const supabaseUrl = Deno.env.get("SUPABASE_URL")!;
-      const serviceKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
-      // Fire-and-forget: don't fail the whole signup if redemption fails
-      fetch(`${supabaseUrl}/functions/v1/redeem-referral`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${serviceKey}`,
-        },
-        body: JSON.stringify({ referral_code: referralCode, referred_email: email }),
-      }).catch((e) => console.error("Redemption call failed:", e));
     }
 
     return new Response(

@@ -37,13 +37,8 @@ export default function Nav({ current, navigate, onOpenWaitlist }: Props) {
           <button className="btn btn-primary nav-cta nav-cta-small" onClick={onOpenWaitlist}>
             <span>Hunt Jobs</span>
           </button>
-          <button
-            className={`btn btn-ghost nav-referral-btn${current === 'referral' ? ' active' : ''}`}
-            onClick={() => navigate('referral')}
-            aria-current={current === 'referral' ? 'page' : undefined}
-            id="nav-referral-btn"
-          >
-            <span>Refer a Friend</span>
+          <button className="btn nav-referral-btn">
+            <span>Refer your friend</span>
           </button>
         </div>
       </div>
