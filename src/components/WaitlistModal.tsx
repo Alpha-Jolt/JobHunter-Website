@@ -4,9 +4,10 @@ import EmailCapture from './EmailCapture'
 interface Props {
   isOpen: boolean
   onClose: () => void
+  referralCode?: string
 }
 
-export default function WaitlistModal({ isOpen, onClose }: Props) {
+export default function WaitlistModal({ isOpen, onClose, referralCode }: Props) {
   const [showConfetti, setShowConfetti] = useState(false)
 
   // Simple CSS-based confetti trigger
@@ -21,7 +22,7 @@ export default function WaitlistModal({ isOpen, onClose }: Props) {
   if (!isOpen) return null
 
   return (
-    <div className="modal-overlay">
+    <div className="modal-overlay" onClick={onClose}>
       <div className="modal-content" onClick={(e) => e.stopPropagation()}>
         <button className="modal-close" onClick={onClose} aria-label="Close modal">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M18 6 6 18" /><path d="m6 6 12 12" /></svg>
@@ -33,6 +34,16 @@ export default function WaitlistModal({ isOpen, onClose }: Props) {
             Phase 3 Onboarding is now Open
           </div>
         </div>
+
+        {referralCode && (
+          <div className="modal-referral-banner">
+            <span className="modal-referral-icon">🎁</span>
+            <div>
+              <p className="modal-referral-title">You were referred!</p>
+              <p className="modal-referral-sub">Code <strong>{referralCode}</strong> — 20% off your first subscription will be applied automatically.</p>
+            </div>
+          </div>
+        )}
 
         <h2 className="modal-title" style={{ textAlign: 'center' }}>Land Your Next Role Faster</h2>
         <p className="modal-desc" style={{ textAlign: 'center' }}>
@@ -47,7 +58,13 @@ export default function WaitlistModal({ isOpen, onClose }: Props) {
             placeholder="your@email.com"
             onSuccess={handleSuccess}
             className="modal-email-capture"
+            referralCode={referralCode}
           />
+          {referralCode && (
+            <p className="modal-referral-code-note">
+              🏷️ Referral code <strong>{referralCode}</strong> will be applied to your signup.
+            </p>
+          )}
         </div>
 
         <div className="modal-progress-wrap">
@@ -90,3 +107,4 @@ function ConfettiOverlay() {
     </div>
   )
 }
+

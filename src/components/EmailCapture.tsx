@@ -7,6 +7,8 @@ interface Props {
   userType?: 'job_seeker' | 'mentor'
   onSuccess?: () => void
   className?: string
+  referralCode?: string
+  onEmailChange?: (email: string) => void
 }
 
 declare global {
@@ -31,6 +33,8 @@ export default function EmailCapture({
   userType = 'job_seeker',
   onSuccess,
   className,
+  referralCode,
+  onEmailChange,
 }: Props) {
   const [email, setEmail] = useState('')
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle')
@@ -119,6 +123,7 @@ export default function EmailCapture({
           user_type: userType,
           source,
           turnstile_token: turnstileToken ?? 'dev-bypass',
+          ...(referralCode ? { referral_code: referralCode } : {}),
         }),
       })
 
@@ -154,7 +159,7 @@ export default function EmailCapture({
           className={`email-input${status === 'error' ? ' error' : ''}`}
           placeholder={placeholder}
           value={email}
-          onChange={(e) => { setEmail(e.target.value); setStatus('idle'); setMsg('') }}
+          onChange={(e) => { setEmail(e.target.value); setStatus('idle'); setMsg(''); onEmailChange?.(e.target.value) }}
           disabled={status === 'loading' || status === 'success'}
           aria-label="Email address"
         />
