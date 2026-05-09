@@ -6,24 +6,46 @@ const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL as string
 const SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY as string
 
 interface Benefit {
-  icon: string
+  icon: React.ReactNode
   title: string
   description: string
 }
 
 const benefits: Benefit[] = [
   {
-    icon: '🎁',
+    icon: (
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <polyline points="20 12 20 22 4 22 4 12" />
+        <rect x="2" y="7" width="20" height="5" />
+        <line x1="12" y1="22" x2="12" y2="7" />
+        <path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z" />
+        <path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z" />
+      </svg>
+    ),
     title: '20% Off — On Us',
-    description: 'Friends who sign up with your link get an exclusive 20% discount on their first JobHunter subscription.',
+    description: 'Give your network an exclusive 20% discount on their first subscription and unlock priority placement access for you both.',
   },
   {
-    icon: '🚀',
+    icon: (
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z" />
+        <path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z" />
+        <path d="M9 12H4s.55-3.03 2-5c1.62-2.2 5-3 5-3" />
+        <path d="M12 15v5s3.03-.55 5-2c2.2-1.62 3-5 3-5" />
+      </svg>
+    ),
     title: 'Priority Cohort Access',
     description: 'Referred users jump the queue and receive early cohort invitations before the general public.',
   },
   {
-    icon: '🤝',
+    icon: (
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+        <circle cx="9" cy="7" r="4" />
+        <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
+        <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+      </svg>
+    ),
     title: 'Build Your Network',
     description: 'Every referral strengthens your professional circle — turn your network into your superpower.',
   },
@@ -133,7 +155,7 @@ export default function Referral() {
               <em>Earn Together</em>
             </h1>
             <p className="ref-hero-sub">
-              Invite your friends and colleagues to JobHunter. They get 20% off, and you both get
+              Invite your friends and colleagues to JobHunter and you both get 20% off,
               priority access to exclusive features and cohorts. Everybody wins.
             </p>
           </div>
@@ -239,7 +261,7 @@ export default function Referral() {
               { num: '01', title: 'Get Your Code', desc: 'Enter your email above to generate your unique 8-character referral code.' },
               { num: '02', title: 'Share the Link', desc: 'Send your personalised link or code to friends, colleagues, or your social network.' },
               { num: '03', title: 'They Sign Up', desc: 'When they visit your link, the waitlist modal opens automatically with your code pre-filled.' },
-              { num: '04', title: 'Everyone Benefits', desc: 'They receive 20% off their first subscription and you both gain priority cohort access.' },
+              { num: '04', title: 'Everyone Benefits', desc: 'Both receive 20% off on the first subscription and gain priority cohort access.' },
             ].map((step) => (
               <div key={step.num} className="ref-step">
                 <div className="ref-step-num">{step.num}</div>
