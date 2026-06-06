@@ -39,6 +39,7 @@ export default function EmailCapture({
   const [email, setEmail] = useState('')
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle')
   const [msg, setMsg] = useState('')
+  const [throttled, setThrottled] = useState(false)
   const containerRef = useRef<HTMLDivElement>(null)
   const widgetIdRef = useRef<string | null>(null)
 
@@ -89,6 +90,10 @@ export default function EmailCapture({
 
   const submit = async (e: FormEvent) => {
     e.preventDefault()
+
+    if (throttled) return
+    setThrottled(true)
+    setTimeout(() => setThrottled(false), 3000)
 
     if (!isValid(email)) {
       setStatus('error')
@@ -166,7 +171,7 @@ export default function EmailCapture({
         <button
           type="submit"
           className="btn btn-primary"
-          disabled={status === 'loading' || status === 'success'}
+          disabled={status === 'loading' || status === 'success' || throttled}
         >
           {status === 'loading' ? 'Joining…' : buttonLabel}
         </button>

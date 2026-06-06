@@ -1,5 +1,7 @@
 import "jsr:@supabase/functions-js/edge-runtime.d.ts";
 import { createClient } from "npm:@supabase/supabase-js@2";
+import { isRateLimited } from "../_shared/rateLimit.ts";
+import { isDisposableEmail } from "../_shared/disposableDomains.ts";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -7,7 +9,6 @@ const corsHeaders = {
   "Access-Control-Allow-Headers": "Content-Type, Authorization, X-Client-Info, Apikey",
 };
 
-/** Strict alphanumeric whitelist for referral codes. */
 function sanitizeCode(raw: string): string | null {
   const trimmed = (raw ?? "").trim().toUpperCase();
   return /^[A-Z0-9]{6,10}$/.test(trimmed) ? trimmed : null;
@@ -19,6 +20,21 @@ Deno.serve(async (req: Request) => {
   }
 
   try {
+    const ip = req.headers.get("x-forwarded-for")?.split(",")[0].trim() ?? "unknown";
+
+    const supabase = createClient(
+      Deno.env.get("SUPABASE_URL")!,
+      Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!
+    );
+
+    // 5 submissions per IP per 10 minutes
+    if (await isRateLimited(supabase, "submit-waitlist", ip, 5, 10 * 60 * 1000)) {
+      return new Response(
+        JSON.stringify({ error: "Too many requests. Please try again later." }),
+        { status: 429, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
+    }
+
     const { email, user_type, source, turnstile_token, referral_code: rawCode } = await req.json();
 
     if (!email || !turnstile_token) {
@@ -28,10 +44,15 @@ Deno.serve(async (req: Request) => {
       );
     }
 
-    // Sanitize optional referral code
+    if (isDisposableEmail(email)) {
+      return new Response(
+        JSON.stringify({ error: "Disposable email addresses are not allowed. Please use a permanent email." }),
+        { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
+    }
+
     const referralCode: string | null = rawCode ? sanitizeCode(rawCode) : null;
 
-    // Verify Cloudflare Turnstile token
     const turnstileSecret = Deno.env.get("TURNSTILE_SECRET_KEY");
     if (!turnstileSecret) {
       return new Response(
@@ -57,22 +78,13 @@ Deno.serve(async (req: Request) => {
       );
     }
 
-    // Insert into DB using service role key (bypasses RLS)
-    const supabase = createClient(
-      Deno.env.get("SUPABASE_URL")!,
-      Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!
-    );
-
     const upsertPayload: Record<string, unknown> = {
       email,
       user_type: user_type ?? "job_seeker",
       source: source ?? "",
     };
 
-    // Only attach referral_code if it passes sanitization
-    if (referralCode) {
-      upsertPayload.referral_code = referralCode;
-    }
+    if (referralCode) upsertPayload.referral_code = referralCode;
 
     const { error: dbError } = await supabase
       .from("waitlist")
@@ -86,16 +98,12 @@ Deno.serve(async (req: Request) => {
       );
     }
 
-    // Record referral redemption if a valid code was provided
     if (referralCode) {
-      const supabaseUrl = Deno.env.get("SUPABASE_URL")!;
-      const serviceKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
-      // Fire-and-forget: don't fail the whole signup if redemption fails
-      fetch(`${supabaseUrl}/functions/v1/redeem-referral`, {
+      fetch(`${Deno.env.get("SUPABASE_URL")}/functions/v1/redeem-referral`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${serviceKey}`,
+          Authorization: `Bearer ${Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")}`,
         },
         body: JSON.stringify({ referral_code: referralCode, referred_email: email }),
       }).catch((e) => console.error("Redemption call failed:", e));

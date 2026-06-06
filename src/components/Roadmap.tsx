@@ -4,7 +4,7 @@ const phases = [
   {
     phase: 'Phase 0',
     focus: 'Core MVP Engine',
-    detail: 'Scraper + AI Resume Builder + Mail Sender, no UI',
+    detail: 'Scraper + AI Resume Builder + Mail Sender',
     status: 'active' as const,
   },
   {

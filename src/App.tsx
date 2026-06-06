@@ -13,7 +13,7 @@ import MentorModal from './components/MentorModal'
 import Referral from './components/Referral'
 import './App.css'
 
-export type Page = 'home' | 'how-it-works' | 'features' | 'for-who' | 'faq' | 'referral'
+export type Page = 'home' | 'features' | 'for-who' | 'faq' | 'referral'
 
 /** Sanitize URL param: only accept 6-10 uppercase alphanumeric characters. */
 function sanitizeRefCode(raw: string | null): string | null {
@@ -67,7 +67,6 @@ export default function App() {
           <Roadmap />
         </>
       )}
-      {page === 'how-it-works' && <HowItWorks standalone />}
       {page === 'features' && <Features />}
       {page === 'for-who' && <ForWho onOpenMentorModal={handleOpenMentorModal} />}
       {page === 'faq' && <FAQ />}

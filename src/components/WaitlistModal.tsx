@@ -81,11 +81,11 @@ export default function WaitlistModal({ isOpen, onClose, referralCode }: Props) 
 
         <div className="modal-progress-wrap">
           <div className="modal-progress-stats">
-            <span><strong>121</strong> of 1,000 seats claimed</span>
-            <span>879 left</span>
+            <span><strong>12</strong> of 50 seats claimed</span>
+            <span>38 left</span>
           </div>
           <div className="modal-progress-bar">
-            <div className="modal-progress-fill" style={{ width: '12.1%' }}></div>
+            <div className="modal-progress-fill" style={{ width: '27%' }}></div>
           </div>
         </div>
 
