@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://myjobhunter.in/sitemap.xml

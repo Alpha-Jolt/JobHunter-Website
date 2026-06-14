@@ -55,7 +55,7 @@ export default function FAQ() {
     <section id="faq" className="section" aria-labelledby="faq-heading">
       <div className="section-inner" style={{ maxWidth: 720 }}>
         <div className="section-label">FAQ</div>
-        <h2 className="section-title" id="faq-heading">Frequently asked questions</h2>
+        <h1 className="section-title" id="faq-heading">Frequently asked questions</h1>
         <p className="section-sub" style={{ marginBottom: 48 }}>
           Everything you need to know before joining the waitlist.
         </p>

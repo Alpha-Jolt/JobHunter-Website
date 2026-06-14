@@ -123,9 +123,9 @@ export default function Features() {
       <section id="features" className="section" aria-labelledby="features-heading">
         <div className="section-inner">
           <div className="section-label">Features</div>
-          <h2 className="section-title" id="features-heading">
+          <h1 className="section-title" id="features-heading">
             Everything you need to<br />run a serious job search
-          </h2>
+          </h1>
           <p className="section-sub">
             Built in phases — core automation first, intelligence and monetisation later.
           </p>

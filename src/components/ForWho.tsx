@@ -59,9 +59,9 @@ export default function ForWho({ onOpenMentorModal }: Props) {
       <section id="for-who-audience" className="section" aria-labelledby="forwho-heading">
         <div className="section-inner">
           <div className="section-label">Who It's For</div>
-          <h2 className="section-title" id="forwho-heading">
+          <h1 className="section-title" id="forwho-heading">
             Built for people who are<br />actively job hunting
-          </h2>
+          </h1>
           <p className="section-sub">
             If you lack the tools, time, or guidance to run an effective job search — JobHunter is for you.
           </p>
