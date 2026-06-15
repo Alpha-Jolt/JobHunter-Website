@@ -1,5 +1,6 @@
 import "jsr:@supabase/functions-js/edge-runtime.d.ts";
 import { createClient } from "npm:@supabase/supabase-js@2";
+import { trackEvent } from "../_shared/posthog.ts";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -136,6 +137,12 @@ Deno.serve(async (req: Request) => {
         { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } }
       );
     }
+
+    // Track referral redemption in PostHog
+    await trackEvent(referred_email, "referral_redeemed", {
+      referral_code: code,
+      discount_percent: codeRow.discount_percent,
+    });
 
     return new Response(
       JSON.stringify({ success: true, discount_percent: codeRow.discount_percent }),

@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef, type FormEvent } from 'react'
+import posthog from 'posthog-js'
 
 interface Props {
   buttonLabel?: string
@@ -40,6 +41,7 @@ export default function EmailCapture({
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle')
   const [msg, setMsg] = useState('')
   const [throttled, setThrottled] = useState(false)
+  const [hasInteracted, setHasInteracted] = useState(false)
   const containerRef = useRef<HTMLDivElement>(null)
   const widgetIdRef = useRef<string | null>(null)
 
@@ -50,7 +52,7 @@ export default function EmailCapture({
   const isValid = (v: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)
 
   useEffect(() => {
-    if (!isTurnstileConfigured) return
+    if (!isTurnstileConfigured || !hasInteracted) return
 
     const scriptId = 'cf-turnstile-script'
     let script = document.getElementById(scriptId) as HTMLScriptElement | null
@@ -86,7 +88,7 @@ export default function EmailCapture({
         widgetIdRef.current = null
       }
     }
-  }, [isTurnstileConfigured])
+  }, [isTurnstileConfigured, hasInteracted])
 
   const submit = async (e: FormEvent) => {
     e.preventDefault()
@@ -94,6 +96,9 @@ export default function EmailCapture({
     if (throttled) return
     setThrottled(true)
     setTimeout(() => setThrottled(false), 3000)
+
+    // Ensure Turnstile tries to render if form is submitted
+    setHasInteracted(true)
 
     if (!isValid(email)) {
       setStatus('error')
@@ -143,6 +148,18 @@ export default function EmailCapture({
         return
       }
 
+      // Track waitlist signup in PostHog
+      try {
+        posthog.identify(email)
+        posthog.capture('waitlist_signup_submitted', {
+          user_type: userType,
+          source: source,
+          referral_code: referralCode,
+        })
+      } catch (err) {
+        console.error('Failed to capture PostHog event:', err)
+      }
+
       setStatus('success')
       setMsg("You're on the list! We'll reach out when we launch.")
       setEmail('')
@@ -164,7 +181,8 @@ export default function EmailCapture({
           className={`email-input${status === 'error' ? ' error' : ''}`}
           placeholder={placeholder}
           value={email}
-          onChange={(e) => { setEmail(e.target.value); setStatus('idle'); setMsg(''); onEmailChange?.(e.target.value) }}
+          onFocus={() => setHasInteracted(true)}
+          onChange={(e) => { setHasInteracted(true); setEmail(e.target.value); setStatus('idle'); setMsg(''); onEmailChange?.(e.target.value) }}
           disabled={status === 'loading' || status === 'success'}
           aria-label="Email address"
         />

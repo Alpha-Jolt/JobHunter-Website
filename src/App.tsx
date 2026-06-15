@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import posthog from 'posthog-js'
 import Nav from './components/Nav'
 import Hero from './components/Hero'
 import HowItWorks from './components/HowItWorks'
@@ -132,6 +133,14 @@ export default function App() {
     if (twitterUrl) twitterUrl.setAttribute('content', currentUrl)
   }, [page])
 
+  // Track page views with PostHog
+  useEffect(() => {
+    posthog.capture('$pageview', {
+      $current_url: window.location.href,
+      page: page,
+    })
+  }, [page])
+
   const navigate = (p: Page) => {
     setPage(p)
     const newUrl = p === 'home' ? '/' : `${p}`
@@ -142,6 +151,7 @@ export default function App() {
   const handleOpenMentorModal = (rect: DOMRect) => {
     setMentorTriggerRect(rect)
     setIsMentorModalOpen(true)
+    posthog.capture('mentor_modal_opened')
   }
 
   return (

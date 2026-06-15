@@ -1,6 +1,7 @@
 import "jsr:@supabase/functions-js/edge-runtime.d.ts";
 import { createClient } from "npm:@supabase/supabase-js@2";
 import { isRateLimited } from "../_shared/rateLimit.ts";
+import { trackEvent } from "../_shared/posthog.ts";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -89,6 +90,12 @@ Deno.serve(async (req: Request) => {
       .eq("feature_id", feature_id)
       .eq("fingerprint", fingerprint)
       .maybeSingle();
+
+    // Track feature voting in PostHog
+    await trackEvent(fingerprint, "feature_voted", {
+      feature_id,
+      vote: current?.vote ?? "none",
+    });
 
     return new Response(JSON.stringify({
       up_count: counts?.up_count ?? 0,
