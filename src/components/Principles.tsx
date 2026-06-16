@@ -67,7 +67,7 @@ export default function Principles() {
             <article className="card principle-card" key={p.title}>
               <span className="principle-icon" aria-hidden="true" style={{ color: 'var(--accent)', display: 'flex' }}>{p.icon}</span>
               <div>
-                <h4>{p.title}</h4>
+                <h3>{p.title}</h3>
                 <p>{p.desc}</p>
               </div>
             </article>

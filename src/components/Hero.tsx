@@ -15,8 +15,7 @@ export default function Hero() {
         </h1>
 
         <p className="hero-sub">
-          JobHunter scrapes listings, tailors your resume with AI, and sends applications on your behalf —
-          with your approval at every step. No fabrication. Ever.
+          JobHunter is an AI-powered human-in-the-loop job acquisition platform that helps candidates discover jobs, personalize resumes, and manage applications.
         </p>
 
         <div className="hero-form-wrap">
