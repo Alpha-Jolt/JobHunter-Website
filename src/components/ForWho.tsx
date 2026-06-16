@@ -72,7 +72,7 @@ export default function ForWho({ onOpenMentorModal }: Props) {
                 <div className="forWho-icon-wrap" aria-hidden="true">
                   {a.icon}
                 </div>
-                <h3>{a.title}</h3>
+                <h2>{a.title}</h2>
                 <p>{a.desc}</p>
               </article>
             ))}

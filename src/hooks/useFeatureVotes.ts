@@ -1,14 +1,13 @@
 import { useState, useEffect, useCallback } from 'react'
 import { createClient } from '@supabase/supabase-js'
 
-const supabase = createClient(
-  import.meta.env.VITE_SUPABASE_URL,
-  import.meta.env.VITE_SUPABASE_ANON_KEY
-)
-
 const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL
 const ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY
 const CACHE_TTL = 5 * 60 * 1000
+
+const supabase = SUPABASE_URL && ANON_KEY
+  ? createClient(SUPABASE_URL, ANON_KEY)
+  : null
 
 type VoteState = { up: number; down: number; userVote: 'up' | 'down' | null }
 type CacheEntry = { data: Record<string, VoteState>; ts: number }
@@ -43,6 +42,21 @@ export function useFeatureVotes(featureIds: string[]) {
 
   useEffect(() => {
     if (!loading) return
+
+    if (!supabase) {
+      const fp = getFingerprint()
+      const fpVotes: Record<string, 'up' | 'down'> = JSON.parse(
+        localStorage.getItem(`jh_fp_votes_${fp}`) ?? '{}'
+      )
+      const map: Record<string, VoteState> = {}
+      for (const id of featureIds) {
+        map[id] = votes[id] ?? { up: 0, down: 0, userVote: fpVotes[id] ?? null }
+      }
+      setVotes(map)
+      writeCache(map)
+      setLoading(false)
+      return
+    }
 
     supabase
       .from('feature_votes')
@@ -81,6 +95,18 @@ export function useFeatureVotes(featureIds: string[]) {
       writeCache(updated)
       return updated
     })
+
+    if (!SUPABASE_URL || !ANON_KEY) {
+      const fpKey = `jh_fp_votes_${fp}`
+      const fpVotes: Record<string, string | null> = JSON.parse(localStorage.getItem(fpKey) ?? '{}')
+      const cur = votes[featureId] ?? { up: 0, down: 0, userVote: null }
+      const isToggle = cur.userVote === direction
+      const nextVote = isToggle ? null : direction
+      if (nextVote) fpVotes[featureId] = nextVote
+      else delete fpVotes[featureId]
+      localStorage.setItem(fpKey, JSON.stringify(fpVotes))
+      return
+    }
 
     try {
       const res = await fetch(`${SUPABASE_URL}/functions/v1/vote-feature`, {

@@ -138,7 +138,7 @@ export default function Features() {
                     <span className="kanban-col-label">{phase.label}</span>
                     <span className={`status-badge ${phase.statusClass}`}>{phase.status}</span>
                   </div>
-                  <h3 className="kanban-col-title">{phase.title}</h3>
+                  <h2 className="kanban-col-title">{phase.title}</h2>
                 </div>
                 <div className="kanban-cards">
                   {phase.features.map((f) => (
