@@ -5,15 +5,38 @@ interface Props {
 }
 
 export default function Footer({ navigate }: Props) {
+  const getHref = (p: Page) => {
+    if (typeof window === 'undefined') return p === 'home' ? '/' : `/${p}`
+    const isSubdir = window.location.pathname.startsWith('/JobHunter-Website')
+    const prefix = isSubdir ? '/JobHunter-Website' : ''
+    return p === 'home' ? `${prefix}/` : `${prefix}/${p}`
+  }
+
+  const handleNavigate = (e: React.MouseEvent, p: Page) => {
+    e.preventDefault()
+    navigate(p)
+  }
+
   return (
     <footer className="footer">
       <div className="footer-inner">
-        <button className="footer-logo" onClick={() => navigate('home')} aria-label="JobHunter home">
+        <a
+          href={getHref('home')}
+          className="footer-logo"
+          onClick={(e) => handleNavigate(e, 'home')}
+          aria-label="JobHunter home"
+        >
           Job<span>Hunter</span>
-        </button>
+        </a>
 
         <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-          <button className="footer-link" onClick={() => navigate('faq')}>FAQ</button>
+          <a
+            href={getHref('faq')}
+            className="footer-link"
+            onClick={(e) => handleNavigate(e, 'faq')}
+          >
+            FAQ
+          </a>
           <a
             href="https://github.com/alpha-jolt/jobhunter"
             target="_blank"

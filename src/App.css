@@ -830,7 +830,7 @@
   transform: scale(1.1);
 }
 
-.forWho-card h3 {
+.forWho-card h2 {
   font-size: 20px;
   font-weight: 700;
   margin-bottom: 12px;
@@ -876,7 +876,7 @@
   margin-top: 2px;
 }
 
-.principle-card h4 {
+.principle-card h3 {
   font-size: 15px;
   font-weight: 700;
   margin-bottom: 4px;

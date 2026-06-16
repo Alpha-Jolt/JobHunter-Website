@@ -42,6 +42,12 @@ function sanitizeRefCode(raw: string | null): string | null {
 export default function App() {
   const [page, setPage] = useState<Page>(() => {
     if (typeof window === 'undefined') return 'home'
+    const path = window.location.pathname
+      .replace(/^\/|\/$/g, '')
+      .replace(/^JobHunter-Website\/?/, '')
+    if (['home', 'features', 'for-who', 'faq', 'referral'].includes(path)) {
+      return path as Page
+    }
     const params = new URLSearchParams(window.location.search)
     const p = params.get('page') as Page
     if (['home', 'features', 'for-who', 'faq', 'referral'].includes(p)) {
@@ -76,6 +82,13 @@ export default function App() {
   // Listen for history popstate events (e.g. back/forward browser buttons)
   useEffect(() => {
     const handlePopState = () => {
+      const path = window.location.pathname
+        .replace(/^\/|\/$/g, '')
+        .replace(/^JobHunter-Website\/?/, '')
+      if (['features', 'for-who', 'faq', 'referral'].includes(path)) {
+        setPage(path as Page)
+        return
+      }
       const params = new URLSearchParams(window.location.search)
       const p = params.get('page') as Page
       if (['home', 'features', 'for-who', 'faq', 'referral'].includes(p)) {
@@ -86,6 +99,33 @@ export default function App() {
     }
     window.addEventListener('popstate', handlePopState)
     return () => window.removeEventListener('popstate', handlePopState)
+  }, [])
+
+  // Intercept all local anchor tag clicks to route smoothly through the SPA engine
+  useEffect(() => {
+    const handleAnchorClick = (e: MouseEvent) => {
+      const target = e.target as HTMLElement
+      const anchor = target.closest('a')
+      if (!anchor) return
+
+      // Ignore external or target="_blank" links
+      if (anchor.target === '_blank' || anchor.hostname !== window.location.hostname) return
+
+      const href = anchor.getAttribute('href')
+      if (href && href.startsWith('/') && !href.startsWith('//')) {
+        // Normalize the path name
+        const path = href
+          .replace(/^\/|\/$/g, '')
+          .replace(/^JobHunter-Website\/?/, '')
+        const targetPage = (path === '' ? 'home' : path) as Page
+        if (['home', 'features', 'for-who', 'faq', 'referral'].includes(targetPage)) {
+          e.preventDefault()
+          navigate(targetPage)
+        }
+      }
+    }
+    document.addEventListener('click', handleAnchorClick)
+    return () => document.removeEventListener('click', handleAnchorClick)
   }, [])
 
   // Update document title, meta tags, and canonical link dynamically
@@ -109,7 +149,7 @@ export default function App() {
       canonical.setAttribute('rel', 'canonical')
       document.head.appendChild(canonical)
     }
-    const currentUrl = window.location.origin + (page === 'home' ? '' : `${page}`)
+    const currentUrl = 'https://myjobhunter.in' + (page === 'home' ? '' : `/${page}`)
     canonical.setAttribute('href', currentUrl)
 
     // Open Graph / Facebook
@@ -143,7 +183,9 @@ export default function App() {
 
   const navigate = (p: Page) => {
     setPage(p)
-    const newUrl = p === 'home' ? '/' : `${p}`
+    const isSubdir = window.location.pathname.startsWith('/JobHunter-Website')
+    const prefix = isSubdir ? '/JobHunter-Website' : ''
+    const newUrl = p === 'home' ? `${prefix}/` : `${prefix}/${p}`
     window.history.pushState(null, '', newUrl)
     window.scrollTo({ top: 0, behavior: 'smooth' })
   }

@@ -16,7 +16,15 @@ const links: { label: string; page: Page }[] = [
 export default function Nav({ current, navigate, onOpenWaitlist }: Props) {
   const [menuOpen, setMenuOpen] = useState(false)
 
-  const handleNavigate = (p: Page) => {
+  const getHref = (p: Page) => {
+    if (typeof window === 'undefined') return p === 'home' ? '/' : `/${p}`
+    const isSubdir = window.location.pathname.startsWith('/JobHunter-Website')
+    const prefix = isSubdir ? '/JobHunter-Website' : ''
+    return p === 'home' ? `${prefix}/` : `${prefix}/${p}`
+  }
+
+  const handleNavigate = (e: React.MouseEvent, p: Page) => {
+    e.preventDefault()
     navigate(p)
     setMenuOpen(false)
   }
@@ -24,19 +32,25 @@ export default function Nav({ current, navigate, onOpenWaitlist }: Props) {
   return (
     <nav className="nav" role="navigation" aria-label="Main navigation">
       <div className="nav-inner">
-        <button className="nav-logo" onClick={() => handleNavigate('home')} aria-label="JobHunter home">
+        <a
+          href={getHref('home')}
+          className="nav-logo"
+          onClick={(e) => handleNavigate(e, 'home')}
+          aria-label="JobHunter home"
+        >
           Job<span>Hunter</span>
-        </button>
+        </a>
         <ul className="nav-links">
           {links.map(({ label, page }) => (
             <li key={page}>
-              <button
+              <a
+                href={getHref(page)}
                 className={`nav-link${current === page ? ' active' : ''}`}
-                onClick={() => handleNavigate(page)}
+                onClick={(e) => handleNavigate(e, page)}
                 aria-current={current === page ? 'page' : undefined}
               >
                 {label}
-              </button>
+              </a>
             </li>
           ))}
         </ul>
@@ -44,14 +58,15 @@ export default function Nav({ current, navigate, onOpenWaitlist }: Props) {
           <button className="btn btn-primary nav-cta nav-cta-small" onClick={onOpenWaitlist}>
             <span>Hunt Jobs</span>
           </button>
-          <button
+          <a
+            href={getHref('referral')}
             className={`btn btn-ghost nav-referral-btn${current === 'referral' ? ' active' : ''}`}
-            onClick={() => handleNavigate('referral')}
+            onClick={(e) => handleNavigate(e, 'referral')}
             aria-current={current === 'referral' ? 'page' : undefined}
             id="nav-referral-btn"
           >
             <span>Refer a Friend</span>
-          </button>
+          </a>
         </div>
         <button
           className="nav-hamburger"
@@ -66,25 +81,27 @@ export default function Nav({ current, navigate, onOpenWaitlist }: Props) {
       {menuOpen && (
         <div className="nav-mobile-menu" role="menu">
           {links.map(({ label, page }) => (
-            <button
+            <a
               key={page}
+              href={getHref(page)}
               className={`nav-mobile-link${current === page ? ' active' : ''}`}
-              onClick={() => handleNavigate(page)}
+              onClick={(e) => handleNavigate(e, page)}
               role="menuitem"
             >
               {label}
-            </button>
+            </a>
           ))}
           <div className="nav-mobile-actions">
             <button className="btn btn-primary" onClick={() => { onOpenWaitlist(); setMenuOpen(false) }}>
               Hunt Jobs
             </button>
-            <button
+            <a
+              href={getHref('referral')}
               className={`btn btn-ghost nav-referral-btn${current === 'referral' ? ' active' : ''}`}
-              onClick={() => handleNavigate('referral')}
+              onClick={(e) => handleNavigate(e, 'referral')}
             >
               Refer a Friend
-            </button>
+            </a>
           </div>
         </div>
       )}
