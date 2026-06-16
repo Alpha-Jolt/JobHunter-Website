@@ -52,9 +52,11 @@ export function useFeatureVotes(featureIds: string[]) {
       for (const id of featureIds) {
         map[id] = votes[id] ?? { up: 0, down: 0, userVote: fpVotes[id] ?? null }
       }
-      setVotes(map)
-      writeCache(map)
-      setLoading(false)
+      setTimeout(() => {
+        setVotes(map)
+        writeCache(map)
+        setLoading(false)
+      }, 0)
       return
     }
 
@@ -128,7 +130,7 @@ export function useFeatureVotes(featureIds: string[]) {
         })
       }
     } catch { /* optimistic state remains */ }
-  }, [])
+  }, [votes])
 
   return { votes, loading, vote }
 }

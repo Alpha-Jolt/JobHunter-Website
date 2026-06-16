@@ -3,7 +3,7 @@ import { PostHog } from 'npm:posthog-node'
 export async function trackEvent(
   distinctId: string,
   event: string,
-  properties?: Record<string, any>
+  properties?: Record<string, unknown>
 ) {
   const apiKey = Deno.env.get('POSTHOG_API_KEY')
   const host = Deno.env.get('POSTHOG_HOST') || 'https://us.i.posthog.com'

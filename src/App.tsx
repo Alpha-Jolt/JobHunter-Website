@@ -68,6 +68,15 @@ export default function App() {
     return sanitizeRefCode(params.get('ref'))
   })
 
+  const navigate = (p: Page) => {
+    setPage(p)
+    const isSubdir = window.location.pathname.startsWith('/JobHunter-Website')
+    const prefix = isSubdir ? '/JobHunter-Website' : ''
+    const newUrl = p === 'home' ? `${prefix}/` : `${prefix}/${p}`
+    window.history.pushState(null, '', newUrl)
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  }
+
   // Side effect: Clean URL if ref code was detected, preserving other query parameters
   useEffect(() => {
     const params = new URLSearchParams(window.location.search)
@@ -180,15 +189,6 @@ export default function App() {
       page: page,
     })
   }, [page])
-
-  const navigate = (p: Page) => {
-    setPage(p)
-    const isSubdir = window.location.pathname.startsWith('/JobHunter-Website')
-    const prefix = isSubdir ? '/JobHunter-Website' : ''
-    const newUrl = p === 'home' ? `${prefix}/` : `${prefix}/${p}`
-    window.history.pushState(null, '', newUrl)
-    window.scrollTo({ top: 0, behavior: 'smooth' })
-  }
 
   const handleOpenMentorModal = (rect: DOMRect) => {
     setMentorTriggerRect(rect)
