@@ -38,7 +38,7 @@ export default function Footer({ navigate }: Props) {
                 </svg>
               </a>
               <a
-                href="https://instagram.com/my_jobhunter"
+                href="https://instagram.com/myjobhunter.in"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="footer-social"
@@ -95,7 +95,7 @@ export default function Footer({ navigate }: Props) {
                   Privacy Policy
                 </a>
               </li>
-              <li>
+              {/* <li>
                 <a
                   href={getHref('refund-policy')}
                   className="footer-link-item"
@@ -103,7 +103,7 @@ export default function Footer({ navigate }: Props) {
                 >
                   Refund Policy
                 </a>
-              </li>
+              </li> */}
             </ul>
           </div>
 

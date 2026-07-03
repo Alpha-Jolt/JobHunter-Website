@@ -5,7 +5,7 @@ export default function TermsOfService() {
         <div className="section-label">Legal</div>
         <h1 className="section-title" id="tos-heading" style={{ marginBottom: 12 }}>Terms of Service</h1>
         <p className="legal-meta" style={{ color: 'var(--text-dim)', fontSize: '14px', marginBottom: 32 }}>
-          <strong>Effective Date:</strong> June 16, 2026 &nbsp;|&nbsp; <strong>Last Revised:</strong> June 16, 2026
+          <strong>Effective Date:</strong> - &nbsp;|&nbsp; <strong>Last Revised:</strong> July 03, 2026
         </p>
 
         <div className="legal-content">
@@ -13,7 +13,7 @@ export default function TermsOfService() {
 
           <h2>1. Introduction</h2>
           <p>
-            JobHunter (&ldquo;Platform&rdquo;, &ldquo;we&rdquo;, &ldquo;us&rdquo;, &ldquo;our&rdquo;) is operated by <strong>[LEGAL ENTITY NAME]</strong>, a company incorporated under the laws of India with its registered office at <strong>[REGISTERED ADDRESS]</strong>, India. The Platform is accessible at <a href="https://myjobhunter.in" target="_blank" rel="noopener noreferrer">myjobhunter.in</a> and its associated applications.
+            JobHunter (&ldquo;Platform&rdquo;, &ldquo;we&rdquo;, &ldquo;us&rdquo;, &ldquo;our&rdquo;) is operated by <strong>[LEGAL ENTITY NAME]</strong>, a company incorporated under the laws of India with its registered office at Coimbatore, Tamil Nadu, India. The Platform is accessible at <a href="https://myjobhunter.in" target="_blank" rel="noopener noreferrer">myjobhunter.in</a> and its associated applications.
           </p>
           <p>
             These Terms of Service (&ldquo;Terms&rdquo;) govern your access to and use of the Platform. By creating an account or using any part of the Platform, you agree to be bound by these Terms and our <a href="/privacy-policy">Privacy Policy</a>. If you do not agree, do not use the Platform.
@@ -271,18 +271,18 @@ export default function TermsOfService() {
 
           <h2>16. Governing Law and Dispute Resolution</h2>
           <p>
-            <strong>16.1</strong> These Terms are governed by and construed in accordance with the laws of the <strong>Republic of India</strong>.
+            <strong>16.1</strong> These Terms are governed by and construed in accordance with the laws of the <strong>India</strong>.
           </p>
           <p>
-            <strong>16.2</strong> Any dispute arising out of or in connection with these Terms, including any question regarding their existence, validity, or termination, shall be subject to the exclusive jurisdiction of the courts located in <strong>Surat, Gujarat, India</strong>.
+            <strong>16.2</strong> Any dispute arising out of or in connection with these Terms, including any question regarding their existence, validity, or termination, shall be subject to the exclusive jurisdiction of the courts located in <strong>Coimbatore, Tamil Nadu, India</strong>.
           </p>
           <p>
-            <strong>16.3</strong> Before initiating formal legal proceedings, you agree to first contact the Company&rsquo;s Grievance Officer (details in Section 17) and allow <strong>thirty (30) days</strong> for good-faith resolution.
+            <strong>16.3</strong> Before initiating formal legal proceedings, you agree to first contact the Company&rsquo;s Grievance Officer (<a href="mailto:legal@myjobhunter.in">legal@myjobhunter.in</a>) and allow <strong>thirty (30) days</strong> for good-faith resolution.
           </p>
 
           <hr className="divider" style={{ margin: '32px 0' }} />
 
-          <h2>17. Grievance Officer</h2>
+          {/* <h2>17. Grievance Officer</h2>
           <p>
             In accordance with the Information Technology Act, 2000, the Information Technology (Intermediary Guidelines and Digital Media Ethics Code) Rules, 2021, and the Digital Personal Data Protection Act, 2023, the Company has designated a Grievance Officer:
           </p>
@@ -303,7 +303,7 @@ export default function TermsOfService() {
                 </tr>
                 <tr>
                   <td><strong>Address</strong></td>
-                  <td>[REGISTERED ADDRESS], Surat, Gujarat, India</td>
+                  <td>Coimbatore, Tamil Nadu, India</td>
                 </tr>
                 <tr>
                   <td><strong>Acknowledgement</strong></td>
@@ -317,9 +317,9 @@ export default function TermsOfService() {
             </table>
           </div>
 
-          <hr className="divider" style={{ margin: '32px 0' }} />
+          <hr className="divider" style={{ margin: '32px 0' }} /> */}
 
-          <h2>18. Changes to These Terms</h2>
+          <h2>17. Changes to These Terms</h2>
           <p>
             <strong>18.1</strong> We may update these Terms from time to time. The revised Terms will be posted on the Platform with an updated &ldquo;Last Revised&rdquo; date.
           </p>
@@ -332,7 +332,7 @@ export default function TermsOfService() {
 
           <hr className="divider" style={{ margin: '32px 0' }} />
 
-          <h2>19. Miscellaneous</h2>
+          <h2>18. Miscellaneous</h2>
           <p>
             <strong>19.1 Entire Agreement.</strong> These Terms and the Privacy Policy constitute the entire agreement between you and the Company regarding the Platform and supersede all prior agreements on the same subject.
           </p>
@@ -351,7 +351,7 @@ export default function TermsOfService() {
 
           <hr className="divider" style={{ margin: '32px 0' }} />
 
-          <h2>20. Contact</h2>
+          <h2>19. Contact</h2>
           <p>
             For questions or concerns about these Terms:
           </p>
@@ -360,7 +360,7 @@ export default function TermsOfService() {
               <tbody>
                 <tr>
                   <td><strong>Email</strong></td>
-                  <td><a href="mailto:legal@myjobhunter.in">legal@myjobhunter.in</a></td>
+                  <td><a href="mailto:support@myjobhunter.in">support@myjobhunter.in</a></td>
                 </tr>
                 <tr>
                   <td><strong>Website</strong></td>
@@ -368,7 +368,7 @@ export default function TermsOfService() {
                 </tr>
                 <tr>
                   <td><strong>Address</strong></td>
-                  <td>[REGISTERED ADDRESS], Surat, Gujarat, India</td>
+                  <td>Coimbatore, Tamil Nadu, India</td>
                 </tr>
               </tbody>
             </table>
@@ -376,7 +376,7 @@ export default function TermsOfService() {
 
           <hr className="divider" style={{ margin: '32px 0' }} />
           <p style={{ fontStyle: 'italic', fontSize: '13px', color: 'var(--text-dim)' }}>
-            These Terms were last revised on June 16, 2026. We recommend reviewing them periodically.
+            These Terms were last revised on July 03, 2026. We recommend reviewing them periodically.
           </p>
         </div>
       </div>

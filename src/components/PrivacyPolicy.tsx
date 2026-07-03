@@ -5,7 +5,7 @@ export default function PrivacyPolicy() {
         <div className="section-label">Legal</div>
         <h1 className="section-title" id="privacy-heading" style={{ marginBottom: 12 }}>Privacy Policy</h1>
         <p className="legal-meta" style={{ color: 'var(--text-dim)', fontSize: '14px', marginBottom: 32 }}>
-          <strong>Effective Date:</strong> June 16, 2026 &nbsp;|&nbsp; <strong>Last Revised:</strong> June 16, 2026
+          <strong>Effective Date:</strong> - &nbsp;|&nbsp; <strong>Last Revised:</strong> July 03, 2026
         </p>
 
         <div className="legal-content">
@@ -241,20 +241,20 @@ export default function PrivacyPolicy() {
                   <td>Platform hosting and server-side data storage</td>
                 </tr>
                 <tr>
-                  <td>Email delivery service (SendGrid)</td>
+                  <td>Email delivery service</td>
                   <td>Transactional email delivery, including application emails sent on your behalf</td>
                 </tr>
                 <tr>
-                  <td>Object storage (MinIO / S3-compatible)</td>
+                  <td>Object storage</td>
                   <td>Secure storage of resume files and cover letter files</td>
                 </tr>
                 <tr>
                   <td>LLM API providers</td>
-                  <td>AI resume curation. Providers include Anthropic, Google (Gemini), OpenAI, DeepSeek, and xAI. Only the active primary provider is called at any given time.</td>
+                  <td>AI resume curation.</td>
                 </tr>
                 <tr>
                   <td>Job data aggregator APIs</td>
-                  <td>Sourcing job listing data (JSearch, public ATS APIs including Greenhouse, Lever, Ashby)</td>
+                  <td>Sourcing job listing data</td>
                 </tr>
                 <tr>
                   <td>Payment gateway</td>
@@ -361,7 +361,7 @@ export default function PrivacyPolicy() {
             <strong>7.1 Essential Cookies.</strong> We use session management and authentication cookies that are strictly necessary for the Platform to function. These cannot be disabled without impairing Platform functionality.
           </p>
           <p>
-            <strong>7.2 Analytics Technologies.</strong> We use analytics tools including Google Analytics 4, PostHog, and Microsoft Clarity to collect aggregated, anonymised data about how users interact with the Platform. This data does not identify you personally. You may manage these through your browser settings or through our cookie consent interface.
+            <strong>7.2 Analytics Technologies.</strong> We use analytics tools including and not limited to Google Analytics 4, PostHog, and Microsoft Clarity to collect aggregated, anonymised data about how users interact with the Platform. This data does not identify you personally. You may manage these through your browser settings or through our cookie consent interface.
           </p>
           <p>
             <strong>7.3 No Advertising Cookies.</strong> We do not use advertising cookies. We do not engage in cross-site tracking for advertising or retargeting purposes.
@@ -408,7 +408,7 @@ export default function PrivacyPolicy() {
             </table>
           </div>
           <p>
-            To exercise any of these rights, contact us at <a href="mailto:privacy@myjobhunter.in">privacy@myjobhunter.in</a>. We will acknowledge your request within <strong>48 hours</strong> and provide a substantive response within <strong>30 days</strong>.
+            To exercise any of these rights, contact us at <a href="mailto:legal@myjobhunter.in">legal@myjobhunter.in</a>. We will acknowledge your request within <strong>48 hours</strong> and provide a substantive response within <strong>30 days</strong>.
           </p>
 
           <h3>8.2 Rights Under the GDPR (for Users in the EEA, UK, and Switzerland)</h3>
@@ -500,7 +500,7 @@ export default function PrivacyPolicy() {
             </table>
           </div>
           <p>
-            To exercise any GDPR rights, contact us at <a href="mailto:privacy@myjobhunter.in">privacy@myjobhunter.in</a>. We will respond within <strong>30 days</strong> as required by GDPR Article 12. If you are dissatisfied with our response, you have the right to lodge a complaint with your national data protection supervisory authority. A directory of EU supervisory authorities is available at: <a href="https://edpb.europa.eu" target="_blank" rel="noopener noreferrer">https://edpb.europa.eu</a>
+            To exercise any GDPR rights, contact us at <a href="mailto:legal@myjobhunter.in">legal@myjobhunter.in</a>. We will respond within <strong>30 days</strong> as required by GDPR Article 12. If you are dissatisfied with our response, you have the right to lodge a complaint with your national data protection supervisory authority. A directory of EU supervisory authorities is available at: <a href="https://edpb.europa.eu" target="_blank" rel="noopener noreferrer">https://edpb.europa.eu</a>
           </p>
 
           <hr className="divider" style={{ margin: '32px 0' }} />
@@ -516,7 +516,7 @@ export default function PrivacyPolicy() {
             <strong>9.3</strong> Withdrawing consent for core processing activities &mdash; such as AI resume curation or email application sending &mdash; will limit or prevent your use of those features of the Platform.
           </p>
           <p>
-            <strong>9.4</strong> To withdraw consent, contact <a href="mailto:privacy@myjobhunter.in">privacy@myjobhunter.in</a> or use the consent management settings within your account.
+            <strong>9.4</strong> To withdraw consent, contact <a href="mailto:legal@myjobhunter.in">legal@myjobhunter.in</a> or use the consent management settings within your account.
           </p>
 
           <hr className="divider" style={{ margin: '32px 0' }} />
@@ -533,7 +533,7 @@ export default function PrivacyPolicy() {
             <li>For EEA/UK residents, under Standard Contractual Clauses (SCCs) or other appropriate safeguards as required by GDPR Chapter V.</li>
           </ul>
           <p>
-            <strong>10.3</strong> You may request details about the specific safeguards applicable to cross-border transfers of your data by contacting <a href="mailto:privacy@myjobhunter.in">privacy@myjobhunter.in</a>.
+            <strong>10.3</strong> You may request details about the specific safeguards applicable to cross-border transfers of your data by contacting <a href="mailto:legal@myjobhunter.in">legal@myjobhunter.in</a>.
           </p>
 
           <hr className="divider" style={{ margin: '32px 0' }} />
@@ -549,7 +549,7 @@ export default function PrivacyPolicy() {
             <strong>11.3</strong> If we become aware that personal data of a minor has been collected without appropriate consent, we will delete it promptly.
           </p>
           <p>
-            <strong>11.4</strong> If you believe a minor has registered on the Platform, please contact us immediately at <a href="mailto:grievance@myjobhunter.in">grievance@myjobhunter.in</a>.
+            <strong>11.4</strong> If you believe a minor has registered on the Platform, please contact us immediately at <a href="mailto:support@myjobhunter.in">support@myjobhunter.in</a>.
           </p>
 
           <hr className="divider" style={{ margin: '32px 0' }} />
@@ -561,7 +561,7 @@ export default function PrivacyPolicy() {
 
           <hr className="divider" style={{ margin: '32px 0' }} />
 
-          <h2>13. Grievance Officer</h2>
+          {/* <h2>13. Grievance Officer</h2>
           <p>
             In accordance with the DPDPA, 2023 and the Information Technology (Intermediary Guidelines and Digital Media Ethics Code) Rules, 2021, the Company has designated a Grievance Officer for data-related concerns:
           </p>
@@ -582,7 +582,7 @@ export default function PrivacyPolicy() {
                 </tr>
                 <tr>
                   <td><strong>Postal Address</strong></td>
-                  <td>[REGISTERED ADDRESS], Surat, Gujarat, India</td>
+                  <td>Coimbatore, Tamil Nadu, India</td>
                 </tr>
                 <tr>
                   <td><strong>Acknowledgement</strong></td>
@@ -602,9 +602,9 @@ export default function PrivacyPolicy() {
             <strong>For EEA/UK Users:</strong> If you are located in the EEA or UK and require an EU or UK representative under GDPR Article 27 / UK GDPR, their details will be published here when appointed: <strong>[EU/UK REPRESENTATIVE &mdash; TO BE APPOINTED]</strong>
           </p>
 
-          <hr className="divider" style={{ margin: '32px 0' }} />
+          <hr className="divider" style={{ margin: '32px 0' }} /> */}
 
-          <h2>14. Changes to This Privacy Policy</h2>
+          <h2>13. Changes to This Privacy Policy</h2>
           <p>
             <strong>14.1</strong> We may update this Privacy Policy from time to time to reflect changes in our practices, legal requirements, or Platform features.
           </p>
@@ -620,7 +620,7 @@ export default function PrivacyPolicy() {
 
           <hr className="divider" style={{ margin: '32px 0' }} />
 
-          <h2>15. Contact Us</h2>
+          <h2>14. Contact Us</h2>
           <p>
             For all privacy-related enquiries, data access requests, consent withdrawals, or concerns:
           </p>
@@ -629,11 +629,11 @@ export default function PrivacyPolicy() {
               <tbody>
                 <tr>
                   <td><strong>Privacy Email</strong></td>
-                  <td><a href="mailto:privacy@myjobhunter.in">privacy@myjobhunter.in</a></td>
+                  <td><a href="mailto:legal@myjobhunter.in">legal@myjobhunter.in</a></td>
                 </tr>
                 <tr>
                   <td><strong>Grievance Email</strong></td>
-                  <td><a href="mailto:grievance@myjobhunter.in">grievance@myjobhunter.in</a></td>
+                  <td><a href="mailto:support@myjobhunter.in">support@myjobhunter.in</a></td>
                 </tr>
                 <tr>
                   <td><strong>Website</strong></td>
@@ -641,7 +641,7 @@ export default function PrivacyPolicy() {
                 </tr>
                 <tr>
                   <td><strong>Postal Address</strong></td>
-                  <td>[REGISTERED ADDRESS], Surat, Gujarat, India</td>
+                  <td>Coimbatore, Tamil Nadu, India</td>
                 </tr>
               </tbody>
             </table>
@@ -649,7 +649,7 @@ export default function PrivacyPolicy() {
 
           <hr className="divider" style={{ margin: '32px 0' }} />
           <p style={{ fontStyle: 'italic', fontSize: '13px', color: 'var(--text-dim)' }}>
-            This Privacy Policy was last revised on June 16, 2026. We recommend reviewing it periodically.
+            This Privacy Policy was last revised on July 03, 2026. We recommend reviewing it periodically.
           </p>
         </div>
       </div>

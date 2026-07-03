@@ -5,7 +5,7 @@ export default function RefundPolicy() {
         <div className="section-label">Legal</div>
         <h1 className="section-title" id="refund-heading" style={{ marginBottom: 12 }}>Refund and Cancellation Policy</h1>
         <p className="legal-meta" style={{ color: 'var(--text-dim)', fontSize: '14px', marginBottom: 32 }}>
-          <strong>Effective Date:</strong> June 16, 2026 &nbsp;|&nbsp; <strong>Last Revised:</strong> June 16, 2026
+          <strong>Effective Date:</strong> - &nbsp;|&nbsp; <strong>Last Revised:</strong> July 03, 2026
         </p>
 
         <div className="legal-content">
@@ -244,7 +244,7 @@ export default function RefundPolicy() {
             Cancellation of your subscription does not automatically delete your account or your personal data. Your data is retained and handled in accordance with our <a href="/privacy-policy">Privacy Policy</a>, specifically the retention periods described in Section 5 of that Policy.
           </p>
           <p>
-            If you wish to delete your account and personal data following cancellation, submit a deletion request to <a href="mailto:privacy@myjobhunter.in">privacy@myjobhunter.in</a>. We will process account deletion within <strong>30 days</strong> of receiving your request, subject to lawful retention obligations (such as the 7-year retention of billing records required under Indian financial regulations).
+            If you wish to delete your account and personal data following cancellation, submit a deletion request to <a href="mailto:legal@myjobhunter.in">legal@myjobhunter.in</a>. We will process account deletion within <strong>30 days</strong> of receiving your request, subject to lawful retention obligations (such as the 7-year retention of billing records required under Indian financial regulations).
           </p>
 
           <hr className="divider" style={{ margin: '32px 0' }} />
@@ -288,7 +288,7 @@ export default function RefundPolicy() {
 
           <hr className="divider" style={{ margin: '32px 0' }} />
 
-          <h2>11. Grievance Officer</h2>
+          {/* <h2>11. Grievance Officer</h2>
           <p>
             For billing disputes that are not resolved through the standard process, or for complaints related to this Policy, contact the Company&rsquo;s Grievance Officer:
           </p>
@@ -309,7 +309,7 @@ export default function RefundPolicy() {
                 </tr>
                 <tr>
                   <td><strong>Address</strong></td>
-                  <td>[REGISTERED ADDRESS], Surat, Gujarat, India</td>
+                  <td>Coimbatore, Tamil Nadu, India</td>
                 </tr>
                 <tr>
                   <td><strong>Acknowledgement</strong></td>
@@ -323,16 +323,16 @@ export default function RefundPolicy() {
             </table>
           </div>
 
-          <hr className="divider" style={{ margin: '32px 0' }} />
+          <hr className="divider" style={{ margin: '32px 0' }} /> */}
 
-          <h2>12. Changes to This Policy</h2>
+          <h2>11. Changes to This Policy</h2>
           <p>
             We may update this Policy from time to time. The revised Policy will be posted at <a href="https://myjobhunter.in/refund-policy" target="_blank" rel="noopener noreferrer">myjobhunter.in/refund-policy</a> with an updated &ldquo;Last Revised&rdquo; date. For material changes, we will notify you via your registered email address at least <strong>15 days</strong> before the changes take effect. Your continued use of the Platform after the effective date constitutes acceptance of the revised Policy.
           </p>
 
           <hr className="divider" style={{ margin: '32px 0' }} />
 
-          <h2>13. Contact</h2>
+          <h2>12. Contact</h2>
           <div className="table-responsive">
             <table className="legal-table">
               <tbody>
@@ -341,11 +341,7 @@ export default function RefundPolicy() {
                   <td><a href="mailto:billing@myjobhunter.in">billing@myjobhunter.in</a></td>
                 </tr>
                 <tr>
-                  <td><strong>Grievance</strong></td>
-                  <td><a href="mailto:grievance@myjobhunter.in">grievance@myjobhunter.in</a></td>
-                </tr>
-                <tr>
-                  <td><strong>General</strong></td>
+                  <td><strong>General & Grievance</strong></td>
                   <td><a href="mailto:support@myjobhunter.in">support@myjobhunter.in</a></td>
                 </tr>
                 <tr>
@@ -354,7 +350,7 @@ export default function RefundPolicy() {
                 </tr>
                 <tr>
                   <td><strong>Address</strong></td>
-                  <td>[REGISTERED ADDRESS], Surat, Gujarat, India</td>
+                  <td>Coimbatore, Tamil Nadu, India</td>
                 </tr>
               </tbody>
             </table>
@@ -362,7 +358,7 @@ export default function RefundPolicy() {
 
           <hr className="divider" style={{ margin: '32px 0' }} />
           <p style={{ fontStyle: 'italic', fontSize: '13px', color: 'var(--text-dim)' }}>
-            This Policy was last revised on June 16, 2026. We recommend reviewing it periodically alongside our Terms of Service and Privacy Policy.
+            This Policy was last revised on July 03, 2026. We recommend reviewing it periodically alongside our Terms of Service and Privacy Policy.
           </p>
         </div>
       </div>
