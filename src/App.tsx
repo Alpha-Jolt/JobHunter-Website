@@ -15,9 +15,10 @@ import Referral from './components/Referral'
 import PrivacyPolicy from './components/PrivacyPolicy'
 import TermsOfService from './components/TermsOfService'
 import RefundPolicy from './components/RefundPolicy'
+import About from './components/About'
 import './App.css'
 
-export type Page = 'home' | 'features' | 'for-who' | 'faq' | 'referral' | 'privacy-policy' | 'terms-of-service' | 'refund-policy'
+export type Page = 'home' | 'features' | 'for-who' | 'faq' | 'referral' | 'privacy-policy' | 'terms-of-service' | 'refund-policy' | 'about'
 
 const pageTitles: Record<Page, string> = {
   home: 'JobHunter — Land Your Next Job on Autopilot',
@@ -28,6 +29,7 @@ const pageTitles: Record<Page, string> = {
   'privacy-policy': 'Privacy Policy — JobHunter',
   'terms-of-service': 'Terms of Service — JobHunter',
   'refund-policy': 'Refund and Cancellation Policy — JobHunter',
+  about: 'About JobHunter — Our Story & Brand',
 }
 
 const pageDescriptions: Record<Page, string> = {
@@ -39,6 +41,7 @@ const pageDescriptions: Record<Page, string> = {
   'privacy-policy': 'Read our privacy policy to understand how we collect, process, and protect your personal data under DPDPA and GDPR.',
   'terms-of-service': 'Read our terms of service governing your access to and use of the JobHunter platform and automated application services.',
   'refund-policy': 'Read our refund and cancellation policy to understand terms for subscription cancellations, refunds, billing errors, and consumer rights.',
+  about: 'Learn about JobHunter, our origami crane brand story, mission, and the team behind the AI-powered job acquisition platform.',
 }
 
 /** Sanitize URL param: only accept 6-10 uppercase alphanumeric characters. */
@@ -57,7 +60,7 @@ export default function App() {
     if (path === 'privacy') path = 'privacy-policy'
     if (path === 'terms' || path === 'tos') path = 'terms-of-service'
     if (path === 'refund' || path === 'refund-policy') path = 'refund-policy'
-    if (['home', 'features', 'for-who', 'faq', 'referral', 'privacy-policy', 'terms-of-service', 'refund-policy'].includes(path)) {
+    if (['home', 'features', 'for-who', 'faq', 'referral', 'privacy-policy', 'terms-of-service', 'refund-policy', 'about'].includes(path)) {
       return path as Page
     }
     const params = new URLSearchParams(window.location.search)
@@ -65,7 +68,7 @@ export default function App() {
     if (p === 'privacy') p = 'privacy-policy'
     if (p === 'terms' || p === 'tos') p = 'terms-of-service'
     if (p === 'refund' || p === 'refund-policy') p = 'refund-policy'
-    if (['home', 'features', 'for-who', 'faq', 'referral', 'privacy-policy', 'terms-of-service', 'refund-policy'].includes(p || '')) {
+    if (['home', 'features', 'for-who', 'faq', 'referral', 'privacy-policy', 'terms-of-service', 'refund-policy', 'about'].includes(p || '')) {
       return p as Page
     }
     return 'home'
@@ -112,7 +115,7 @@ export default function App() {
       if (path === 'privacy') path = 'privacy-policy'
       if (path === 'terms' || path === 'tos') path = 'terms-of-service'
       if (path === 'refund' || path === 'refund-policy') path = 'refund-policy'
-      if (['features', 'for-who', 'faq', 'referral', 'privacy-policy', 'terms-of-service', 'refund-policy'].includes(path)) {
+      if (['features', 'for-who', 'faq', 'referral', 'privacy-policy', 'terms-of-service', 'refund-policy', 'about'].includes(path)) {
         setPage(path as Page)
         return
       }
@@ -121,7 +124,7 @@ export default function App() {
       if (p === 'privacy') p = 'privacy-policy'
       if (p === 'terms' || p === 'tos') p = 'terms-of-service'
       if (p === 'refund' || p === 'refund-policy') p = 'refund-policy'
-      if (['home', 'features', 'for-who', 'faq', 'referral', 'privacy-policy', 'terms-of-service', 'refund-policy'].includes(p || '')) {
+      if (['home', 'features', 'for-who', 'faq', 'referral', 'privacy-policy', 'terms-of-service', 'refund-policy', 'about'].includes(p || '')) {
         setPage(p as Page)
       } else {
         setPage('home')
@@ -151,7 +154,7 @@ export default function App() {
         if (path === 'terms' || path === 'tos') path = 'terms-of-service'
         if (path === 'refund' || path === 'refund-policy') path = 'refund-policy'
         const targetPage = (path === '' ? 'home' : path) as Page
-        if (['home', 'features', 'for-who', 'faq', 'referral', 'privacy-policy', 'terms-of-service', 'refund-policy'].includes(targetPage)) {
+        if (['home', 'features', 'for-who', 'faq', 'referral', 'privacy-policy', 'terms-of-service', 'refund-policy', 'about'].includes(targetPage)) {
           e.preventDefault()
           navigate(targetPage)
         }
@@ -238,6 +241,7 @@ export default function App() {
       {page === 'privacy-policy' && <PrivacyPolicy />}
       {page === 'terms-of-service' && <TermsOfService />}
       {page === 'refund-policy' && <RefundPolicy />}
+      {page === 'about' && <About />}
       <Footer navigate={navigate} />
 
       <WaitlistModal

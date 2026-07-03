@@ -46,13 +46,29 @@ const pages = [
     path: 'features',
     title: 'AI Job Search Automation Features | JobHunter',
     desc: 'Explore the key features of JobHunter, including multi-source job scraping, AI resume tailoring, human-in-the-loop approval, and scam detection.',
-    canonical: 'https://myjobhunter.in/features'
+    canonical: 'https://myjobhunter.in/features',
+    schema: {
+      '@context': 'https://schema.org',
+      '@type': 'WebPage',
+      'name': 'JobHunter Features',
+      'description': 'Explore the key features of JobHunter, including multi-source job scraping, AI resume tailoring, human-in-the-loop approval, and scam detection.',
+      'url': 'https://myjobhunter.in/features',
+      'about': { '@type': 'SoftwareApplication', 'name': 'JobHunter' }
+    }
   },
   {
     path: 'for-who',
     title: 'Who is JobHunter For? — College Students, Grads & Mentors',
     desc: 'JobHunter is built for college students, recent graduates, and career changers looking to scale their job search, plus active mentoring opportunities.',
-    canonical: 'https://myjobhunter.in/for-who'
+    canonical: 'https://myjobhunter.in/for-who',
+    schema: {
+      '@context': 'https://schema.org',
+      '@type': 'WebPage',
+      'name': 'Who JobHunter Is For',
+      'description': 'JobHunter is built for college students, recent graduates, and career changers looking to scale their job search, plus active mentoring opportunities.',
+      'url': 'https://myjobhunter.in/for-who',
+      'about': { '@type': 'SoftwareApplication', 'name': 'JobHunter' }
+    }
   },
   {
     path: 'referral',
@@ -113,6 +129,26 @@ const pages = [
     title: 'Refund and Cancellation Policy — JobHunter',
     desc: 'Read our refund and cancellation policy to understand terms for subscription cancellations, refunds, billing errors, and consumer rights.',
     canonical: 'https://myjobhunter.in/refund-policy'
+  },
+  {
+    path: 'about',
+    title: 'About JobHunter — Our Story & Brand',
+    desc: 'Learn about JobHunter, our origami crane brand story, mission, and the team behind the AI-powered job acquisition platform.',
+    canonical: 'https://myjobhunter.in/about',
+    schema: {
+      '@context': 'https://schema.org',
+      '@type': 'Organization',
+      'name': 'JobHunter',
+      'url': 'https://myjobhunter.in',
+      'logo': 'https://myjobhunter.in/logo.png',
+      'description': 'AI-powered human-in-the-loop job acquisition platform that automates job discovery, tailors resumes with AI, and sends applications on your behalf.',
+      'sameAs': [
+        'https://github.com/alpha-jolt/jobhunter',
+        'https://instagram.com/myjobhunter.in',
+        'https://linkedin.com/company/my-jobhunter',
+        'https://x.com/myjobhunterhq'
+      ]
+    }
   }
 ];
 

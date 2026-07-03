@@ -85,6 +85,7 @@ Allow: /privacy
 Allow: /terms
 Allow: /refund
 Allow: /faq
+Allow: /about
 
 # sitemap
 Sitemap: https://myjobhunter.in/sitemap.xml
