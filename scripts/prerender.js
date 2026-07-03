@@ -77,6 +77,42 @@ const pages = [
         },
       })),
     }
+  },
+  {
+    path: 'privacy-policy',
+    title: 'Privacy Policy — JobHunter',
+    desc: 'Read our privacy policy to understand how we collect, process, and protect your personal data under DPDPA and GDPR.',
+    canonical: 'https://myjobhunter.in/privacy-policy'
+  },
+  {
+    path: 'terms-of-service',
+    title: 'Terms of Service — JobHunter',
+    desc: 'Read our terms of service governing your access to and use of the JobHunter platform and automated application services.',
+    canonical: 'https://myjobhunter.in/terms-of-service'
+  },
+  {
+    path: 'privacy',
+    title: 'Privacy Policy — JobHunter',
+    desc: 'Read our privacy policy to understand how we collect, process, and protect your personal data under DPDPA and GDPR.',
+    canonical: 'https://myjobhunter.in/privacy-policy'
+  },
+  {
+    path: 'terms',
+    title: 'Terms of Service — JobHunter',
+    desc: 'Read our terms of service governing your access to and use of the JobHunter platform and automated application services.',
+    canonical: 'https://myjobhunter.in/terms-of-service'
+  },
+  {
+    path: 'refund-policy',
+    title: 'Refund and Cancellation Policy — JobHunter',
+    desc: 'Read our refund and cancellation policy to understand terms for subscription cancellations, refunds, billing errors, and consumer rights.',
+    canonical: 'https://myjobhunter.in/refund-policy'
+  },
+  {
+    path: 'refund',
+    title: 'Refund and Cancellation Policy — JobHunter',
+    desc: 'Read our refund and cancellation policy to understand terms for subscription cancellations, refunds, billing errors, and consumer rights.',
+    canonical: 'https://myjobhunter.in/refund-policy'
   }
 ];
 

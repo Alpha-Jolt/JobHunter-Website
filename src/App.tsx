@@ -12,9 +12,12 @@ import Footer from './components/Footer'
 import WaitlistModal from './components/WaitlistModal'
 import MentorModal from './components/MentorModal'
 import Referral from './components/Referral'
+import PrivacyPolicy from './components/PrivacyPolicy'
+import TermsOfService from './components/TermsOfService'
+import RefundPolicy from './components/RefundPolicy'
 import './App.css'
 
-export type Page = 'home' | 'features' | 'for-who' | 'faq' | 'referral'
+export type Page = 'home' | 'features' | 'for-who' | 'faq' | 'referral' | 'privacy-policy' | 'terms-of-service' | 'refund-policy'
 
 const pageTitles: Record<Page, string> = {
   home: 'JobHunter — Land Your Next Job on Autopilot',
@@ -22,6 +25,9 @@ const pageTitles: Record<Page, string> = {
   'for-who': 'Who is JobHunter For? — College Students, Grads & Mentors',
   faq: 'Frequently Asked Questions — JobHunter',
   referral: 'Invite Friends & Earn 20% Off — JobHunter Referral Program',
+  'privacy-policy': 'Privacy Policy — JobHunter',
+  'terms-of-service': 'Terms of Service — JobHunter',
+  'refund-policy': 'Refund and Cancellation Policy — JobHunter',
 }
 
 const pageDescriptions: Record<Page, string> = {
@@ -30,6 +36,9 @@ const pageDescriptions: Record<Page, string> = {
   'for-who': 'JobHunter is built for college students, recent graduates, and career changers looking to scale their job search, plus active mentoring opportunities.',
   faq: 'Find answers to common questions about JobHunter\'s core engine, AI safety, job boards scraped, data privacy, and the mentoring program.',
   referral: 'Share JobHunter with your network to earn 20% off your subscription and priority cohort access for you and your friends.',
+  'privacy-policy': 'Read our privacy policy to understand how we collect, process, and protect your personal data under DPDPA and GDPR.',
+  'terms-of-service': 'Read our terms of service governing your access to and use of the JobHunter platform and automated application services.',
+  'refund-policy': 'Read our refund and cancellation policy to understand terms for subscription cancellations, refunds, billing errors, and consumer rights.',
 }
 
 /** Sanitize URL param: only accept 6-10 uppercase alphanumeric characters. */
@@ -42,16 +51,22 @@ function sanitizeRefCode(raw: string | null): string | null {
 export default function App() {
   const [page, setPage] = useState<Page>(() => {
     if (typeof window === 'undefined') return 'home'
-    const path = window.location.pathname
+    let path = window.location.pathname
       .replace(/^\/|\/$/g, '')
       .replace(/^JobHunter-Website\/?/, '')
-    if (['home', 'features', 'for-who', 'faq', 'referral'].includes(path)) {
+    if (path === 'privacy') path = 'privacy-policy'
+    if (path === 'terms' || path === 'tos') path = 'terms-of-service'
+    if (path === 'refund' || path === 'refund-policy') path = 'refund-policy'
+    if (['home', 'features', 'for-who', 'faq', 'referral', 'privacy-policy', 'terms-of-service', 'refund-policy'].includes(path)) {
       return path as Page
     }
     const params = new URLSearchParams(window.location.search)
-    const p = params.get('page') as Page
-    if (['home', 'features', 'for-who', 'faq', 'referral'].includes(p)) {
-      return p
+    let p = params.get('page')
+    if (p === 'privacy') p = 'privacy-policy'
+    if (p === 'terms' || p === 'tos') p = 'terms-of-service'
+    if (p === 'refund' || p === 'refund-policy') p = 'refund-policy'
+    if (['home', 'features', 'for-who', 'faq', 'referral', 'privacy-policy', 'terms-of-service', 'refund-policy'].includes(p || '')) {
+      return p as Page
     }
     return 'home'
   })
@@ -91,17 +106,23 @@ export default function App() {
   // Listen for history popstate events (e.g. back/forward browser buttons)
   useEffect(() => {
     const handlePopState = () => {
-      const path = window.location.pathname
+      let path = window.location.pathname
         .replace(/^\/|\/$/g, '')
         .replace(/^JobHunter-Website\/?/, '')
-      if (['features', 'for-who', 'faq', 'referral'].includes(path)) {
+      if (path === 'privacy') path = 'privacy-policy'
+      if (path === 'terms' || path === 'tos') path = 'terms-of-service'
+      if (path === 'refund' || path === 'refund-policy') path = 'refund-policy'
+      if (['features', 'for-who', 'faq', 'referral', 'privacy-policy', 'terms-of-service', 'refund-policy'].includes(path)) {
         setPage(path as Page)
         return
       }
       const params = new URLSearchParams(window.location.search)
-      const p = params.get('page') as Page
-      if (['home', 'features', 'for-who', 'faq', 'referral'].includes(p)) {
-        setPage(p)
+      let p = params.get('page')
+      if (p === 'privacy') p = 'privacy-policy'
+      if (p === 'terms' || p === 'tos') p = 'terms-of-service'
+      if (p === 'refund' || p === 'refund-policy') p = 'refund-policy'
+      if (['home', 'features', 'for-who', 'faq', 'referral', 'privacy-policy', 'terms-of-service', 'refund-policy'].includes(p || '')) {
+        setPage(p as Page)
       } else {
         setPage('home')
       }
@@ -123,11 +144,14 @@ export default function App() {
       const href = anchor.getAttribute('href')
       if (href && href.startsWith('/') && !href.startsWith('//')) {
         // Normalize the path name
-        const path = href
+        let path = href
           .replace(/^\/|\/$/g, '')
           .replace(/^JobHunter-Website\/?/, '')
+        if (path === 'privacy') path = 'privacy-policy'
+        if (path === 'terms' || path === 'tos') path = 'terms-of-service'
+        if (path === 'refund' || path === 'refund-policy') path = 'refund-policy'
         const targetPage = (path === '' ? 'home' : path) as Page
-        if (['home', 'features', 'for-who', 'faq', 'referral'].includes(targetPage)) {
+        if (['home', 'features', 'for-who', 'faq', 'referral', 'privacy-policy', 'terms-of-service', 'refund-policy'].includes(targetPage)) {
           e.preventDefault()
           navigate(targetPage)
         }
@@ -211,6 +235,9 @@ export default function App() {
       {page === 'for-who' && <ForWho onOpenMentorModal={handleOpenMentorModal} />}
       {page === 'faq' && <FAQ />}
       {page === 'referral' && <Referral />}
+      {page === 'privacy-policy' && <PrivacyPolicy />}
+      {page === 'terms-of-service' && <TermsOfService />}
+      {page === 'refund-policy' && <RefundPolicy />}
       <Footer navigate={navigate} />
 
       <WaitlistModal
