@@ -13,7 +13,7 @@ const ConfettiOverlay = () => {
   useEffect(() => {
     const generated = [...Array(20)].map(() => ({
       left: `${Math.random() * 100}%`,
-      backgroundColor: ['#ffffff', '#ffed94', '#ffd3ba'][Math.floor(Math.random() * 3)],
+      backgroundColor: ['#101012', '#FCFCFC'][Math.floor(Math.random() * 2)],
       animationDelay: `${Math.random() * 2}s`
     }))
     const timer = setTimeout(() => setPieces(generated), 0)
@@ -61,12 +61,12 @@ export default function MentorModal({ isOpen, onClose, triggerRect }: Props) {
           width: '90%',
           padding: 48,
           position: 'fixed',
-          background: 'var(--accent)',
-          color: '#fff',
-          boxShadow: '0 64px 128px -24px rgba(0, 0, 0, 0.5)',
+          background: 'var(--ember)',
+          color: 'var(--ink)',
+          boxShadow: '0 64px 128px -24px rgba(16, 16, 18, 0.5)',
           animation: 'mentorModalGrow 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards',
           zIndex: 1000,
-          border: '1px solid rgba(255, 255, 255, 0.2)',
+          border: '1px solid rgba(16, 16, 18, 0.15)',
           overflow: 'hidden'
         }}
         onClick={(e) => e.stopPropagation()}
@@ -78,21 +78,21 @@ export default function MentorModal({ isOpen, onClose, triggerRect }: Props) {
           style={{
             top: 24,
             right: 24,
-            background: 'rgba(255, 255, 255, 0.2)',
+            background: 'rgba(16, 16, 18, 0.12)',
             backdropFilter: 'blur(8px)',
-            color: '#fff',
-            border: '1px solid rgba(255, 255, 255, 0.3)',
-            boxShadow: '0 4px 12px rgba(0,0,0,0.1)'
+            color: 'var(--ink)',
+            border: '1px solid rgba(16, 16, 18, 0.25)',
+            boxShadow: 'none'
           }}
         >
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><path d="M18 6 6 18" /><path d="m6 6 12 12" /></svg>
         </button>
 
-        <h3 style={{ fontSize: 28, fontWeight: 800, marginBottom: 16, color: '#fff', letterSpacing: '-0.02em' }}>
+        <h3 style={{ fontFamily: 'var(--font-display)', fontSize: 28, fontWeight: 500, marginBottom: 16, color: 'var(--ink)', letterSpacing: '-0.02em' }}>
           Interested in mentoring?
         </h3>
 
-        <p style={{ color: 'rgba(255, 255, 255, 0.9)', fontSize: 17, marginBottom: 32, lineHeight: 1.6 }}>
+        <p style={{ color: 'rgba(16, 16, 18, 0.78)', fontSize: 17, marginBottom: 32, lineHeight: 1.6 }}>
           We're onboarding mentors for Phase 3. Leave your email and we'll reach out with details.
         </p>
 

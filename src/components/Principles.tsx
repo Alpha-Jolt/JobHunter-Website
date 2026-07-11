@@ -1,75 +1,57 @@
+import { useReveal } from '../hooks/useReveal'
+
 const BanIcon = () => (
-  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><path d="m4.9 4.9 14.2 14.2"/></svg>
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10" /><path d="m4.9 4.9 14.2 14.2" /></svg>
 )
 const UserCheckIcon = () => (
-  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><polyline points="16 11 18 13 22 9"/></svg>
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" /><circle cx="9" cy="7" r="4" /><polyline points="16 11 18 13 22 9" /></svg>
 )
 const CpuIcon = () => (
-  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect width="16" height="16" x="4" y="4" rx="2"/><rect width="6" height="6" x="9" y="9" rx="1"/><path d="M15 2v2"/><path d="M15 20v2"/><path d="M2 15h2"/><path d="M2 9h2"/><path d="M20 15h2"/><path d="M20 9h2"/><path d="M9 2v2"/><path d="M9 20v2"/></svg>
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><rect width="16" height="16" x="4" y="4" rx="2" /><rect width="6" height="6" x="9" y="9" rx="1" /><path d="M15 2v2" /><path d="M15 20v2" /><path d="M2 15h2" /><path d="M2 9h2" /><path d="M20 15h2" /><path d="M20 9h2" /><path d="M9 2v2" /><path d="M9 20v2" /></svg>
 )
 const LockIcon = () => (
-  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><rect width="18" height="11" x="3" y="11" rx="2" ry="2" /><path d="M7 11V7a5 5 0 0 1 10 0v4" /></svg>
 )
 const ShieldCheckIcon = () => (
-  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" /><path d="m9 12 2 2 4-4" /></svg>
 )
 const CoinsIcon = () => (
-  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="8" cy="8" r="6"/><path d="M18.09 10.37A6 6 0 1 1 10.34 18.06"/><path d="M7 6h1v4"/><path d="m16.71 13.88.7.71-2.82 2.82"/></svg>
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><circle cx="8" cy="8" r="6" /><path d="M18.09 10.37A6 6 0 1 1 10.34 18.06" /><path d="M7 6h1v4" /><path d="m16.71 13.88.7.71-2.82 2.82" /></svg>
 )
 
 const principles = [
-  {
-    icon: <BanIcon />,
-    title: 'No fabrication',
-    desc: 'The AI curates and reorders your existing resume content. It never invents experience, skills, or credentials.',
-  },
-  {
-    icon: <UserCheckIcon />,
-    title: 'User approval gates everything',
-    desc: 'No resume variant or cover letter is used without your explicit approval. Nothing moves forward without your sign-off.',
-  },
-  {
-    icon: <CpuIcon />,
-    title: 'Deterministic where AI isn\'t needed',
-    desc: 'The scraper and mail sender are rule-based systems. AI is deliberately confined to the resume curation step.',
-  },
-  {
-    icon: <LockIcon />,
-    title: 'Internal data stays internal',
-    desc: 'The scraped job dataset has no external export endpoints. Your data is yours.',
-  },
-  {
-    icon: <ShieldCheckIcon />,
-    title: 'Compliance by design',
-    desc: 'Scam detection, abuse prevention, placement verification, and GDPR/DPDPA workflows are built into the roadmap — not afterthoughts.',
-  },
-  {
-    icon: <CoinsIcon />,
-    title: 'Placement guarantee',
-    desc: 'If you enroll in a Skill Development Program and don\'t get placed, your fee is refunded. Backed by automated logic, not manual trust.',
-  },
+  { icon: <BanIcon />, title: 'No fabrication', desc: 'The AI curates and reorders your existing résumé content. It never invents experience, skills, or credentials.' },
+  { icon: <UserCheckIcon />, title: 'You approve everything', desc: 'No résumé variant or cover letter is sent without your explicit sign-off. Nothing moves forward without you.' },
+  { icon: <CpuIcon />, title: 'Deterministic by default', desc: 'The scraper and mail sender are rule-based systems. AI is confined to the one step it belongs in — résumé tailoring.' },
+  { icon: <LockIcon />, title: 'Your data stays yours', desc: 'The scraped job dataset has no external export endpoints. It is private by default, not by policy.' },
+  { icon: <ShieldCheckIcon />, title: 'Compliance by design', desc: 'Scam detection, abuse prevention, placement verification, and GDPR / DPDPA workflows are on the roadmap — not afterthoughts.' },
+  { icon: <CoinsIcon />, title: 'Placement guarantee', desc: 'Enroll in a Skill Development Program and not get placed? Your fee is refunded — enforced by logic, not by trust.' },
 ]
 
 export default function Principles() {
+  const ref = useReveal<HTMLElement>()
   return (
-    <section id="principles" className="section" style={{ background: 'rgba(108,99,255,0.02)' }} aria-labelledby="principles-heading">
+    <section id="principles" className="section principles" aria-labelledby="principles-heading" ref={ref}>
       <div className="section-inner">
-        <div className="section-label">Our Principles</div>
-        <h2 className="section-title" id="principles-heading">
-          Built on a foundation<br />you can trust
-        </h2>
-        <p className="section-sub">
-          Every design decision traces back to one of these commitments.
-        </p>
+        <div className="reveal">
+          <div className="section-label">What we commit to</div>
+          <h2 className="section-title" id="principles-heading">
+            Six commitments,<br />not six features
+          </h2>
+          <p className="section-sub">
+            These are the rules the product is built around. Every design decision traces back to one of them.
+          </p>
+        </div>
 
         <div className="principles-grid">
-          {principles.map((p) => (
-            <article className="card principle-card" key={p.title}>
-              <span className="principle-icon" aria-hidden="true" style={{ color: 'var(--accent)', display: 'flex' }}>{p.icon}</span>
-              <div>
-                <h3>{p.title}</h3>
-                <p>{p.desc}</p>
+          {principles.map((p, i) => (
+            <article className="principle-card reveal" key={p.title} data-delay={(i % 3) * 70}>
+              <div className="principle-num">
+                <span className="principle-icon" aria-hidden="true">{p.icon}</span>
+                {String(i + 1).padStart(2, '0')}
               </div>
+              <h3>{p.title}</h3>
+              <p>{p.desc}</p>
             </article>
           ))}
         </div>

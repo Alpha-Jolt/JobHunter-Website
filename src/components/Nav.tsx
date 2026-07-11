@@ -11,6 +11,7 @@ const links: { label: string; page: Page }[] = [
   { label: 'Home', page: 'home' },
   { label: 'Features', page: 'features' },
   { label: 'For Who', page: 'for-who' },
+  { label: 'About', page: 'about' },
 ]
 
 export default function Nav({ current, navigate, onOpenWaitlist }: Props) {

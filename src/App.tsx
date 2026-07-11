@@ -8,28 +8,55 @@ import ForWho from './components/ForWho'
 import Principles from './components/Principles'
 import Roadmap from './components/Roadmap'
 import FAQ from './components/FAQ'
+import About from './components/About'
 import Footer from './components/Footer'
 import WaitlistModal from './components/WaitlistModal'
 import MentorModal from './components/MentorModal'
 import Referral from './components/Referral'
+import PrivacyPolicy from './components/PrivacyPolicy'
+import TermsOfService from './components/TermsOfService'
+import RefundPolicy from './components/RefundPolicy'
 import './App.css'
 
-export type Page = 'home' | 'features' | 'for-who' | 'faq' | 'referral'
+export type Page =
+  | 'home' | 'features' | 'for-who' | 'faq' | 'referral' | 'about'
+  | 'privacy-policy' | 'terms-of-service' | 'refund-policy'
+
+const VALID_PAGES: Page[] = [
+  'home', 'features', 'for-who', 'faq', 'referral', 'about',
+  'privacy-policy', 'terms-of-service', 'refund-policy',
+]
+
+function normalizePath(raw: string): Page | null {
+  let path = raw
+  if (path === 'privacy') path = 'privacy-policy'
+  if (path === 'terms' || path === 'tos') path = 'terms-of-service'
+  if (path === 'refund') path = 'refund-policy'
+  return VALID_PAGES.includes(path as Page) ? (path as Page) : null
+}
 
 const pageTitles: Record<Page, string> = {
-  home: 'JobHunter — Land Your Next Job on Autopilot',
-  features: 'Automated Job Search Features — JobHunter',
-  'for-who': 'Who is JobHunter For? — College Students, Grads & Mentors',
+  home: 'JobHunter — Apply Smart, Not Just Fast',
+  features: 'Features — JobHunter',
+  'for-who': 'Who JobHunter Is For — Students, Grads, Professionals & Mentors',
   faq: 'Frequently Asked Questions — JobHunter',
-  referral: 'Invite Friends & Earn 20% Off — JobHunter Referral Program',
+  referral: 'Refer a Friend, Land Together — JobHunter Referral Program',
+  about: 'About JobHunter — Built by VSRN, Coimbatore',
+  'privacy-policy': 'Privacy Policy — JobHunter',
+  'terms-of-service': 'Terms of Service — JobHunter',
+  'refund-policy': 'Refund and Cancellation Policy — JobHunter',
 }
 
 const pageDescriptions: Record<Page, string> = {
-  home: 'JobHunter is the intelligent job acquisition platform that automates job discovery, tailors your resume with AI, and sends applications on your behalf.',
-  features: 'Explore the key features of JobHunter, including multi-source job scraping, AI resume tailoring, human-in-the-loop approval, and scam detection.',
-  'for-who': 'JobHunter is built for college students, recent graduates, and career changers looking to scale their job search, plus active mentoring opportunities.',
-  faq: 'Find answers to common questions about JobHunter\'s core engine, AI safety, job boards scraped, data privacy, and the mentoring program.',
-  referral: 'Share JobHunter with your network to earn 20% off your subscription and priority cohort access for you and your friends.',
+  home: 'JobHunter scrapes real openings, tailors your résumé to each one, and holds every application behind your approval. Human-in-the-loop, no fabrication. Building in public — Phase 0.',
+  features: 'Multi-source scraping, AI résumé tailoring that never fabricates, a human approval queue, and a rule-based mail sender — built in phases.',
+  'for-who': 'JobHunter is built for college students, recent graduates, unemployed professionals, and freelancers moving to full-time — plus mentors.',
+  faq: 'Answers on JobHunter\'s core engine, AI safety and no-fabrication policy, which job boards are scraped, data privacy, and the mentoring program.',
+  referral: 'Refer a friend to JobHunter — you both get 20% off and priority cohort access. No caps, no gimmicks.',
+  about: 'JobHunter is a product from VSRN, a studio in Coimbatore, India, building an honest, human-in-the-loop job search for early-career job seekers. Building in public — Phase 0.',
+  'privacy-policy': 'Read our privacy policy to understand how we collect, process, and protect your personal data under DPDPA and GDPR.',
+  'terms-of-service': 'Read our terms of service governing your access to and use of the JobHunter platform and automated application services.',
+  'refund-policy': 'Read our refund and cancellation policy to understand terms for subscription cancellations, refunds, billing errors, and consumer rights.',
 }
 
 /** Sanitize URL param: only accept 6-10 uppercase alphanumeric characters. */
@@ -45,15 +72,10 @@ export default function App() {
     const path = window.location.pathname
       .replace(/^\/|\/$/g, '')
       .replace(/^JobHunter-Website\/?/, '')
-    if (['home', 'features', 'for-who', 'faq', 'referral'].includes(path)) {
-      return path as Page
-    }
-    const params = new URLSearchParams(window.location.search)
-    const p = params.get('page') as Page
-    if (['home', 'features', 'for-who', 'faq', 'referral'].includes(p)) {
-      return p
-    }
-    return 'home'
+    return normalizePath(path) ?? (() => {
+      const params = new URLSearchParams(window.location.search)
+      return normalizePath(params.get('page') || '') ?? 'home'
+    })()
   })
   const [isModalOpen, setIsModalOpen] = useState(() => {
     if (typeof window === 'undefined') return false
@@ -68,7 +90,6 @@ export default function App() {
     return sanitizeRefCode(params.get('ref'))
   })
 
-  // Side effect: Clean URL if ref code was detected, preserving other query parameters
   useEffect(() => {
     const params = new URLSearchParams(window.location.search)
     if (sanitizeRefCode(params.get('ref'))) {
@@ -79,46 +100,37 @@ export default function App() {
     }
   }, [])
 
-  // Listen for history popstate events (e.g. back/forward browser buttons)
   useEffect(() => {
     const handlePopState = () => {
       const path = window.location.pathname
         .replace(/^\/|\/$/g, '')
         .replace(/^JobHunter-Website\/?/, '')
-      if (['features', 'for-who', 'faq', 'referral'].includes(path)) {
-        setPage(path as Page)
+      const fromPath = normalizePath(path)
+      if (fromPath) {
+        setPage(fromPath)
         return
       }
       const params = new URLSearchParams(window.location.search)
-      const p = params.get('page') as Page
-      if (['home', 'features', 'for-who', 'faq', 'referral'].includes(p)) {
-        setPage(p)
-      } else {
-        setPage('home')
-      }
+      setPage(normalizePath(params.get('page') || '') ?? 'home')
     }
     window.addEventListener('popstate', handlePopState)
     return () => window.removeEventListener('popstate', handlePopState)
   }, [])
 
-  // Intercept all local anchor tag clicks to route smoothly through the SPA engine
   useEffect(() => {
     const handleAnchorClick = (e: MouseEvent) => {
       const target = e.target as HTMLElement
       const anchor = target.closest('a')
       if (!anchor) return
-
-      // Ignore external or target="_blank" links
       if (anchor.target === '_blank' || anchor.hostname !== window.location.hostname) return
 
       const href = anchor.getAttribute('href')
       if (href && href.startsWith('/') && !href.startsWith('//')) {
-        // Normalize the path name
         const path = href
           .replace(/^\/|\/$/g, '')
           .replace(/^JobHunter-Website\/?/, '')
-        const targetPage = (path === '' ? 'home' : path) as Page
-        if (['home', 'features', 'for-who', 'faq', 'referral'].includes(targetPage)) {
+        const targetPage = normalizePath(path === '' ? 'home' : path)
+        if (targetPage) {
           e.preventDefault()
           navigate(targetPage)
         }
@@ -128,21 +140,15 @@ export default function App() {
     return () => document.removeEventListener('click', handleAnchorClick)
   }, [])
 
-  // Update document title, meta tags, and canonical link dynamically
   useEffect(() => {
     const title = pageTitles[page] || pageTitles.home
     const desc = pageDescriptions[page] || pageDescriptions.home
 
-    // Title
     document.title = title
 
-    // Meta Description
     const metaDesc = document.querySelector('meta[name="description"]')
-    if (metaDesc) {
-      metaDesc.setAttribute('content', desc)
-    }
+    if (metaDesc) metaDesc.setAttribute('content', desc)
 
-    // Canonical Link
     let canonical = document.querySelector('link[rel="canonical"]')
     if (!canonical) {
       canonical = document.createElement('link')
@@ -152,28 +158,21 @@ export default function App() {
     const currentUrl = 'https://myjobhunter.in' + (page === 'home' ? '' : `/${page}`)
     canonical.setAttribute('href', currentUrl)
 
-    // Open Graph / Facebook
     const ogTitle = document.querySelector('meta[property="og:title"]')
     if (ogTitle) ogTitle.setAttribute('content', title)
-
     const ogDesc = document.querySelector('meta[property="og:description"]')
     if (ogDesc) ogDesc.setAttribute('content', desc)
-
     const ogUrl = document.querySelector('meta[property="og:url"]')
     if (ogUrl) ogUrl.setAttribute('content', currentUrl)
 
-    // Twitter
     const twitterTitle = document.querySelector('meta[property="twitter:title"]')
     if (twitterTitle) twitterTitle.setAttribute('content', title)
-
     const twitterDesc = document.querySelector('meta[property="twitter:description"]')
     if (twitterDesc) twitterDesc.setAttribute('content', desc)
-
     const twitterUrl = document.querySelector('meta[property="twitter:url"]')
     if (twitterUrl) twitterUrl.setAttribute('content', currentUrl)
   }, [page])
 
-  // Track page views with PostHog
   useEffect(() => {
     posthog.capture('$pageview', {
       $current_url: window.location.href,
@@ -196,9 +195,11 @@ export default function App() {
     posthog.capture('mentor_modal_opened')
   }
 
+  const openWaitlist = () => setIsModalOpen(true)
+
   return (
     <div className="app">
-      <Nav current={page} navigate={navigate} onOpenWaitlist={() => setIsModalOpen(true)} />
+      <Nav current={page} navigate={navigate} onOpenWaitlist={openWaitlist} />
       {page === 'home' && (
         <>
           <Hero />
@@ -207,10 +208,16 @@ export default function App() {
           <Roadmap />
         </>
       )}
-      {page === 'features' && <Features />}
-      {page === 'for-who' && <ForWho onOpenMentorModal={handleOpenMentorModal} />}
-      {page === 'faq' && <FAQ />}
+      {page === 'features' && <Features onOpenWaitlist={openWaitlist} />}
+      {page === 'for-who' && (
+        <ForWho onOpenMentorModal={handleOpenMentorModal} onOpenWaitlist={openWaitlist} />
+      )}
+      {page === 'faq' && <FAQ onOpenWaitlist={openWaitlist} />}
+      {page === 'about' && <About onOpenWaitlist={openWaitlist} />}
       {page === 'referral' && <Referral />}
+      {page === 'privacy-policy' && <PrivacyPolicy />}
+      {page === 'terms-of-service' && <TermsOfService />}
+      {page === 'refund-policy' && <RefundPolicy />}
       <Footer navigate={navigate} />
 
       <WaitlistModal

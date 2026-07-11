@@ -61,6 +61,12 @@ const pages = [
     canonical: 'https://myjobhunter.in/referral'
   },
   {
+    path: 'about',
+    title: 'About JobHunter — Built by VSRN, Coimbatore',
+    desc: 'JobHunter is a product from VSRN, a studio in Coimbatore, India, building an honest, human-in-the-loop job search for early-career job seekers. Building in public — Phase 0.',
+    canonical: 'https://myjobhunter.in/about'
+  },
+  {
     path: 'faq',
     title: 'Frequently Asked Questions — JobHunter',
     desc: 'Find answers to common questions about JobHunter\'s core engine, AI safety, job boards scraped, data privacy, and the mentoring program.',
@@ -77,6 +83,24 @@ const pages = [
         },
       })),
     }
+  },
+  {
+    path: 'privacy-policy',
+    title: 'Privacy Policy — JobHunter',
+    desc: 'Read our privacy policy to understand how we collect, process, and protect your personal data under DPDPA and GDPR.',
+    canonical: 'https://myjobhunter.in/privacy-policy'
+  },
+  {
+    path: 'terms-of-service',
+    title: 'Terms of Service — JobHunter',
+    desc: 'Read our terms of service governing your access to and use of the JobHunter platform and automated application services.',
+    canonical: 'https://myjobhunter.in/terms-of-service'
+  },
+  {
+    path: 'refund-policy',
+    title: 'Refund and Cancellation Policy — JobHunter',
+    desc: 'Read our refund and cancellation policy to understand terms for subscription cancellations, refunds, billing errors, and consumer rights.',
+    canonical: 'https://myjobhunter.in/refund-policy'
   }
 ];
 

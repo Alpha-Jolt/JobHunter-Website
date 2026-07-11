@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import EmailCapture from './EmailCapture'
 import ReferralCodeDisplay from './ReferralCodeDisplay'
+import { useReveal } from '../hooks/useReveal'
 
 const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL as string
 const SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY as string
@@ -47,7 +48,7 @@ const benefits: Benefit[] = [
       </svg>
     ),
     title: 'Build Your Network',
-    description: 'Every referral strengthens your professional circle — turn your network into your superpower.',
+    description: 'Every referral strengthens your professional circle — and moves everyone you invite closer to a real offer.',
   },
 ]
 
@@ -57,7 +58,7 @@ function ConfettiOverlay() {
   useEffect(() => {
     const generated = [...Array(60)].map((_, i) => ({
       left: `${Math.random() * 100}%`,
-      backgroundColor: ['#f2711c', '#ff8c42', '#22c55e', '#3b82f6', '#a855f7', '#fff'][i % 6],
+      backgroundColor: ['#E5510A', '#101012', '#FCFCFC'][i % 3],
       animationDelay: `${Math.random() * 1.5}s`,
       animationDuration: `${2.5 + Math.random() * 2}s`,
     }))
@@ -136,32 +137,30 @@ export default function Referral() {
 
   // Scroll to top on mount
   useEffect(() => { window.scrollTo({ top: 0, behavior: 'smooth' }) }, [])
+  const ref = useReveal<HTMLElement>()
 
   return (
-    <main>
+    <main ref={ref}>
       {showConfetti && <ConfettiOverlay />}
 
-      {/* ── Top Split Section ─────────────────────────────────────── */}
       <section className="ref-top-section section">
         <div className="section-inner ref-top-inner">
-          {/* Left Column: Hero */}
-          <div className="ref-hero-content">
+          <div className="ref-hero-content reveal">
             <div className="ref-hero-badge">
               <span className="hero-badge-dot" />
-              Referral Program — Active
+              Referral program — live
             </div>
             <h1 className="ref-hero-title">
               Share JobHunter,<br />
-              <em>Earn Together</em>
+              <em>land together.</em>
             </h1>
             <p className="ref-hero-sub">
-              Invite your friends and colleagues to JobHunter and you both get 20% off,
-              priority access to exclusive features and cohorts. Everybody wins.
+              Invite a friend or colleague. You both get 20% off and priority access to the
+              next cohort. No caps, no gimmicks.
             </p>
           </div>
 
-          {/* Right Column: Get Code Form */}
-          <div className="ref-get-code-content">
+          <div className="ref-get-code-content reveal" data-delay="80">
             <div className="ref-get-code-header">
               <h2 className="ref-form-title-top">Get Your Referral Code</h2>
               <p className="ref-form-sub-top">
@@ -173,7 +172,6 @@ export default function Referral() {
             <div className="ref-code-card card">
               {!referralCode ? (
                 <>
-                  {/* Blurred preview */}
                   <div className="ref-preview-wrap">
                     <p className="ref-preview-label">YOUR REFERRAL CODE</p>
                     <ReferralCodeDisplay code={PLACEHOLDER_CODE} blurred />
@@ -190,7 +188,6 @@ export default function Referral() {
                       className="ref-email-capture"
                     />
 
-                    {/* Existing user fallback */}
                     <div className="ref-existing-divider">
                       <span>Already on the waitlist?</span>
                     </div>
@@ -216,7 +213,7 @@ export default function Referral() {
                     </svg>
                     Your code is ready!
                   </div>
-                  <p className="ref-success-sub">Share this code or link with anyone you'd like to refer.</p>
+                  <p className="ref-success-sub">Share this code or link with anyone you&apos;d like to refer.</p>
                   <p className="ref-preview-label">YOUR REFERRAL CODE</p>
                   <ReferralCodeDisplay code={referralCode} blurred={false} />
                 </div>
@@ -226,18 +223,17 @@ export default function Referral() {
         </div>
       </section>
 
-      <hr className="divider" />
-
-      {/* ── What You'll Get ───────────────────────────────────────── */}
       <section className="section">
         <div className="section-inner">
-          <p className="section-label">Why Refer</p>
-          <h2 className="section-title">What You'll Both Get</h2>
-          <p className="section-sub">A referral isn't just a discount — it's an advantage for everyone in your network.</p>
+          <div className="reveal">
+            <p className="section-label">Why refer</p>
+            <h2 className="section-title">What you&apos;ll both get</h2>
+            <p className="section-sub">A referral isn&apos;t just a discount — it&apos;s an advantage for everyone in your network.</p>
+          </div>
 
           <div className="ref-benefits-grid">
-            {benefits.map((b) => (
-              <div key={b.title} className="ref-benefit-card card">
+            {benefits.map((b, i) => (
+              <div key={b.title} className="ref-benefit-card card reveal" data-delay={i * 70}>
                 <div className="ref-benefit-icon">{b.icon}</div>
                 <h3>{b.title}</h3>
                 <p>{b.description}</p>
@@ -247,28 +243,24 @@ export default function Referral() {
         </div>
       </section>
 
-
-      <hr className="divider" />
-
-      {/* ── How It Works ─────────────────────────────────────────── */}
       <section className="section">
         <div className="section-inner">
-          <p className="section-label">Simple Steps</p>
-          <h2 className="section-title">How Referrals Work</h2>
+          <div className="reveal">
+            <p className="section-label">Four steps</p>
+            <h2 className="section-title">How referrals work</h2>
+          </div>
 
-          <div className="ref-steps">
+          <div className="ref-steps-flow">
             {[
-              { num: '01', title: 'Get Your Code', desc: 'Enter your email above to generate your unique 8-character referral code.' },
-              { num: '02', title: 'Share the Link', desc: 'Send your personalised link or code to friends, colleagues, or your social network.' },
-              { num: '03', title: 'They Sign Up', desc: 'When they visit your link, the waitlist modal opens automatically with your code pre-filled.' },
-              { num: '04', title: 'Everyone Benefits', desc: 'Both receive 20% off on the first subscription and gain priority cohort access.' },
-            ].map((step) => (
-              <div key={step.num} className="ref-step">
-                <div className="ref-step-num">{step.num}</div>
-                <div className="ref-step-content">
-                  <h3>{step.title}</h3>
-                  <p>{step.desc}</p>
-                </div>
+              { num: '01', title: 'Get your code', desc: 'Enter your email above to generate your unique 8-character referral code.' },
+              { num: '02', title: 'Share the link', desc: 'Send your personalised link or code to friends, colleagues, or your network.' },
+              { num: '03', title: 'They sign up', desc: 'Your link opens the waitlist with your code already filled in for them.' },
+              { num: '04', title: 'Everyone benefits', desc: 'You both get 20% off the first subscription and priority cohort access.' },
+            ].map((step, i) => (
+              <div key={step.num} className="ref-step-flow reveal" data-delay={i * 60}>
+                <span className="ref-step-flow-num">{step.num}</span>
+                <h3>{step.title}</h3>
+                <p>{step.desc}</p>
               </div>
             ))}
           </div>
