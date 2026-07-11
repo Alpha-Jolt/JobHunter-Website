@@ -2,8 +2,10 @@ import EmailCapture from './EmailCapture'
 import { useReveal } from '../hooks/useReveal'
 
 const phases = [
-  { phase: 'Phase 0', focus: 'Core MVP engine', detail: 'Scraper + AI résumé builder + mail sender', status: 'In progress', current: true },
-  { phase: 'Phase 1', focus: 'Platform foundation', detail: 'Cross-platform app, onboarding, viewer, mailbox, LinkedIn', status: 'Up next', current: false },
+  { phase: 'Phase 1', focus: 'Core MVP engine', detail: 'Scraper + AI Resume Optimization + Mail Bridge', status: 'Live', current: false },
+  {
+    phase: 'Phase 1', focus: 'Platform foundation', detail: 'Cross-platform app, Anti-Fabrication Layer, Notification', status: 'In progress', current: true
+  },
   { phase: 'Phase 2', focus: 'Intelligence layer', detail: 'Confidence scoring, scam detection, analytics, WhatsApp', status: 'Planned', current: false },
   { phase: 'Phase 3', focus: 'Skill development & monetisation', detail: 'Program portal, mentor sessions, payments, subscriptions', status: 'Planned', current: false },
   { phase: 'Phase 4', focus: 'Scale, compliance & partnerships', detail: 'Placement verification, GDPR / DPDPA, abuse prevention, integrations', status: 'Planned', current: false },
@@ -18,10 +20,10 @@ export default function Roadmap() {
           <div className="reveal">
             <div className="section-label">The build</div>
             <h2 className="section-title" id="roadmap-heading">
-              Five phases, built in public
+              2026 phases, built in public
             </h2>
             <p className="section-sub">
-              We&apos;re in Phase 0 — proving the core job-to-application loop works before shipping any
+              We&apos;re in Phase 1 — proving the core job-to-application loop works before shipping any
               user-facing product. Here&apos;s the whole plan, in order.
             </p>
           </div>
@@ -37,7 +39,7 @@ export default function Roadmap() {
                 <div className="roadmap-phase" role="cell">{p.phase}</div>
                 <div className="roadmap-focus" role="cell">{p.focus}</div>
                 <div className="roadmap-detail" role="cell">{p.detail}</div>
-                <div className={`roadmap-status${p.current ? ' current' : ''}`} role="cell">
+                <div className={`roadmap-status${p.current ? ' current' : ''}${(p.status === 'Completed' || p.status === 'Live') ? ' completed' : ''}`} role="cell">
                   <span className="rs-dot" aria-hidden="true" />
                   {p.status}
                 </div>

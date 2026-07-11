@@ -20,9 +20,9 @@ const CoinsIcon = () => (
 )
 
 const principles = [
-  { icon: <BanIcon />, title: 'No fabrication', desc: 'The AI curates and reorders your existing résumé content. It never invents experience, skills, or credentials.' },
-  { icon: <UserCheckIcon />, title: 'You approve everything', desc: 'No résumé variant or cover letter is sent without your explicit sign-off. Nothing moves forward without you.' },
-  { icon: <CpuIcon />, title: 'Deterministic by default', desc: 'The scraper and mail sender are rule-based systems. AI is confined to the one step it belongs in — résumé tailoring.' },
+  { icon: <BanIcon />, title: 'No fabrication', desc: 'The AI curates and reorders your existing resume content. It never invents experience, skills, or credentials.' },
+  { icon: <UserCheckIcon />, title: 'You approve everything', desc: 'No resume variant or cover letter is sent without your explicit sign-off. Nothing moves forward without you.' },
+  { icon: <CpuIcon />, title: 'Deterministic by default', desc: 'The scraper and mail sender are rule-based systems. AI is confined to the one step it belongs in — resume tailoring.' },
   { icon: <LockIcon />, title: 'Your data stays yours', desc: 'The scraped job dataset has no external export endpoints. It is private by default, not by policy.' },
   { icon: <ShieldCheckIcon />, title: 'Compliance by design', desc: 'Scam detection, abuse prevention, placement verification, and GDPR / DPDPA workflows are on the roadmap — not afterthoughts.' },
   { icon: <CoinsIcon />, title: 'Placement guarantee', desc: 'Enroll in a Skill Development Program and not get placed? Your fee is refunded — enforced by logic, not by trust.' },

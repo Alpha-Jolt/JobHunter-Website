@@ -6,7 +6,7 @@ JobHunter automates job discovery, tailors your resume using AI, sends applicati
 
 The platform is built around one guarantee: **no false data ever enters your resume.** Every AI-generated document requires explicit user approval before it goes anywhere.
 
-> **Status:** Phase 0 - In Progress | **Target Platforms:** Web _(Beta)_
+> **Status:** Phase 1 - In Progress | **Target Platforms:** Web _(Beta)_
 
 ---
 
@@ -68,7 +68,7 @@ The product is built in five phases:
 | **3 — Skill Development & Monetisation** | Program portal, mentor sessions, payments, subscriptions |
 | **4 — Scale, Compliance & Partnerships** | Placement verification, GDPR/DPDPA, abuse prevention, integrations |
 
-Phase 0 is the internal engineering sprint that proves the core job-to-application loop works end-to-end before any user-facing product is built.
+Phase 1 is the internal engineering sprint that proves the core job-to-application loop works end-to-end before any user-facing product is built.
 
 ---
 

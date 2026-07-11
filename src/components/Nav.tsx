@@ -57,7 +57,7 @@ export default function Nav({ current, navigate, onOpenWaitlist }: Props) {
         </ul>
         <div className="nav-cta-group">
           <button className="btn btn-primary nav-cta nav-cta-small" onClick={onOpenWaitlist}>
-            <span>Hunt Jobs</span>
+            <span><strong>Hunt Jobs</strong></span>
           </button>
           <a
             href={getHref('referral')}

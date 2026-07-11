@@ -48,12 +48,12 @@ const pageTitles: Record<Page, string> = {
 }
 
 const pageDescriptions: Record<Page, string> = {
-  home: 'JobHunter scrapes real openings, tailors your résumé to each one, and holds every application behind your approval. Human-in-the-loop, no fabrication. Building in public — Phase 0.',
-  features: 'Multi-source scraping, AI résumé tailoring that never fabricates, a human approval queue, and a rule-based mail sender — built in phases.',
+  home: 'JobHunter scrapes real openings, tailors your resume to each one, and holds every application behind your approval. Human-in-the-loop, no fabrication. Building in public — Phase 1.',
+  features: 'Multi-source scraping, AI resume tailoring that never fabricates, a human approval queue, and a rule-based mail sender — built in phases.',
   'for-who': 'JobHunter is built for college students, recent graduates, unemployed professionals, and freelancers moving to full-time — plus mentors.',
   faq: 'Answers on JobHunter\'s core engine, AI safety and no-fabrication policy, which job boards are scraped, data privacy, and the mentoring program.',
   referral: 'Refer a friend to JobHunter — you both get 20% off and priority cohort access. No caps, no gimmicks.',
-  about: 'JobHunter is a product from VSRN, a studio in Coimbatore, India, building an honest, human-in-the-loop job search for early-career job seekers. Building in public — Phase 0.',
+  about: 'JobHunter is a product from VSRN, a studio in Coimbatore, India, building an honest, human-in-the-loop job search for early-career job seekers. Building in public — Phase 1.',
   'privacy-policy': 'Read our privacy policy to understand how we collect, process, and protect your personal data under DPDPA and GDPR.',
   'terms-of-service': 'Read our terms of service governing your access to and use of the JobHunter platform and automated application services.',
   'refund-policy': 'Read our refund and cancellation policy to understand terms for subscription cancellations, refunds, billing errors, and consumer rights.',

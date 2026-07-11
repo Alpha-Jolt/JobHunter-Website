@@ -27,10 +27,10 @@ const steps = [
   },
   {
     tag: 'Tailor',
-    title: 'AI tailors your résumé',
+    title: 'AI tailors your resume',
     desc: (
       <>
-        The AI reads each job description against your résumé and reorders your existing
+        The AI reads each job description against your resume and reorders your existing
         experience to fit. It curates — it never fabricates.{' '}
         <a href="/features">See what the AI does and doesn&apos;t touch</a>.
       </>

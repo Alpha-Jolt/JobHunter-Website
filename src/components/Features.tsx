@@ -31,16 +31,16 @@ const CardIcon = () => (
 
 const phases = [
   {
-    num: '0', title: 'Core engine', status: 'In progress', current: true,
+    num: '0', title: 'Core engine', status: 'Completed', current: false,
     features: [
       { id: 'multi-source-scraper', icon: <SearchIcon />, title: 'Multi-source scraper', desc: 'A rule-based crawler pulls listings from Naukri and Indeed today, with LinkedIn and more in Phase 1. Deduplication and normalization built in.' },
-      { id: 'ai-resume-tailoring', icon: <BotIcon />, title: 'AI résumé tailoring', desc: 'Reads each job description against your résumé and reorders your real experience to fit — highlighting what matters, inventing nothing.' },
+      { id: 'ai-resume-tailoring', icon: <BotIcon />, title: 'AI resume tailoring', desc: 'Reads each job description against your resume and reorders your real experience to fit — highlighting what matters, inventing nothing.' },
       { id: 'automated-mail-sender', icon: <MailIcon />, title: 'Automated mail sender', desc: 'Sends approved applications using static, human-written templates. No generative AI touches the send layer.' },
       { id: 'approval-queue', icon: <CheckIcon />, title: 'Approval queue', desc: 'Every draft waits for your sign-off. Nothing is sent without it — you stay in control at every step.' },
     ],
   },
   {
-    num: '1', title: 'Platform foundation', status: 'Up next', current: false,
+    num: '1', title: 'Platform foundation', status: 'In Progress', current: true,
     features: [
       { id: 'application-tracker', icon: <BarChartIcon />, title: 'Application tracker', desc: 'Full thread history, response rates, and outcomes. An integrated mailbox pulls job-related email from your connected account.' },
     ],
@@ -77,7 +77,7 @@ export default function Features({ onOpenWaitlist }: Props) {
         <div className="page-header-inner reveal">
           <div className="page-header-badge">
             <span className="hero-badge-dot" aria-hidden="true" />
-            Built in phases · Phase 0 first
+            Built in phases · Phase 1 first
           </div>
           <h1 className="section-title" id="features-heading">
             Everything you need to<br />run a serious job search
@@ -93,11 +93,11 @@ export default function Features({ onOpenWaitlist }: Props) {
         <div className="section-inner">
           <div className="feat-phases">
             {phases.map((phase, pi) => (
-              <div className={`feat-phase reveal${phase.current ? ' current' : ''}`} key={phase.num} data-delay={pi * 40}>
+              <div className={`feat-phase reveal${phase.current ? ' current' : ''}${phase.status === 'Completed' ? ' completed' : ''}`} key={phase.num} data-delay={pi * 40}>
                 <div className="feat-phase-head">
                   <span className="feat-phase-num">Phase {phase.num}</span>
                   <span className="feat-phase-title">{phase.title}</span>
-                  <span className={`feat-phase-status${phase.current ? ' current' : ''}`}>
+                  <span className={`feat-phase-status${phase.current ? ' current' : ''}${phase.status === 'Completed' ? ' completed' : ''}`}>
                     <span className="fs-dot" aria-hidden="true" />
                     {phase.status}
                   </span>
@@ -105,6 +105,8 @@ export default function Features({ onOpenWaitlist }: Props) {
                 <div className={`feat-grid${phase.features.length === 1 ? ' solo' : ''}`}>
                   {phase.features.map((f, fi) => {
                     const v = votes[f.id] ?? { up: 0, down: 0, userVote: null }
+                    const isCompleted = phase.status === 'Completed'
+                    const showVote = !isCompleted || v.up > 0
                     return (
                       <article className="card feat-card reveal" key={f.id} data-delay={fi * 60}>
                         <div className="feat-card-top">
@@ -112,11 +114,12 @@ export default function Features({ onOpenWaitlist }: Props) {
                           <h3>{f.title}</h3>
                         </div>
                         <p>{f.desc}</p>
-                        {!phase.current && (
+                        {showVote && (
                           <div className="feat-vote">
                             <button
                               className={`feat-vote-btn${v.userVote === 'up' ? ' voted' : ''}`}
-                              onClick={() => vote(f.id, 'up')}
+                              onClick={() => !isCompleted && vote(f.id, 'up')}
+                              disabled={isCompleted}
                               aria-label={`Vote up ${f.title}`}
                             >
                               <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round"><path d="m18 15-6-6-6 6" /></svg>
@@ -132,7 +135,7 @@ export default function Features({ onOpenWaitlist }: Props) {
               </div>
             ))}
           </div>
-          <p className="feat-vote-hint">Votes help us prioritise what ships next — they don&apos;t change the order things launch.</p>
+          <p className="feat-vote-hint">Votes help us prioritise what ships next.</p>
         </div>
       </section>
 

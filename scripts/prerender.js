@@ -21,7 +21,7 @@ const faqs = [
   },
   {
     q: 'Which job boards does JobHunter scrape?',
-    a: 'Phase 0 covers Naukri and Indeed. LinkedIn and additional sources are planned for Phase 1. All scraped data stays in your private database — it is never exported.',
+    a: 'Phase 1 covers Naukri and Indeed. LinkedIn and additional sources are planned for Phase 1. All scraped data stays in your private database — it is never exported.',
   },
   {
     q: 'How does the Skill Development Program work?',
@@ -33,7 +33,7 @@ const faqs = [
   },
   {
     q: 'When does JobHunter launch?',
-    a: 'We\'re currently in Phase 0 — building and validating the core engine. Join the waitlist to get notified when early access opens.',
+    a: 'We\'re currently in Phase 1 — building and validating the core engine. Join the waitlist to get notified when early access opens.',
   },
   {
     q: 'Is my data safe?',
@@ -63,7 +63,7 @@ const pages = [
   {
     path: 'about',
     title: 'About JobHunter — Built by VSRN, Coimbatore',
-    desc: 'JobHunter is a product from VSRN, a studio in Coimbatore, India, building an honest, human-in-the-loop job search for early-career job seekers. Building in public — Phase 0.',
+    desc: 'JobHunter is a product from VSRN, a studio in Coimbatore, India, building an honest, human-in-the-loop job search for early-career job seekers. Building in public — Phase 1.',
     canonical: 'https://myjobhunter.in/about'
   },
   {

@@ -44,7 +44,7 @@ const CHIP: Record<Stage, string> = {
 const STATUS: Record<Stage, string> = {
   load: 'Booting queue…',
   populate: '3 drafts loaded',
-  open: 'Opening résumé',
+  open: 'Opening resume',
   scan: 'Matching to role…',
   tailor: 'Reordering lines',
   ready: 'Awaiting approval',
@@ -128,14 +128,14 @@ function ApprovalQueue() {
     <div
       className={cls}
       role="img"
-      aria-label="JobHunter approval queue: a Frontend Engineer application is tailored from existing résumé lines, approved by the user, and sent."
+      aria-label="JobHunter approval queue: a Frontend Engineer application is tailored from existing resume lines, approved by the user, and sent."
     >
       <div className="hq-chrome">
         <div className="hq-chrome-left">
           <span className={`hq-live${live ? ' on' : ''}`} aria-hidden="true" />
           <span className="hq-chrome-title">Approval Queue</span>
           <span className="hq-chrome-sep" aria-hidden="true" />
-          <span className="hq-chrome-meta">Phase 0</span>
+          <span className="hq-chrome-meta">Phase 1</span>
         </div>
         <span className="hq-status" data-stage={stage}>{STATUS[stage]}</span>
         <span className="hq-head-dots" aria-hidden="true"><i /><i /><i /></span>
@@ -177,7 +177,7 @@ function ApprovalQueue() {
           <div className={`hq-resume${resumeOpen ? ' open' : ''}`}>
             <div className="hq-resume-doc">
               <div className="hq-resume-label">
-                <span>Résumé</span>
+                <span>resume</span>
                 <span className="hq-resume-hint">existing lines only</span>
               </div>
               <div className="hq-lines">
@@ -259,7 +259,7 @@ export default function Hero() {
         <div className="hero-copy">
           <div className="hero-badge hero-enter" style={{ '--d': '0ms' } as CSSProperties}>
             <span className="hero-badge-dot" aria-hidden="true" />
-            Phase 0 — Building the core engine
+            Phase 1 — Building the Foundation
           </div>
 
           <h1 id="hero-heading" className="hero-enter" style={{ '--d': '90ms' } as CSSProperties}>
@@ -267,7 +267,7 @@ export default function Hero() {
           </h1>
 
           <p className="hero-sub hero-enter" style={{ '--d': '180ms' } as CSSProperties}>
-            JobHunter scrapes real openings, tailors your résumé to each one, and holds
+            JobHunter scrapes real openings, tailors your resume to each one, and holds
             every application behind your approval before it&apos;s sent.
           </p>
 
@@ -277,7 +277,7 @@ export default function Hero() {
               placeholder="you@email.com"
               source="hero"
             />
-            <p className="hero-note">Free during beta · No spam · Building in public — Phase 0</p>
+            <p className="hero-note">Free during beta · No spam · Building in public — Phase 1</p>
           </div>
 
           <div className="hero-links hero-enter" style={{ '--d': '360ms' } as CSSProperties}>
@@ -297,7 +297,7 @@ export default function Hero() {
           <div className="hero-stats hero-enter" style={{ '--d': '450ms' } as CSSProperties} role="list" aria-label="What the engine guarantees">
             {[
               { num: '2', label: 'Live job sources — Naukri + Indeed' },
-              { num: '0', label: 'Fabricated résumé lines' },
+              { num: '0', label: 'Fabricated resume lines' },
               { num: '100%', label: 'User-approved sends' },
             ].map(({ num, label }) => (
               <div key={label} role="listitem">

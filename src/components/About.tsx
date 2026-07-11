@@ -37,7 +37,7 @@ const values = [
   {
     icon: <CheckCircleIcon />,
     title: 'Radical Honesty',
-    desc: 'We never fabricate experience. Our AI works only with what\u2019s already on your résumé.',
+    desc: 'We never fabricate experience. Our AI works only with what\u2019s already on your resume.',
   },
   {
     icon: <LockIcon />,
@@ -85,7 +85,7 @@ export default function About({ onOpenWaitlist }: Props) {
               land meaningful roles without burning out.
             </p>
             <p>
-              From multi-source job scraping to intelligent résumé tailoring and one-click applications, every feature is designed
+              From multi-source job scraping to intelligent resume tailoring and one-click applications, every feature is designed
               to scale your job search while keeping you in the driver&apos;s seat. Explore our{' '}
               <a href="/features">Features</a> or check the <a href="/faq">FAQ</a> to learn more.
             </p>

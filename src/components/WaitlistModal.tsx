@@ -53,7 +53,7 @@ export default function WaitlistModal({ isOpen, onClose, referralCode }: Props) 
 
         <div className="modal-badge">
           <span className="hero-badge-dot" aria-hidden="true" />
-          Building in public — Phase 0
+          Building in public — Phase 1
         </div>
 
         {referralCode && (

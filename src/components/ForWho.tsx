@@ -50,7 +50,7 @@ export default function ForWho({ onOpenMentorModal, onOpenWaitlist }: Props) {
             Job seekers · Mentors welcome
           </div>
           <h1 className="section-title" id="forwho-heading">
-            Built for people who are<br />actively job hunting
+            Built for people who are<br />actively searching for job
           </h1>
           <p className="section-sub">
             If you&apos;re short on the tools, time, or guidance to run an effective search — JobHunter is for you.
