@@ -31,7 +31,7 @@ export default function Nav({ current, navigate, onOpenWaitlist }: Props) {
   }
 
   return (
-    <nav className="nav" role="navigation" aria-label="Main navigation">
+    <nav className="nav" aria-label="Main navigation">
       <div className="nav-inner">
         <a
           href={getHref('home')}
@@ -57,7 +57,7 @@ export default function Nav({ current, navigate, onOpenWaitlist }: Props) {
         </ul>
         <div className="nav-cta-group">
           <button className="btn btn-primary nav-cta nav-cta-small" onClick={onOpenWaitlist}>
-            <span>Hunt Jobs</span>
+            <span><strong>Hunt Jobs</strong></span>
           </button>
           <a
             href={getHref('referral')}
@@ -80,14 +80,13 @@ export default function Nav({ current, navigate, onOpenWaitlist }: Props) {
       </div>
 
       {menuOpen && (
-        <div className="nav-mobile-menu" role="menu">
+        <div className="nav-mobile-menu">
           {links.map(({ label, page }) => (
             <a
               key={page}
               href={getHref(page)}
               className={`nav-mobile-link${current === page ? ' active' : ''}`}
               onClick={(e) => handleNavigate(e, page)}
-              role="menuitem"
             >
               {label}
             </a>

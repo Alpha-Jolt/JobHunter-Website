@@ -1,104 +1,61 @@
 import EmailCapture from './EmailCapture'
+import { useReveal } from '../hooks/useReveal'
 
 const phases = [
+  { phase: 'Phase 1', focus: 'Core MVP engine', detail: 'Scraper + AI Resume Optimization + Mail Bridge', status: 'Live', current: false },
   {
-    phase: 'Phase 0',
-    focus: 'Core MVP Engine',
-    detail: 'Scraper + AI Resume Builder + Mail Sender',
-    status: 'active' as const,
+    phase: 'Phase 1', focus: 'Platform foundation', detail: 'Cross-platform app, Anti-Fabrication Layer, Notification', status: 'In progress', current: true
   },
-  {
-    phase: 'Phase 1',
-    focus: 'Platform Foundation',
-    detail: 'Cross-platform App, onboarding, viewer, mailbox',
-    status: 'next' as const,
-  },
-  {
-    phase: 'Phase 2',
-    focus: 'Intelligence Layer',
-    detail: 'Confidence scoring, scam detection, analytics, WhatsApp',
-    status: 'planned' as const,
-  },
-  {
-    phase: 'Phase 3',
-    focus: 'Skill Development & Monetisation',
-    detail: 'Program portal, mentor sessions, payments, subscriptions',
-    status: 'planned' as const,
-  },
-  {
-    phase: 'Phase 4',
-    focus: 'Scale, Compliance & Partnerships',
-    detail: 'Placement verification, GDPR/DPDPA, abuse prevention, integrations',
-    status: 'planned' as const,
-  },
+  { phase: 'Phase 2', focus: 'Intelligence layer', detail: 'Confidence scoring, scam detection, analytics, WhatsApp', status: 'Planned', current: false },
+  { phase: 'Phase 3', focus: 'Skill development & monetisation', detail: 'Program portal, mentor sessions, payments, subscriptions', status: 'Planned', current: false },
+  { phase: 'Phase 4', focus: 'Scale, compliance & partnerships', detail: 'Placement verification, GDPR / DPDPA, abuse prevention, integrations', status: 'Planned', current: false },
 ]
 
-const statusLabel: Record<string, React.ReactNode> = {
-  active: (
-    <span style={{ display: 'inline-flex', alignItems: 'center', gap: 6 }}>
-      <span style={{ width: 8, height: 8, borderRadius: '50%', background: '#22c55e' }} />
-      In Progress
-    </span>
-  ),
-  next: (
-    <span style={{ display: 'inline-flex', alignItems: 'center', gap: 6 }}>
-      <span style={{ width: 8, height: 8, borderRadius: '50%', background: '#ff952cff' }} />
-      Up Next
-    </span>
-  ),
-  planned: 'Planned',
-}
-
 export default function Roadmap() {
+  const ref = useReveal<HTMLElement>()
   return (
     <>
-      <section id="roadmap" className="section" aria-labelledby="roadmap-heading">
+      <section id="roadmap" className="section roadmap" aria-labelledby="roadmap-heading" ref={ref}>
         <div className="section-inner">
-          <div className="section-label">Roadmap</div>
-          <h2 className="section-title" id="roadmap-heading">
-            Five phases to a<br />complete platform
-          </h2>
-          <p className="section-sub">
-            We're currently in Phase 0 — proving the core job-to-application loop works before building any user-facing product.
-          </p>
+          <div className="reveal">
+            <div className="section-label">The build</div>
+            <h2 className="section-title" id="roadmap-heading">
+              2026 phases, built in public
+            </h2>
+            <p className="section-sub">
+              We&apos;re in Phase 1 — proving the core job-to-application loop works before shipping any
+              user-facing product. Here&apos;s the whole plan, in order.
+            </p>
+          </div>
 
-          <div style={{ overflowX: 'auto', marginTop: 40 }}>
-            <table className="roadmap-table" aria-label="Development roadmap">
-              <thead>
-                <tr>
-                  <th>Phase</th>
-                  <th>Focus</th>
-                  <th>What's included</th>
-                  <th>Status</th>
-                </tr>
-              </thead>
-              <tbody>
-                {phases.map((p) => (
-                  <tr key={p.phase}>
-                    <td className="roadmap-phase">{p.phase}</td>
-                    <td style={{ fontWeight: 600 }}>{p.focus}</td>
-                    <td className="roadmap-focus">{p.detail}</td>
-                    <td>
-                      <span className={`status-badge status-${p.status}`}>
-                        {statusLabel[p.status]}
-                      </span>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+          <div className="roadmap-list" role="table" aria-label="Development roadmap">
+            {phases.map((p, i) => (
+              <div
+                className={`roadmap-row reveal${p.current ? ' current' : ''}${(p.status === 'Completed' || p.status === 'Live') ? ' completed' : ''}`}
+                role="row"
+                key={p.phase}
+                data-delay={i * 50}
+              >
+                <div className="roadmap-phase" role="cell">{p.phase}</div>
+                <div className="roadmap-focus" role="cell">{p.focus}</div>
+                <div className="roadmap-detail" role="cell">{p.detail}</div>
+                <div className={`roadmap-status${p.current ? ' current' : ''}${(p.status === 'Completed' || p.status === 'Live') ? ' completed' : ''}`} role="cell">
+                  <span className="rs-dot" aria-hidden="true" />
+                  {p.status}
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </section>
 
       <section className="cta-section" aria-labelledby="roadmap-cta">
         <div className="cta-inner">
+          <div className="section-label" style={{ justifyContent: 'center' }}>Stay in the loop</div>
           <h2 id="roadmap-cta">Follow the build</h2>
-          <p>
-            We're building in public. Join the waitlist to get updates as each phase ships.
-          </p>
+          <p>Join the waitlist and we&apos;ll email you as each phase ships. No fluff, no fake countdowns.</p>
           <div className="cta-form-wrap">
-            <EmailCapture buttonLabel="Join Waitlist" source="roadmap-cta" />
+            <EmailCapture buttonLabel="Join the waitlist" source="roadmap-cta" />
           </div>
         </div>
       </section>

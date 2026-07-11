@@ -77,6 +77,26 @@ const pages = [
     canonical: 'https://myjobhunter.in/referral'
   },
   {
+    path: 'about',
+    title: 'About JobHunter',
+    desc: 'Learn about JobHunter, our origami crane brand story, mission, and the team behind the AI-powered job acquisition platform.',
+    canonical: 'https://myjobhunter.in/about',
+    schema: {
+      '@context': 'https://schema.org',
+      '@type': 'Organization',
+      'name': 'JobHunter',
+      'url': 'https://myjobhunter.in',
+      'logo': 'https://myjobhunter.in/logo.png',
+      'description': 'AI-powered human-in-the-loop job acquisition platform that automates job discovery, tailors resumes with AI, and sends applications on your behalf.',
+      'sameAs': [
+        'https://github.com/alpha-jolt/jobhunter',
+        'https://instagram.com/myjobhunter.in',
+        'https://linkedin.com/company/my-jobhunter',
+        'https://x.com/myjobhunterhq'
+      ]
+    }
+  },
+  {
     path: 'faq',
     title: 'Frequently Asked Questions — JobHunter',
     desc: 'Find answers to common questions about JobHunter\'s core engine, AI safety, job boards scraped, data privacy, and the mentoring program.',
@@ -129,26 +149,6 @@ const pages = [
     title: 'Refund and Cancellation Policy — JobHunter',
     desc: 'Read our refund and cancellation policy to understand terms for subscription cancellations, refunds, billing errors, and consumer rights.',
     canonical: 'https://myjobhunter.in/refund-policy'
-  },
-  {
-    path: 'about',
-    title: 'About JobHunter — Our Story & Brand',
-    desc: 'Learn about JobHunter, our origami crane brand story, mission, and the team behind the AI-powered job acquisition platform.',
-    canonical: 'https://myjobhunter.in/about',
-    schema: {
-      '@context': 'https://schema.org',
-      '@type': 'Organization',
-      'name': 'JobHunter',
-      'url': 'https://myjobhunter.in',
-      'logo': 'https://myjobhunter.in/logo.png',
-      'description': 'AI-powered human-in-the-loop job acquisition platform that automates job discovery, tailors resumes with AI, and sends applications on your behalf.',
-      'sameAs': [
-        'https://github.com/alpha-jolt/jobhunter',
-        'https://instagram.com/myjobhunter.in',
-        'https://linkedin.com/company/my-jobhunter',
-        'https://x.com/myjobhunterhq'
-      ]
-    }
   }
 ];
 

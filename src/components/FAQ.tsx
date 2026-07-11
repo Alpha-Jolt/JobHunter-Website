@@ -1,68 +1,100 @@
-import { useState } from 'react'
+import { useId, useState } from 'react'
+import { useReveal } from '../hooks/useReveal'
 
 const faqs = [
-  {
-    q: 'Is JobHunter free to use?',
-    a: 'The core job search and application automation features will be free during beta. Skill Development Programs (Phase 3) are paid, with a full refund if you don\'t get placed.',
-  },
-  {
-    q: 'Will the AI fabricate anything on my resume?',
-    a: 'Never. The AI curates and reorders your existing resume content to match each job description. It identifies skill gaps but never invents experience, skills, or credentials.',
-  },
-  {
-    q: 'Do applications go out without my approval?',
-    a: 'No. Every AI-generated resume variant and cover letter sits in an approval queue. Nothing is sent until you explicitly sign off on it.',
-  },
-  {
-    q: 'Which job boards does JobHunter scrape?',
-    a: 'Phase 0 covers Naukri and Indeed. LinkedIn and additional sources are planned for Phase 1. All scraped data stays in your private database — it is never exported.',
-  },
-  {
-    q: 'How does the Skill Development Program work?',
-    a: 'Verified working professionals run one-on-one or group sessions tailored to your job requirements or identified skill gaps. If you complete the program and don\'t get placed, your fee is refunded automatically.',
-  },
-  {
-    q: 'Can I become a mentor?',
-    a: 'Yes. We\'re onboarding mentors for Phase 3. Head to the For Who page and fill in the mentor interest form — we\'ll reach out with details.',
-  },
-  {
-    q: 'When does JobHunter launch?',
-    a: 'We\'re currently in Phase 0 — building and validating the core engine. Join the waitlist to get notified when early access opens.',
-  },
-  {
-    q: 'Is my data safe?',
-    a: 'Yes. The scraped job dataset has no external export endpoints. GDPR and India\'s DPDPA consent and deletion workflows are built into the Phase 4 roadmap.',
-  },
+  { q: 'Is JobHunter free to use?', a: 'The core job search and application automation is free during beta. Skill Development Programs (Phase 3) are paid — with a full refund if you don\u2019t get placed.' },
+  { q: 'Will the AI fabricate anything on my resume?', a: 'Never. The AI curates and reorders your existing resume content to fit each job description. It can flag gaps, but it never invents experience, skills, or credentials.' },
+  { q: 'Do applications go out without my approval?', a: 'No. Every AI-generated resume variant and cover letter sits in an approval queue. Nothing is sent until you explicitly sign off on it.' },
+  { q: 'Which job boards does JobHunter scrape?', a: 'Phase 1 covers Naukri and Indeed. LinkedIn and additional sources are planned for Phase 1. All scraped data stays in your private database — it is never exported.' },
+  { q: 'How does the Skill Development Program work?', a: 'Verified professionals run one-on-one or group sessions tailored to your target roles or identified skill gaps. Complete the program and not get placed? Your fee is refunded automatically.' },
+  { q: 'Can I become a mentor?', a: 'Yes. We\u2019re onboarding mentors for Phase 3. Head to the For Who page and fill in the mentor form — we\u2019ll reach out with details.' },
+  { q: 'When does JobHunter launch?', a: 'We\u2019re currently in Phase 1 — building and validating the core engine. Join the waitlist to get notified when early access opens.' },
+  { q: 'Is my data safe?', a: 'Yes. The scraped job dataset has no external export endpoints. GDPR and India\u2019s DPDPA consent and deletion workflows are on the Phase 4 roadmap.' },
 ]
 
-function FAQItem({ q, a }: { q: string; a: string }) {
-  const [open, setOpen] = useState(false)
+function FAQItem({
+  q, a, open, onToggle, id,
+}: {
+  q: string
+  a: string
+  open: boolean
+  onToggle: () => void
+  id: string
+}) {
+  const panelId = `${id}-panel`
+  const buttonId = `${id}-button`
   return (
-    <div className="faq-item" onClick={() => setOpen(!open)} role="button" aria-expanded={open} tabIndex={0} onKeyDown={(e) => e.key === 'Enter' && setOpen(!open)}>
+    <div
+      className={`faq-item${open ? ' open' : ''}`}
+      onClick={onToggle}
+      role="button"
+      aria-expanded={open}
+      aria-controls={panelId}
+      id={buttonId}
+      tabIndex={0}
+      onKeyDown={(e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault()
+          onToggle()
+        }
+      }}
+    >
       <div className="faq-question">
         <span>{q}</span>
-        <span className="faq-chevron" style={{ transform: open ? 'rotate(180deg)' : 'none', display: 'flex' }}>
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m6 9 6 6 6-6"/></svg>
-        </span>
+        <span className="faq-toggle" aria-hidden="true" />
       </div>
-      {open && <p className="faq-answer">{a}</p>}
+      <div className="faq-answer-wrap" id={panelId} role="region" aria-labelledby={buttonId} aria-hidden={!open}>
+        <p className="faq-answer">{a}</p>
+      </div>
     </div>
   )
 }
 
-export default function FAQ() {
+interface Props {
+  onOpenWaitlist: () => void
+}
+
+export default function FAQ({ onOpenWaitlist }: Props) {
+  const [openIndex, setOpenIndex] = useState<number | null>(null)
+  const baseId = useId()
+  const ref = useReveal<HTMLDivElement>()
+
   return (
-    <section id="faq" className="section" aria-labelledby="faq-heading">
-      <div className="section-inner" style={{ maxWidth: 720 }}>
-        <div className="section-label">FAQ</div>
-        <h1 className="section-title" id="faq-heading">Frequently asked questions</h1>
-        <p className="section-sub" style={{ marginBottom: 48 }}>
-          Everything you need to know before joining the waitlist.
-        </p>
-        <div className="faq-list">
-          {faqs.map((item) => <FAQItem key={item.q} {...item} />)}
+    <div ref={ref}>
+      <div className="page-header">
+        <div className="page-header-inner narrow reveal">
+          <div className="page-header-badge">
+            <span className="hero-badge-dot" aria-hidden="true" />
+            Straight answers
+          </div>
+          <h1 className="section-title" id="faq-heading">Frequently asked questions</h1>
+          <p className="section-sub">Everything worth knowing before you join the waitlist.</p>
         </div>
       </div>
-    </section>
+      <section id="faq" className="section page-body" aria-labelledby="faq-heading">
+        <div className="section-inner" style={{ maxWidth: 780 }}>
+          <div className="faq-list reveal">
+            {faqs.map((item, i) => (
+              <FAQItem
+                key={item.q}
+                {...item}
+                id={`${baseId}-${i}`}
+                open={openIndex === i}
+                onToggle={() => setOpenIndex(openIndex === i ? null : i)}
+              />
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="cta-slim" aria-labelledby="faq-cta">
+        <div className="cta-slim-inner reveal">
+          <p id="faq-cta">Still deciding? Join the waitlist — we&apos;ll reach out when Phase 1 opens.</p>
+          <button type="button" className="btn btn-ink" onClick={onOpenWaitlist}>
+            Join the waitlist
+          </button>
+        </div>
+      </section>
+    </div>
   )
 }
