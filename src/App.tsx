@@ -69,7 +69,7 @@ function sanitizeRefCode(raw: string | null): string | null {
 export default function App() {
   const [page, setPage] = useState<Page>(() => {
     if (typeof window === 'undefined') return 'home'
-    let path = window.location.pathname
+    const path = window.location.pathname
       .replace(/^\/|\/$/g, '')
       .replace(/^JobHunter-Website\/?/, '')
     return normalizePath(path) ?? (() => {
