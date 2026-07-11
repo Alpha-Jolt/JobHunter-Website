@@ -41,7 +41,7 @@ const pageTitles: Record<Page, string> = {
   'for-who': 'Who JobHunter Is For — Students, Grads, Professionals & Mentors',
   faq: 'Frequently Asked Questions — JobHunter',
   referral: 'Refer a Friend, Land Together — JobHunter Referral Program',
-  about: 'About JobHunter — Built by VSRN, Coimbatore',
+  about: 'About JobHunter — Our Story & Brand',
   'privacy-policy': 'Privacy Policy — JobHunter',
   'terms-of-service': 'Terms of Service — JobHunter',
   'refund-policy': 'Refund and Cancellation Policy — JobHunter',
@@ -53,7 +53,7 @@ const pageDescriptions: Record<Page, string> = {
   'for-who': 'JobHunter is built for college students, recent graduates, unemployed professionals, and freelancers moving to full-time — plus mentors.',
   faq: 'Answers on JobHunter\'s core engine, AI safety and no-fabrication policy, which job boards are scraped, data privacy, and the mentoring program.',
   referral: 'Refer a friend to JobHunter — you both get 20% off and priority cohort access. No caps, no gimmicks.',
-  about: 'JobHunter is a product from VSRN, a studio in Coimbatore, India, building an honest, human-in-the-loop job search for early-career job seekers. Building in public — Phase 1.',
+  about: 'Learn about JobHunter, our origami crane brand story, mission, and the team behind the AI-powered job acquisition platform.',
   'privacy-policy': 'Read our privacy policy to understand how we collect, process, and protect your personal data under DPDPA and GDPR.',
   'terms-of-service': 'Read our terms of service governing your access to and use of the JobHunter platform and automated application services.',
   'refund-policy': 'Read our refund and cancellation policy to understand terms for subscription cancellations, refunds, billing errors, and consumer rights.',
@@ -77,28 +77,63 @@ export default function App() {
       return normalizePath(params.get('page') || '') ?? 'home'
     })()
   })
-  const [isModalOpen, setIsModalOpen] = useState(() => {
-    if (typeof window === 'undefined') return false
-    const params = new URLSearchParams(window.location.search)
-    return !!sanitizeRefCode(params.get('ref'))
-  })
+  const [isModalOpen, setIsModalOpen] = useState(false)
   const [isMentorModalOpen, setIsMentorModalOpen] = useState(false)
   const [mentorTriggerRect, setMentorTriggerRect] = useState<DOMRect | null>(null)
-  const [referralCode] = useState<string | null>(() => {
-    if (typeof window === 'undefined') return null
-    const params = new URLSearchParams(window.location.search)
-    return sanitizeRefCode(params.get('ref'))
-  })
+  // null = not yet validated/no code, 'CODE' = verified against DB
+  const [referralCode, setReferralCode] = useState<string | null>(null)
 
+  // On mount: validate the ?ref= param against DB before using it
   useEffect(() => {
     const params = new URLSearchParams(window.location.search)
-    if (sanitizeRefCode(params.get('ref'))) {
+    const raw = sanitizeRefCode(params.get('ref'))
+
+    // Strip the param from the URL immediately regardless of validity
+    if (params.get('ref')) {
       params.delete('ref')
       const query = params.toString()
       const cleanUrl = window.location.pathname + (query ? `?${query}` : '')
       window.history.replaceState({}, '', cleanUrl)
     }
+
+    if (!raw) return  // No ref param or failed format check
+
+    // Validate against DB — only open modal + apply code if found
+    const validateCode = async () => {
+      try {
+        const res = await fetch(
+          `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/validate-referral-code`,
+          {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: `Bearer ${import.meta.env.VITE_SUPABASE_ANON_KEY}`,
+            },
+            body: JSON.stringify({ referral_code: raw }),
+          }
+        )
+        const data = await res.json()
+        if (res.ok && data.valid === true) {
+          setReferralCode(data.referral_code as string)
+          setIsModalOpen(true)
+        }
+        // Not valid/not found: silently ignore — no modal, no code applied
+      } catch {
+        // Network error: silently ignore
+      }
+    }
+
+    validateCode()
   }, [])
+
+  const navigate = (p: Page) => {
+    setPage(p)
+    const isSubdir = window.location.pathname.startsWith('/JobHunter-Website')
+    const prefix = isSubdir ? '/JobHunter-Website' : ''
+    const newUrl = p === 'home' ? `${prefix}/` : `${prefix}/${p}`
+    window.history.pushState(null, '', newUrl)
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  }
 
   useEffect(() => {
     const handlePopState = () => {
@@ -180,14 +215,22 @@ export default function App() {
     })
   }, [page])
 
-  const navigate = (p: Page) => {
-    setPage(p)
-    const isSubdir = window.location.pathname.startsWith('/JobHunter-Website')
-    const prefix = isSubdir ? '/JobHunter-Website' : ''
-    const newUrl = p === 'home' ? `${prefix}/` : `${prefix}/${p}`
-    window.history.pushState(null, '', newUrl)
-    window.scrollTo({ top: 0, behavior: 'smooth' })
-  }
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search)
+    const pageParam = params.get('page')
+    if (pageParam) {
+      params.delete('page')
+      const query = params.toString()
+      const isSubdir = window.location.pathname.startsWith('/JobHunter-Website')
+      const prefix = isSubdir ? '/JobHunter-Website' : ''
+      const cleanPath = normalizePath(pageParam)
+      const newPath = cleanPath === 'home' ? `${prefix}/` : `${prefix}/${cleanPath}`
+      const cleanUrl = newPath + (query ? `?${query}` : '')
+      window.location.replace(cleanUrl)
+    }
+  }, [])
+
+
 
   const handleOpenMentorModal = (rect: DOMRect) => {
     setMentorTriggerRect(rect)
@@ -200,24 +243,26 @@ export default function App() {
   return (
     <div className="app">
       <Nav current={page} navigate={navigate} onOpenWaitlist={openWaitlist} />
-      {page === 'home' && (
-        <>
-          <Hero />
-          <HowItWorks />
-          <Principles />
-          <Roadmap />
-        </>
-      )}
-      {page === 'features' && <Features onOpenWaitlist={openWaitlist} />}
-      {page === 'for-who' && (
-        <ForWho onOpenMentorModal={handleOpenMentorModal} onOpenWaitlist={openWaitlist} />
-      )}
-      {page === 'faq' && <FAQ onOpenWaitlist={openWaitlist} />}
-      {page === 'about' && <About onOpenWaitlist={openWaitlist} />}
-      {page === 'referral' && <Referral />}
-      {page === 'privacy-policy' && <PrivacyPolicy />}
-      {page === 'terms-of-service' && <TermsOfService />}
-      {page === 'refund-policy' && <RefundPolicy />}
+      <main id="main-content">
+        {page === 'home' && (
+          <>
+            <Hero />
+            <HowItWorks />
+            <Principles />
+            <Roadmap />
+          </>
+        )}
+        {page === 'features' && <Features onOpenWaitlist={openWaitlist} />}
+        {page === 'for-who' && (
+          <ForWho onOpenMentorModal={handleOpenMentorModal} onOpenWaitlist={openWaitlist} />
+        )}
+        {page === 'faq' && <FAQ onOpenWaitlist={openWaitlist} />}
+        {page === 'about' && <About onOpenWaitlist={openWaitlist} />}
+        {page === 'referral' && <Referral />}
+        {page === 'privacy-policy' && <PrivacyPolicy />}
+        {page === 'terms-of-service' && <TermsOfService />}
+        {page === 'refund-policy' && <RefundPolicy />}
+      </main>
       <Footer navigate={navigate} />
 
       <WaitlistModal

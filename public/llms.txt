@@ -1,0 +1,24 @@
+# JobHunter
+
+> JobHunter is a human-in-the-loop job application platform that scrapes real openings, tailors your resume using AI (no fabrication), and holds every application behind your explicit approval before sending.
+
+Built in public — currently Phase 1 (Platform Foundation). Based in Coimbatore, India.
+
+## Pages
+
+- [Home](https://myjobhunter.in/): Overview of the product, the approval queue demo, how-it-works steps, core principles, and the roadmap.
+- [Features](https://myjobhunter.in/features): Full feature list grouped by phase — Phase 0 (Core engine, completed), Phase 1 (In progress), Phase 2-3 (Planned).
+- [For Who](https://myjobhunter.in/for-who): Target audience — college students, recent graduates, unemployed professionals, freelancers, and mentors.
+- [FAQ](https://myjobhunter.in/faq): Answers on AI safety, no-fabrication policy, which job boards are scraped, data privacy, and the mentoring program.
+- [Referral](https://myjobhunter.in/referral): Referral program — 20% off for both referrer and referee, no caps.
+- [About](https://myjobhunter.in/about): About the team and the mission.
+
+## Legal
+
+- [Privacy Policy](https://myjobhunter.in/privacy-policy): How personal data is collected, processed, and protected under DPDPA and GDPR.
+- [Terms of Service](https://myjobhunter.in/terms-of-service): Terms governing access to and use of the platform.
+- [Refund Policy](https://myjobhunter.in/refund-policy): Subscription cancellation, refund, and billing error terms.
+
+## Optional
+
+- [Sitemap](https://myjobhunter.in/sitemap.xml): Full list of indexable pages.

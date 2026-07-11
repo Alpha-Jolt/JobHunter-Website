@@ -261,7 +261,7 @@
   inset: -18% -12% auto -12%;
   height: 720px;
   background:
-    radial-gradient(48% 48% at 78% 10%, rgba(255, 143, 52, 0.11), transparent 70%),
+    radial-gradient(48% 48% at 78% 10%, rgba(229, 81, 10, 0.11), transparent 70%),
     radial-gradient(36% 36% at 8% 55%, rgba(16, 16, 18, 0.035), transparent 72%);
   pointer-events: none;
   animation: heroDrift 26s ease-in-out infinite alternate;
@@ -293,9 +293,9 @@
   max-width: 1180px;
   margin: 0 auto;
   display: grid;
-  grid-template-columns: 1.02fr 1fr;
-  gap: 64px;
-  align-items: center;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  align-items: start;
   position: relative;
 }
 
@@ -498,7 +498,7 @@
   transform-origin: center top;
   animation: hqFrameIn 0.85s var(--ease) both;
   overflow: hidden;
-  height: 550px;
+  height: 580px;
   display: flex;
   flex-direction: column;
 }
@@ -1539,6 +1539,10 @@
 
 .roadmap-row.current {
   background: rgba(255, 143, 52, 0.05);
+}
+
+.roadmap-row.completed {
+  background: rgba(22, 163, 74, 0.05);
 }
 
 .roadmap-phase {

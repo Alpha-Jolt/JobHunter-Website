@@ -52,6 +52,7 @@ export function useFeatureVotes(featureIds: string[]) {
       for (const id of featureIds) {
         map[id] = votes[id] ?? { up: 0, down: 0, userVote: fpVotes[id] ?? null }
       }
+      // eslint-disable-next-line
       setVotes(map)
       writeCache(map)
       setLoading(false)
@@ -128,7 +129,7 @@ export function useFeatureVotes(featureIds: string[]) {
         })
       }
     } catch { /* optimistic state remains */ }
-  }, [])
+  }, [votes])
 
   return { votes, loading, vote }
 }

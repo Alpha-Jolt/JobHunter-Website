@@ -21,7 +21,7 @@ const faqs = [
   },
   {
     q: 'Which job boards does JobHunter scrape?',
-    a: 'Phase 1 covers Naukri and Indeed. LinkedIn and additional sources are planned for Phase 1. All scraped data stays in your private database — it is never exported.',
+    a: 'Phase 0 covers Naukri and Indeed. LinkedIn and additional sources are planned for Phase 1. All scraped data stays in your private database — it is never exported.',
   },
   {
     q: 'How does the Skill Development Program work?',
@@ -33,7 +33,7 @@ const faqs = [
   },
   {
     q: 'When does JobHunter launch?',
-    a: 'We\'re currently in Phase 1 — building and validating the core engine. Join the waitlist to get notified when early access opens.',
+    a: 'We\'re currently in Phase 0 — building and validating the core engine. Join the waitlist to get notified when early access opens.',
   },
   {
     q: 'Is my data safe?',
@@ -46,13 +46,29 @@ const pages = [
     path: 'features',
     title: 'AI Job Search Automation Features | JobHunter',
     desc: 'Explore the key features of JobHunter, including multi-source job scraping, AI resume tailoring, human-in-the-loop approval, and scam detection.',
-    canonical: 'https://myjobhunter.in/features'
+    canonical: 'https://myjobhunter.in/features',
+    schema: {
+      '@context': 'https://schema.org',
+      '@type': 'WebPage',
+      'name': 'JobHunter Features',
+      'description': 'Explore the key features of JobHunter, including multi-source job scraping, AI resume tailoring, human-in-the-loop approval, and scam detection.',
+      'url': 'https://myjobhunter.in/features',
+      'about': { '@type': 'SoftwareApplication', 'name': 'JobHunter' }
+    }
   },
   {
     path: 'for-who',
     title: 'Who is JobHunter For? — College Students, Grads & Mentors',
     desc: 'JobHunter is built for college students, recent graduates, and career changers looking to scale their job search, plus active mentoring opportunities.',
-    canonical: 'https://myjobhunter.in/for-who'
+    canonical: 'https://myjobhunter.in/for-who',
+    schema: {
+      '@context': 'https://schema.org',
+      '@type': 'WebPage',
+      'name': 'Who JobHunter Is For',
+      'description': 'JobHunter is built for college students, recent graduates, and career changers looking to scale their job search, plus active mentoring opportunities.',
+      'url': 'https://myjobhunter.in/for-who',
+      'about': { '@type': 'SoftwareApplication', 'name': 'JobHunter' }
+    }
   },
   {
     path: 'referral',
@@ -62,9 +78,23 @@ const pages = [
   },
   {
     path: 'about',
-    title: 'About JobHunter — Built by VSRN, Coimbatore',
-    desc: 'JobHunter is a product from VSRN, a studio in Coimbatore, India, building an honest, human-in-the-loop job search for early-career job seekers. Building in public — Phase 1.',
-    canonical: 'https://myjobhunter.in/about'
+    title: 'About JobHunter',
+    desc: 'Learn about JobHunter, our origami crane brand story, mission, and the team behind the AI-powered job acquisition platform.',
+    canonical: 'https://myjobhunter.in/about',
+    schema: {
+      '@context': 'https://schema.org',
+      '@type': 'Organization',
+      'name': 'JobHunter',
+      'url': 'https://myjobhunter.in',
+      'logo': 'https://myjobhunter.in/logo.png',
+      'description': 'AI-powered human-in-the-loop job acquisition platform that automates job discovery, tailors resumes with AI, and sends applications on your behalf.',
+      'sameAs': [
+        'https://github.com/alpha-jolt/jobhunter',
+        'https://instagram.com/myjobhunter.in',
+        'https://linkedin.com/company/my-jobhunter',
+        'https://x.com/myjobhunterhq'
+      ]
+    }
   },
   {
     path: 'faq',
@@ -97,7 +127,25 @@ const pages = [
     canonical: 'https://myjobhunter.in/terms-of-service'
   },
   {
+    path: 'privacy',
+    title: 'Privacy Policy — JobHunter',
+    desc: 'Read our privacy policy to understand how we collect, process, and protect your personal data under DPDPA and GDPR.',
+    canonical: 'https://myjobhunter.in/privacy-policy'
+  },
+  {
+    path: 'terms',
+    title: 'Terms of Service — JobHunter',
+    desc: 'Read our terms of service governing your access to and use of the JobHunter platform and automated application services.',
+    canonical: 'https://myjobhunter.in/terms-of-service'
+  },
+  {
     path: 'refund-policy',
+    title: 'Refund and Cancellation Policy — JobHunter',
+    desc: 'Read our refund and cancellation policy to understand terms for subscription cancellations, refunds, billing errors, and consumer rights.',
+    canonical: 'https://myjobhunter.in/refund-policy'
+  },
+  {
+    path: 'refund',
     title: 'Refund and Cancellation Policy — JobHunter',
     desc: 'Read our refund and cancellation policy to understand terms for subscription cancellations, refunds, billing errors, and consumer rights.',
     canonical: 'https://myjobhunter.in/refund-policy'

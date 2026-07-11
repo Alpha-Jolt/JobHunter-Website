@@ -99,9 +99,7 @@ export default function About({ onOpenWaitlist }: Props) {
                 (<em>orizuru</em>) is a symbol of Faith, Hope, Resilience, and Patience.
               </p>
               <p>
-                <strong>
-                  Legend says that folding a thousand cranes grants a wish. But more than that, each fold requires precision, intent, and care.
-                </strong>
+                Legend says that folding a thousand cranes grants a wish. But more than that, each fold requires precision, intent, and care.
               </p>
               <p>
                 That&apos;s exactly how we think about your job search. Every application should be crafted with intention —

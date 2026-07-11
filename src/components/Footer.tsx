@@ -131,7 +131,7 @@ export default function Footer({ navigate }: Props) {
           <p className="footer-copy">
             © {new Date().getFullYear()} JobHunter — Prelaunch
           </p>
-          <span className="footer-status">
+          <span className="footer-status" role="status" aria-live="polite">
             <span className="footer-status-dot" aria-hidden="true" />
             All Systems Operational
           </span>
@@ -142,7 +142,7 @@ export default function Footer({ navigate }: Props) {
         <a
           href={getHref('home')}
           onClick={(e) => handleNavigate(e, 'home')}
-          aria-label="JobHunter home"
+          aria-label="Back to JobHunter home"
         >
           Job<span>Hunter</span>
         </a>

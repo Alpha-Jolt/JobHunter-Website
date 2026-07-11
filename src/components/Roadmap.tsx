@@ -31,7 +31,7 @@ export default function Roadmap() {
           <div className="roadmap-list" role="table" aria-label="Development roadmap">
             {phases.map((p, i) => (
               <div
-                className={`roadmap-row reveal${p.current ? ' current' : ''}`}
+                className={`roadmap-row reveal${p.current ? ' current' : ''}${(p.status === 'Completed' || p.status === 'Live') ? ' completed' : ''}`}
                 role="row"
                 key={p.phase}
                 data-delay={i * 50}
