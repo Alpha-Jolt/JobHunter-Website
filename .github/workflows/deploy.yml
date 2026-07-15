@@ -24,10 +24,20 @@ jobs:
             # Stop if errors
             set -e
 
-            # Navigate to project
-            cd /docker/jobhunter
+            # Navigate to project (must be a git clone)
+            cd /docker/JobHunter-Website
+
+            if [ ! -d .git ]; then
+              echo "ERROR: /docker/JobHunter-Website is not a git repo."
+              echo "On the VPS run once:"
+              echo "  cd /docker && rm -rf JobHunter-Website"
+              echo "  git clone -b main https://github.com/Alpha-Jolt/JobHunter-Website.git JobHunter-Website"
+              exit 1
+            fi
 
             # Pull latest changes
+            git fetch origin main
+            git checkout main
             git pull origin main
 
             # Rebuild and Start
