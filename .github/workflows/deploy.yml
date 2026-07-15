@@ -3,8 +3,8 @@ name: Deploy to Production VPS
 on:
   push:
     branches:
-      - production
-      # - main # Uncomment if you switch to main for production
+      - main
+      # - production  # Use this instead if you switch to a production branch
 
 jobs:
   deploy:
@@ -28,7 +28,7 @@ jobs:
             cd /docker/jobhunter
 
             # Pull latest changes
-            git pull origin production
+            git pull origin main
 
             # Rebuild and Start
             docker compose up -d --build
