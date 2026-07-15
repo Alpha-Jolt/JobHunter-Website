@@ -25,7 +25,7 @@ jobs:
             set -e
 
             # Navigate to project
-            cd /docker/JobHunter-Website
+            cd /docker/jobhunter
 
             # Pull latest changes
             git pull origin production
