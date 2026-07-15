@@ -1,0 +1,17 @@
+version: "3.9"
+
+services:
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: jobhunter-frontend
+    ports:
+      - "3002:80"   # Nginx inside container → exposed to host (3000 = VSRN)
+    restart: always
+    networks:
+      - jobhunter-network
+
+networks:
+  jobhunter-network:
+    driver: bridge

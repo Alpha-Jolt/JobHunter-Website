@@ -1,0 +1,37 @@
+name: Deploy to Production VPS
+
+on:
+  push:
+    branches:
+      - production
+      # - main # Uncomment if you switch to main for production
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2
+
+      - name: Deploy to VPS via SSH
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.HOST_IP }}
+          username: ${{ secrets.HOST_USER }} # e.g., root or your user
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          port: 22
+          script: |
+            # Stop if errors
+            set -e
+
+            # Navigate to project
+            cd /docker/JobHunter-Website
+
+            # Pull latest changes
+            git pull origin production
+
+            # Rebuild and Start
+            docker compose up -d --build
+
+            # Cleanup unused images (optional)
+            docker image prune -f
