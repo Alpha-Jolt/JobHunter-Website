@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState, type CSSProperties } from 'react'
-import EmailCapture from './EmailCapture'
+// import EmailCapture from './EmailCapture'
 
 /* ─────────────────────────────────────────────────────────────
    The Queue — signature product moment.
@@ -288,12 +288,14 @@ export default function Hero() {
           </p>
 
           <div className="hero-form-wrap hero-enter" style={{ '--d': '270ms' } as CSSProperties}>
-            <EmailCapture
-              buttonLabel="Join the Beta"
-              placeholder="you@email.com"
-              source="hero"
-            />
-            <p className="hero-note">Free during beta · No spam · Building in public — Phase 1</p>
+            <a
+              id="hero-login-btn"
+              href="https://app.myjobhunter.in"
+              className="btn btn-primary"
+              style={{ padding: '16px 80px', fontSize: '1.2rem', borderRadius: '100px', minWidth: '280px', textAlign: 'center' }}
+            >
+              <span><strong>Start Hunting Jobs</strong></span>
+            </a>
           </div>
 
           <div className="hero-links hero-enter" style={{ '--d': '360ms' } as CSSProperties}>

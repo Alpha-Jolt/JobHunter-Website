@@ -83,7 +83,7 @@ export default function WaitlistModal({ isOpen, onClose, referralCode }: Props) 
         <div className="modal-form-section">
           <label className="modal-label">Email address</label>
           <EmailCapture
-            buttonLabel="Get Early Access"
+            buttonLabel="Join Early Beta Access"
             placeholder="your@email.com"
             onSuccess={handleSuccess}
             className="modal-email-capture"
