@@ -1,0 +1,47 @@
+name: Deploy to Production VPS
+
+on:
+  push:
+    branches:
+      - main
+      # - production  # Use this instead if you switch to a production branch
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2
+
+      - name: Deploy to VPS via SSH
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.HOST_IP }}
+          username: ${{ secrets.HOST_USER }} # e.g., root or your user
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          port: 22
+          script: |
+            # Stop if errors
+            set -e
+
+            # Navigate to project (must be a git clone)
+            cd /docker/JobHunter-Website
+
+            if [ ! -d .git ]; then
+              echo "ERROR: /docker/JobHunter-Website is not a git repo."
+              echo "On the VPS run once:"
+              echo "  cd /docker && rm -rf JobHunter-Website"
+              echo "  git clone -b main https://github.com/Alpha-Jolt/JobHunter-Website.git JobHunter-Website"
+              exit 1
+            fi
+
+            # Pull latest changes
+            git fetch origin main
+            git checkout main
+            git pull origin main
+
+            # Rebuild and Start
+            docker compose up -d --build
+
+            # Cleanup unused images (optional)
+            docker image prune -f
