@@ -257,9 +257,25 @@ export default function Hero() {
       <div className="hero-grid" aria-hidden="true" />
       <div className="hero-inner">
         <div className="hero-copy">
+          {/* Phase badge — restore when needed:
           <div className="hero-badge hero-enter" style={{ '--d': '0ms' } as CSSProperties}>
             <span className="hero-badge-dot" aria-hidden="true" />
             Phase 1 — Building the Foundation
+          </div>
+          */}
+          <div className="hero-ph-badge hero-enter" style={{ '--d': '0ms' } as CSSProperties}>
+            <a
+              href="https://www.producthunt.com/products/jobhunter-2?embed=true&utm_source=badge-featured&utm_medium=badge&utm_campaign=badge-jobhunter-2"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <img
+                alt="JobHunter - We find you a job on autopilot mode | Product Hunt"
+                width="250"
+                height="54"
+                src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=1186214&theme=light&t=1784360336451"
+              />
+            </a>
           </div>
 
           <h1 id="hero-heading" className="hero-enter" style={{ '--d': '90ms' } as CSSProperties}>
@@ -273,7 +289,7 @@ export default function Hero() {
 
           <div className="hero-form-wrap hero-enter" style={{ '--d': '270ms' } as CSSProperties}>
             <EmailCapture
-              buttonLabel="Join the waitlist"
+              buttonLabel="Join the Beta"
               placeholder="you@email.com"
               source="hero"
             />

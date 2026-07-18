@@ -56,9 +56,20 @@ export default function Nav({ current, navigate, onOpenWaitlist }: Props) {
           ))}
         </ul>
         <div className="nav-cta-group">
+          {/* Hunt Jobs waitlist btn — restore when needed:
           <button className="btn btn-primary nav-cta nav-cta-small" onClick={onOpenWaitlist}>
             <span><strong>Hunt Jobs</strong></span>
           </button>
+          */}
+          <a
+            id="nav-login-btn"
+            href="https://app.myjobhunter.in"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn btn-primary nav-cta nav-cta-small"
+          >
+            <span><strong>Login</strong></span>
+          </a>
           <a
             href={getHref('referral')}
             className={`btn btn-ghost nav-referral-btn${current === 'referral' ? ' active' : ''}`}
@@ -92,9 +103,20 @@ export default function Nav({ current, navigate, onOpenWaitlist }: Props) {
             </a>
           ))}
           <div className="nav-mobile-actions">
+            {/* Hunt Jobs mobile btn — restore when needed:
             <button className="btn btn-primary" onClick={() => { onOpenWaitlist(); setMenuOpen(false) }}>
               Hunt Jobs
             </button>
+            */}
+            <a
+              href="https://app.myjobhunter.in"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn btn-primary"
+              onClick={() => setMenuOpen(false)}
+            >
+              Login
+            </a>
             <a
               href={getHref('referral')}
               className={`btn btn-ghost nav-referral-btn${current === 'referral' ? ' active' : ''}`}

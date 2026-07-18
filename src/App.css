@@ -345,6 +345,23 @@
   animation: pulse 2.6s ease-in-out infinite;
 }
 
+.hero-ph-badge {
+  display: inline-block;
+  margin-bottom: 26px;
+  line-height: 0;
+}
+
+.hero-ph-badge img {
+  display: block;
+  border-radius: 8px;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.hero-ph-badge img:hover {
+  opacity: 0.88;
+  transform: translateY(-2px);
+}
+
 @keyframes pulse {
 
   0%,

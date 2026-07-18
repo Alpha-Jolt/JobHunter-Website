@@ -25,7 +25,9 @@ declare global {
 
 const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL as string
 const SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY as string
-const TURNSTILE_SITE_KEY = import.meta.env.VITE_TURNSTILE_SITE_KEY as string
+const TURNSTILE_SITE_KEY = typeof window !== 'undefined' && (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')
+  ? '1x00000000000000000000AA'
+  : (import.meta.env.VITE_TURNSTILE_SITE_KEY as string)
 
 export default function EmailCapture({
   buttonLabel = 'Join Waitlist',
