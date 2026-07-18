@@ -4,7 +4,7 @@ import type { Page } from '../App'
 interface Props {
   current: Page
   navigate: (p: Page) => void
-  onOpenWaitlist: () => void
+  onOpenWaitlist?: () => void
 }
 
 const links: { label: string; page: Page }[] = [
