@@ -14,7 +14,7 @@ const links: { label: string; page: Page }[] = [
   { label: 'About', page: 'about' },
 ]
 
-export default function Nav({ current, navigate, onOpenWaitlist }: Props) {
+export default function Nav({ current, navigate }: Props) {
   const [menuOpen, setMenuOpen] = useState(false)
 
   const getHref = (p: Page) => {
