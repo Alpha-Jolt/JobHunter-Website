@@ -15,6 +15,10 @@ type CacheEntry = { data: Record<string, VoteState>; ts: number }
 const CACHE_KEY = 'jh_feature_votes_cache'
 const FP_KEY = 'jh_voter_fp'
 
+// Allowlist: feature IDs must be lowercase alphanumeric + hyphens, max 64 chars.
+// Declared at module scope so it is compiled once, not per render.
+const VALID_ID_RE = /^[a-z0-9-]{1,64}$/
+
 function getFingerprint(): string {
   let fp = localStorage.getItem(FP_KEY)
   if (!fp) { fp = crypto.randomUUID(); localStorage.setItem(FP_KEY, fp) }
@@ -40,6 +44,9 @@ export function useFeatureVotes(featureIds: string[]) {
 
   const featureKey = featureIds.join(',')
 
+  // Filter to only validated IDs before any DB or state use.
+  const safeIds = featureIds.filter((id) => VALID_ID_RE.test(id))
+
   useEffect(() => {
     if (!loading) return
 
@@ -49,7 +56,7 @@ export function useFeatureVotes(featureIds: string[]) {
         localStorage.getItem(`jh_fp_votes_${fp}`) ?? '{}'
       )
       const map: Record<string, VoteState> = {}
-      for (const id of featureIds) {
+      for (const id of safeIds) {
         map[id] = votes[id] ?? { up: 0, down: 0, userVote: fpVotes[id] ?? null }
       }
       // eslint-disable-next-line
@@ -62,14 +69,14 @@ export function useFeatureVotes(featureIds: string[]) {
     supabase
       .from('feature_votes')
       .select('feature_id, up_count, down_count')
-      .in('feature_id', featureIds)
+      .in('feature_id', safeIds)   // only validated IDs reach the query
       .then(({ data }) => {
         const fp = getFingerprint()
         const fpVotes: Record<string, 'up' | 'down'> = JSON.parse(
           localStorage.getItem(`jh_fp_votes_${fp}`) ?? '{}'
         )
         const map: Record<string, VoteState> = {}
-        for (const id of featureIds) {
+        for (const id of safeIds) {
           const row = data?.find((r) => r.feature_id === id)
           map[id] = { up: row?.up_count ?? 0, down: row?.down_count ?? 0, userVote: fpVotes[id] ?? null }
         }
@@ -81,6 +88,9 @@ export function useFeatureVotes(featureIds: string[]) {
   }, [featureKey])
 
   const vote = useCallback(async (featureId: string, direction: 'up' | 'down') => {
+    // Reject any ID that doesn't match the allowlist (defensive guard)
+    if (!VALID_ID_RE.test(featureId)) return
+
     const fp = getFingerprint()
 
     setVotes((prev) => {

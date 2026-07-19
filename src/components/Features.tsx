@@ -28,10 +28,14 @@ const GradIcon = () => (
 const CardIcon = () => (
   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><rect width="20" height="14" x="2" y="5" rx="2" /><line x1="2" x2="22" y1="10" y2="10" /></svg>
 )
+const EyeOffIcon = () => (
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94" /><path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19" /><path d="M1 1l22 22" /></svg>
+)
 
 const phases = [
   {
     num: '0', title: 'Core engine', status: 'Completed', current: false,
+    date: 'June 2026',
     features: [
       { id: 'multi-source-scraper', icon: <SearchIcon />, title: 'Multi-source scraper', desc: 'A rule-based crawler pulls listings from Naukri and Indeed today, with LinkedIn and more in Phase 1. Deduplication and normalization built in.' },
       { id: 'ai-resume-tailoring', icon: <BotIcon />, title: 'AI resume tailoring', desc: 'Reads each job description against your resume and reorders your real experience to fit — highlighting what matters, inventing nothing.' },
@@ -41,12 +45,15 @@ const phases = [
   },
   {
     num: '1', title: 'Platform foundation', status: 'In Progress', current: true,
+    date: 'July 2026',
     features: [
       { id: 'application-tracker', icon: <BarChartIcon />, title: 'Application tracker', desc: 'Full thread history, response rates, and outcomes. An integrated mailbox pulls job-related email from your connected account.' },
+      { id: 'stealth-mode', icon: <EyeOffIcon />, title: 'Stealth mode', desc: 'Automatically skips jobs at companies you have flagged and hides your activity from your current employer. You stay in control of where applications go — and who never sees them.' },
     ],
   },
   {
     num: '2', title: 'Intelligence layer', status: 'Planned', current: false,
+    date: 'Q4 2026',
     features: [
       { id: 'scam-detection', icon: <ShieldIcon />, title: 'Scam detection', desc: 'Confidence scoring flags suspicious listings before you see them. Free-webmail HR contacts are treated as low-trust by default.' },
       { id: 'whatsapp-integration', icon: <SmartphoneIcon />, title: 'WhatsApp integration', desc: 'Get notified, reply, and track conversations from WhatsApp — no browser required.' },
@@ -54,6 +61,7 @@ const phases = [
   },
   {
     num: '3', title: 'Skill development & monetisation', status: 'Planned', current: false,
+    date: '2027',
     features: [
       { id: 'skill-developer', icon: <GradIcon />, title: 'Skill developer', desc: 'A paid placement program run by verified professionals. Not placed? Your fee is refunded. Mentor scores are tied to real outcomes.' },
       { id: 'subscriptions-payments', icon: <CardIcon />, title: 'Subscriptions & payments', desc: 'Flexible plans for job seekers. Mentor commission and refund logic is automated — no manual trust required.' },
@@ -100,6 +108,12 @@ export default function Features({ onOpenWaitlist }: Props) {
                   <span className={`feat-phase-status${phase.current ? ' current' : ''}${phase.status === 'Completed' ? ' completed' : ''}`}>
                     <span className="fs-dot" aria-hidden="true" />
                     {phase.status}
+                    {'date' in phase && (
+                      <>
+                        <span className="fpd-sep" aria-hidden="true" />
+                        {(phase as { date: string }).date}
+                      </>
+                    )}
                   </span>
                 </div>
                 <div className={`feat-grid${phase.features.length === 1 ? ' solo' : ''}`}>

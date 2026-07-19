@@ -30,12 +30,15 @@
 User-agent: *
 Content-Signal: search=yes,ai-train=yes
 Allow: /
+Disallow: /?page=
 
 User-agent: Googlebot
 Allow: /
+Disallow: /?page=
 
 User-agent: Bingbot
 Allow: /
+Disallow: /?page=
 
 User-agent: Slurp
 Allow: /
