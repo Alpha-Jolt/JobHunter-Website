@@ -314,7 +314,7 @@ export default function Hero() {
 
           <div className="hero-stats hero-enter" style={{ '--d': '450ms' } as CSSProperties} role="list" aria-label="What the engine guarantees">
             {[
-              { num: '2', label: 'Live job sources — Naukri + Indeed' },
+              { num: '6', label: 'Live job sources' },
               { num: '0', label: 'Fabricated resume lines' },
               { num: '100%', label: 'User-approved sends' },
             ].map(({ num, label }) => (

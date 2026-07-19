@@ -6,6 +6,7 @@ import HowItWorks from './components/HowItWorks'
 import Features from './components/Features'
 import ForWho from './components/ForWho'
 import Principles from './components/Principles'
+import Testimonials from './components/Testimonials'
 import Roadmap from './components/Roadmap'
 import FAQ from './components/FAQ'
 import About from './components/About'
@@ -249,6 +250,7 @@ export default function App() {
             <Hero />
             <HowItWorks />
             <Principles />
+            <Testimonials />
             <Roadmap />
           </>
         )}
