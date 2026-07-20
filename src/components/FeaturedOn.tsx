@@ -23,7 +23,7 @@ export default function FeaturedOn() {
           />
           Featured On
           <img
-            src="/laurel%20wreath.png"
+            src="/laurel_wreath.png"
             alt="Laurel right"
             style={{
               height: '32px'
