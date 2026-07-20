@@ -58,7 +58,7 @@ Deno.serve(async (req: Request) => {
       );
     }
 
-    const allowedSources = ['ph', 'li', 'ig', 'dm', 'yt', 'article', 'x', 'reddit'];
+    const allowedSources = ['ph', 'li', 'ig', 'dm', 'yt', 'article', 'x', 'reddit', 'peerlist'];
     if (!allowedSources.includes(source)) {
       return new Response(
         JSON.stringify({ error: "Invalid source." }),

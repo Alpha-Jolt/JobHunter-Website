@@ -60,6 +60,13 @@ const RedditIcon = () => (
   </svg>
 )
 
+const PeerlistIcon = () => (
+  <svg viewBox="0 0 24 24" width="14" height="14" fill="#00B171" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="12" cy="12" r="12" />
+    <path fill="#FFF" d="M9 7h4.5a3.5 3.5 0 010 7H11v3H9V7zm2 2v3h2.5a1.5 1.5 0 000-3H11z" />
+  </svg>
+)
+
 const SourceIcon = ({ source }: { source: TestimonialSource }) => {
   switch (source) {
     case 'ph': return <PHIcon />
@@ -70,6 +77,7 @@ const SourceIcon = ({ source }: { source: TestimonialSource }) => {
     case 'article': return <ArticleIcon />
     case 'x': return <XIcon />
     case 'reddit': return <RedditIcon />
+    case 'peerlist': return <PeerlistIcon />
   }
 }
 

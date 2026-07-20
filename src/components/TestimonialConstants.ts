@@ -1,4 +1,4 @@
-export type TestimonialSource = 'ph' | 'li' | 'ig' | 'dm' | 'yt' | 'article' | 'x' | 'reddit'
+export type TestimonialSource = 'ph' | 'li' | 'ig' | 'dm' | 'yt' | 'article' | 'x' | 'reddit' | 'peerlist'
 
 export interface Testimonial {
   id: string
@@ -15,5 +15,6 @@ export const sourceLabels: Record<TestimonialSource, string> = {
   yt: 'YouTube',
   article: 'Article',
   x: 'X',
-  reddit: 'Reddit'
+  reddit: 'Reddit',
+  peerlist: 'Peerlist'
 }

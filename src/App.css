@@ -3608,12 +3608,12 @@
 .source-badge {
   display: flex;
   align-items: center;
-  gap: 6px;
-  font-size: 11px;
+  gap: 4px;
+  font-size: 10px;
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.04em;
-  padding: 4px 8px;
+  padding: 3px 6px;
   border-radius: 4px;
   background: var(--wash);
 }
@@ -3627,6 +3627,7 @@
 .source-article { color: var(--text-muted); background: var(--wash); }
 .source-x { color: var(--ink); background: var(--wash); }
 .source-reddit { color: #FF4500; background: rgba(255, 69, 0, 0.08); }
+.source-peerlist { color: #00B171; background: rgba(0, 177, 113, 0.08); }
 
 .testimonials-submit {
   border: 1px solid var(--hairline);
