@@ -265,15 +265,14 @@ export default function Hero() {
           */}
           <div className="hero-ph-badge hero-enter" style={{ '--d': '0ms' } as CSSProperties}>
             <a
-              href="https://www.producthunt.com/products/jobhunter-2?embed=true&utm_source=badge-featured&utm_medium=badge&utm_campaign=badge-jobhunter-2"
+              href="https://peerlist.io/aj18s/project/jobhunter--land-your-next-job-on-autopilot"
               target="_blank"
-              rel="noopener noreferrer"
+              rel="noreferrer"
             >
               <img
-                alt="JobHunter - We find you a job on autopilot mode | Product Hunt"
-                width="250"
-                height="54"
-                src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=1186214&theme=light&t=1784360336451"
+                src="https://peerlist.io/api/v1/projects/embed/PRJHLKLBOGGLPBDEMCPD6PPQQL7RKA?showUpvote=false&theme=light"
+                alt="JobHunter — Land Your Next Job on Autopilot"
+                style={{ width: 'auto', height: '72px' }}
               />
             </a>
           </div>

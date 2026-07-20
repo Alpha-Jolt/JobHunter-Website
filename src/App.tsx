@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import posthog from 'posthog-js'
 import Nav from './components/Nav'
 import Hero from './components/Hero'
+import FeaturedOn from './components/FeaturedOn'
 import HowItWorks from './components/HowItWorks'
 import Features from './components/Features'
 import ForWho from './components/ForWho'
@@ -248,6 +249,7 @@ export default function App() {
         {page === 'home' && (
           <>
             <Hero />
+            <FeaturedOn />
             <HowItWorks />
             <Principles />
             <Testimonials />

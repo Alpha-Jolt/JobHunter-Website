@@ -3746,3 +3746,8 @@
   transform: translateY(0);
   box-shadow: none;
 }
+
+/* Featured On specific overrides */
+.featured-on .section-label::before {
+  display: none !important;
+}
