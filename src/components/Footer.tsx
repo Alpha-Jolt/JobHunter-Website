@@ -1,9 +1,4 @@
-import type { MouseEvent } from 'react'
-import type { Page } from '../App'
-
-interface Props {
-  navigate: (p: Page) => void
-}
+import { Link } from 'react-router-dom'
 
 const socials = [
   {
@@ -44,18 +39,7 @@ const socials = [
   },
 ] as const
 
-export default function Footer({ navigate }: Props) {
-  const getHref = (p: Page) => {
-    if (typeof window === 'undefined') return p === 'home' ? '/' : `/${p}`
-    const isSubdir = window.location.pathname.startsWith('/JobHunter-Website')
-    const prefix = isSubdir ? '/JobHunter-Website' : ''
-    return p === 'home' ? `${prefix}/` : `${prefix}/${p}`
-  }
-
-  const handleNavigate = (e: MouseEvent, p: Page) => {
-    e.preventDefault()
-    navigate(p)
-  }
+export default function Footer() {
 
   return (
     <footer className="footer">
@@ -84,9 +68,14 @@ export default function Footer({ navigate }: Props) {
             <h4 className="footer-col-title">Resources</h4>
             <ul className="footer-col-links">
               <li>
-                <a href={getHref('faq')} className="footer-link-item" onClick={(e) => handleNavigate(e, 'faq')}>
+                <Link to="/faq" className="footer-link-item">
                   FAQ
-                </a>
+                </Link>
+              </li>
+              <li>
+                <Link to="/blog" className="footer-link-item">
+                  Blog
+                </Link>
               </li>
             </ul>
           </div>
@@ -95,19 +84,19 @@ export default function Footer({ navigate }: Props) {
             <h4 className="footer-col-title">Legal</h4>
             <ul className="footer-col-links">
               <li>
-                <a href={getHref('terms-of-service')} className="footer-link-item" onClick={(e) => handleNavigate(e, 'terms-of-service')}>
+                <Link to="/terms-of-service" className="footer-link-item">
                   Terms of Service
-                </a>
+                </Link>
               </li>
               <li>
-                <a href={getHref('privacy-policy')} className="footer-link-item" onClick={(e) => handleNavigate(e, 'privacy-policy')}>
+                <Link to="/privacy-policy" className="footer-link-item">
                   Privacy Policy
-                </a>
+                </Link>
               </li>
               {/* <li>
-                <a href={getHref('refund-policy')} className="footer-link-item" onClick={(e) => handleNavigate(e, 'refund-policy')}>
+                <Link to="/refund-policy" className="footer-link-item">
                   Refund Policy
-                </a>
+                </Link>
               </li> */}
             </ul>
           </div>
@@ -139,13 +128,12 @@ export default function Footer({ navigate }: Props) {
       </div>
 
       <div className="footer-massive-logo">
-        <a
-          href={getHref('home')}
-          onClick={(e) => handleNavigate(e, 'home')}
+        <Link
+          to="/"
           aria-label="Back to JobHunter home"
         >
           Job<span>Hunter</span>
-        </a>
+        </Link>
       </div>
     </footer>
   )

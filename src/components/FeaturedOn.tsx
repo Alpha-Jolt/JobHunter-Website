@@ -43,6 +43,9 @@ export default function FeaturedOn() {
               src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=1186214&theme=light&t=1784360336451"
             />
           </a>
+          <a href="https://sitepatent.com/?utm_source=myjobhunter.in&utm_medium=badge" target="_blank" rel="noopener noreferrer">
+            <img src="https://sitepatent.com/api/badge?style=classic" alt="Curated by SitePatent" height="54" />
+          </a>
           <a href="https://www.welaunch.sh/products/jobhunter" target="_blank" rel="noopener noreferrer">
             <img src="https://www.welaunch.sh/welaunch-badge.svg" alt="Featured on welaunch.sh" width="200" height="50" />
           </a>

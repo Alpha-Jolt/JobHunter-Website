@@ -59,7 +59,7 @@ export function useFeatureVotes(featureIds: string[]) {
       for (const id of safeIds) {
         map[id] = votes[id] ?? { up: 0, down: 0, userVote: fpVotes[id] ?? null }
       }
-      // eslint-disable-next-line
+       
       setVotes(map)
       writeCache(map)
       setLoading(false)

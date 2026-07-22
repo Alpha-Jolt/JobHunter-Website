@@ -1,57 +1,46 @@
 import { useState } from 'react'
-import type { Page } from '../App'
 
 interface Props {
-  current: Page
-  navigate: (p: Page) => void
   onOpenWaitlist?: () => void
 }
 
-const links: { label: string; page: Page }[] = [
-  { label: 'Home', page: 'home' },
-  { label: 'Features', page: 'features' },
-  { label: 'For Who', page: 'for-who' },
-  { label: 'About', page: 'about' },
+const links = [
+  { label: 'Home', path: '/' },
+  { label: 'Features', path: '/features' },
+  { label: 'For Who', path: '/for-who' },
+  { label: 'About', path: '/about' },
 ]
 
-export default function Nav({ current, navigate, onOpenWaitlist }: Props) {
+import { Link, NavLink } from 'react-router-dom'
+
+export default function Nav({ onOpenWaitlist }: Props) {
   const [menuOpen, setMenuOpen] = useState(false)
 
-  const getHref = (p: Page) => {
-    if (typeof window === 'undefined') return p === 'home' ? '/' : `/${p}`
-    const isSubdir = window.location.pathname.startsWith('/JobHunter-Website')
-    const prefix = isSubdir ? '/JobHunter-Website' : ''
-    return p === 'home' ? `${prefix}/` : `${prefix}/${p}`
-  }
-
-  const handleNavigate = (e: React.MouseEvent, p: Page) => {
-    e.preventDefault()
-    navigate(p)
+  const handleLinkClick = () => {
     setMenuOpen(false)
   }
 
   return (
     <nav className="nav" aria-label="Main navigation">
       <div className="nav-inner">
-        <a
-          href={getHref('home')}
+        <Link
+          to="/"
           className="nav-logo"
-          onClick={(e) => handleNavigate(e, 'home')}
+          onClick={handleLinkClick}
           aria-label="JobHunter home"
         >
           Job<span>Hunter</span>
-        </a>
+        </Link>
         <ul className="nav-links">
-          {links.map(({ label, page }) => (
-            <li key={page}>
-              <a
-                href={getHref(page)}
-                className={`nav-link${current === page ? ' active' : ''}`}
-                onClick={(e) => handleNavigate(e, page)}
-                aria-current={current === page ? 'page' : undefined}
+          {links.map(({ label, path }) => (
+            <li key={path}>
+              <NavLink
+                to={path}
+                className={({ isActive }) => `nav-link${isActive ? ' active' : ''}`}
+                onClick={handleLinkClick}
               >
                 {label}
-              </a>
+              </NavLink>
             </li>
           ))}
         </ul>
@@ -59,15 +48,14 @@ export default function Nav({ current, navigate, onOpenWaitlist }: Props) {
           <button className="btn btn-primary nav-cta nav-cta-small" onClick={onOpenWaitlist}>
             <span><strong>Join Beta</strong></span>
           </button>
-          <a
-            href={getHref('referral')}
-            className={`btn btn-ghost nav-referral-btn${current === 'referral' ? ' active' : ''}`}
-            onClick={(e) => handleNavigate(e, 'referral')}
-            aria-current={current === 'referral' ? 'page' : undefined}
+          <NavLink
+            to="/referral"
+            className={({ isActive }) => `btn btn-ghost nav-referral-btn${isActive ? ' active' : ''}`}
+            onClick={handleLinkClick}
             id="nav-referral-btn"
           >
             <span>Refer a Friend</span>
-          </a>
+          </NavLink>
         </div>
         <button
           className="nav-hamburger"
@@ -81,27 +69,27 @@ export default function Nav({ current, navigate, onOpenWaitlist }: Props) {
 
       {menuOpen && (
         <div className="nav-mobile-menu">
-          {links.map(({ label, page }) => (
-            <a
-              key={page}
-              href={getHref(page)}
-              className={`nav-mobile-link${current === page ? ' active' : ''}`}
-              onClick={(e) => handleNavigate(e, page)}
+          {links.map(({ label, path }) => (
+            <NavLink
+              key={path}
+              to={path}
+              className={({ isActive }) => `nav-mobile-link${isActive ? ' active' : ''}`}
+              onClick={handleLinkClick}
             >
               {label}
-            </a>
+            </NavLink>
           ))}
           <div className="nav-mobile-actions">
             <button className="btn btn-primary" onClick={() => { onOpenWaitlist?.(); setMenuOpen(false) }}>
               Join Beta
             </button>
-            <a
-              href={getHref('referral')}
-              className={`btn btn-ghost nav-referral-btn${current === 'referral' ? ' active' : ''}`}
-              onClick={(e) => handleNavigate(e, 'referral')}
+            <NavLink
+              to="/referral"
+              className={({ isActive }) => `btn btn-ghost nav-referral-btn${isActive ? ' active' : ''}`}
+              onClick={handleLinkClick}
             >
               Refer a Friend
-            </a>
+            </NavLink>
           </div>
         </div>
       )}

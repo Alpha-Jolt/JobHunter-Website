@@ -1,5 +1,6 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
+import { BrowserRouter } from 'react-router-dom'
 import App from './App.tsx'
 import './index.css'
 import posthog from 'posthog-js'
@@ -18,8 +19,12 @@ if (posthogKey && !isLocalhost) {
   })
 }
 
+const basename = window.location.pathname.startsWith('/JobHunter-Website') ? '/JobHunter-Website' : ''
+
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <App />
+    <BrowserRouter basename={basename}>
+      <App />
+    </BrowserRouter>
   </StrictMode>,
 )
