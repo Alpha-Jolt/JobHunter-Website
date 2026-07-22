@@ -27,8 +27,6 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.14.0",
-    "@rollup/rollup-win32-x64-msvc": "^4.62.2",
-    "@supabase/cli-windows-x64": "^2.109.1",
     "@types/dompurify": "^3.0.5",
     "@types/marked": "^5.0.2",
     "@types/node": "^24.12.2",
@@ -47,6 +45,7 @@
   },
   "optionalDependencies": {
     "@rollup/rollup-win32-x64-msvc": "^4.34.9",
-    "@supabase/cli-windows-x64": "2.109.1"
+    "@supabase/cli-windows-x64": "2.109.1",
+    "@rollup/rollup-linux-x64-gnu": "^4.34.9"
   }
 }
