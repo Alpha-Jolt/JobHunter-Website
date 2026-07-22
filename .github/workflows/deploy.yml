@@ -35,10 +35,11 @@ jobs:
               exit 1
             fi
 
-            # Pull latest changes
+            # Pull latest changes (discard any local VPS modifications first)
             git fetch origin main
             git checkout main
-            git pull origin main
+            git reset --hard origin/main
+            git clean -fd
 
             # Rebuild and Start
             docker compose up -d --build
