@@ -10,3 +10,9 @@ dist
 coverage
 eslint.config.*
 implementation
+.opencode
+.kiro
+.antigravity
+.claude
+.mimocode
+.codex

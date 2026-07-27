@@ -257,24 +257,9 @@ export default function Hero() {
       <div className="hero-grid" aria-hidden="true" />
       <div className="hero-inner">
         <div className="hero-copy">
-          {/* Phase badge — restore when needed:
           <div className="hero-badge hero-enter" style={{ '--d': '0ms' } as CSSProperties}>
             <span className="hero-badge-dot" aria-hidden="true" />
             Phase 1 — Building the Foundation
-          </div>
-          */}
-          <div className="hero-ph-badge hero-enter" style={{ '--d': '0ms' } as CSSProperties}>
-            <a
-              href="https://peerlist.io/aj18s/project/jobhunter--land-your-next-job-on-autopilot"
-              target="_blank"
-              rel="noreferrer"
-            >
-              <img
-                src="https://peerlist.io/api/v1/projects/embed/PRJHLKLBOGGLPBDEMCPD6PPQQL7RKA?showUpvote=false&theme=light"
-                alt="JobHunter — Land Your Next Job on Autopilot"
-                style={{ width: 'auto', height: '72px' }}
-              />
-            </a>
           </div>
 
           <h1 id="hero-heading" className="hero-enter" style={{ '--d': '90ms' } as CSSProperties}>
