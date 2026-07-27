@@ -2,6 +2,7 @@ import { useId, useState } from 'react'
 import { useReveal } from '../hooks/useReveal'
 
 const faqs = [
+  { q: 'What is JobHunter?', a: 'JobHunter is an AI-powered, human-in-the-loop job acquisition platform. We automate job discovery, tailor your resume to each role without fabricating experience, and prepare applications for your explicit approval.' },
   { q: 'Is JobHunter free to use?', a: 'The core job search and application automation is free during beta. Skill Development Programs (Phase 3) are paid — with a full refund if you don\u2019t get placed.' },
   { q: 'Will the AI fabricate anything on my resume?', a: 'Never. The AI curates and reorders your existing resume content to fit each job description. It can flag gaps, but it never invents experience, skills, or credentials.' },
   { q: 'Do applications go out without my approval?', a: 'No. Every AI-generated resume variant and cover letter sits in an approval queue. Nothing is sent until you explicitly sign off on it.' },

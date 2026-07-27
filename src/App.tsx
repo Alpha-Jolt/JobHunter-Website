@@ -25,12 +25,12 @@ import BlogAdmin from './components/blog/BlogAdmin'
 import './App.css'
 
 const pageTitles: Record<string, string> = {
-  '/': 'JobHunter — Apply Smart, Not Just Fast',
+  '/': 'JobHunter — Land Your Next Job on Autopilot',
   '/features': 'Features — JobHunter',
   '/for-who': 'Who JobHunter Is For — Students, Grads, Professionals & Mentors',
   '/faq': 'Frequently Asked Questions — JobHunter',
   '/referral': 'Refer a Friend, Land Together — JobHunter Referral Program',
-  '/about': 'About JobHunter — Our Story & Brand',
+  '/about': 'About JobHunter — Our Story, Brand & Mission',
   '/privacy-policy': 'Privacy Policy — JobHunter',
   '/terms-of-service': 'Terms of Service — JobHunter',
   '/refund-policy': 'Refund and Cancellation Policy — JobHunter',
@@ -191,7 +191,7 @@ export default function App() {
     <div className="app">
       <ScrollToTop />
       <Nav onOpenWaitlist={openWaitlist} />
-      
+
       <main id="main-content">
         <Routes>
           <Route path="/" element={
@@ -216,7 +216,7 @@ export default function App() {
           <Route path="/terms" element={<TermsOfService />} />
           <Route path="/tos" element={<TermsOfService />} />
           <Route path="/refund" element={<RefundPolicy />} />
-          
+
           {/* Blog Routes */}
           <Route path="/blog" element={<BlogIndex />} />
           <Route path="/blog/admin" element={<BlogAdmin />} />

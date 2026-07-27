@@ -21,6 +21,10 @@ if (fs.existsSync(envPath)) {
 
 const faqs = [
   {
+    q: 'What is JobHunter?',
+    a: 'JobHunter is an AI-powered, human-in-the-loop job acquisition platform. We automate job discovery, tailor your resume to each role without fabricating experience, and prepare applications for your explicit approval.',
+  },
+  {
     q: 'Is JobHunter free to use?',
     a: 'The core job search and application automation features will be free during beta. Skill Development Programs (Phase 3) are paid, with a full refund if you don\'t get placed.',
   },
@@ -91,7 +95,7 @@ const pages = [
   },
   {
     path: 'about',
-    title: 'About JobHunter',
+    title: 'About JobHunter — Our Story, Brand & Mission',
     desc: 'Learn about JobHunter, our origami crane brand story, mission, and the team behind the AI-powered job acquisition platform.',
     canonical: 'https://myjobhunter.in/about',
     schema: {
@@ -184,10 +188,11 @@ fs.writeFileSync(indexPath, homepageHtml, 'utf-8');
 console.log('✓ Injected homepage schema into /dist/index.html');
 
 async function prerender() {
-  const sitemapUrls = [];
+  const pagesSitemapUrls = [];
+  const blogSitemapUrls = [];
 
   // Add home
-  sitemapUrls.push({ loc: 'https://myjobhunter.in/', priority: '1.0', changefreq: 'weekly' });
+  pagesSitemapUrls.push({ loc: 'https://myjobhunter.in/', priority: '1.0', changefreq: 'weekly' });
 
   // Generate subpages
   pages.forEach((page) => {
@@ -218,10 +223,10 @@ async function prerender() {
     fs.writeFileSync(path.join(dirPath, 'index.html'), pageHtml, 'utf-8');
     console.log(`✓ Pre-rendered subpage: /${page.path}/index.html`);
 
-    sitemapUrls.push({ 
-      loc: page.canonical, 
-      priority: page.path === 'blog' ? '0.9' : '0.8', 
-      changefreq: 'weekly' 
+    pagesSitemapUrls.push({
+      loc: page.canonical,
+      priority: page.path === 'blog' ? '0.9' : '0.8',
+      changefreq: 'weekly'
     });
   });
 
@@ -283,7 +288,7 @@ async function prerender() {
           .replace(/<meta\s+name="twitter:title"\s+content="[^"]*"\s*\/?>/g, `<meta name="twitter:title" content="${title}" />`)
           .replace(/<meta\s+name="twitter:description"\s+content="[^"]*"\s*\/?>/g, `<meta name="twitter:description" content="${desc}" />`)
           .replace(/<meta\s+name="twitter:url"\s+content="[^"]*"\s*\/?>/g, `<meta name="twitter:url" content="${canonical}" />`);
-        
+
         // Add specific OG tags for articles
         pageHtml = pageHtml.replace('</head>', `
   <meta property="og:type" content="article" />
@@ -298,7 +303,7 @@ async function prerender() {
         fs.writeFileSync(path.join(dirPath, 'index.html'), pageHtml, 'utf-8');
         console.log(`✓ Pre-rendered blog post: /${postPath}/index.html`);
 
-        sitemapUrls.push({
+        blogSitemapUrls.push({
           loc: canonical,
           lastmod: new Date(post.updated_at).toISOString().split('T')[0],
           priority: '0.7',
@@ -310,19 +315,52 @@ async function prerender() {
     console.warn('⚠ Skipping blog post prerender: VITE_SUPABASE_URL or VITE_SUPABASE_ANON_KEY missing in .env');
   }
 
-  // Generate sitemap.xml
-  const sitemapXml = `<?xml version="1.0" encoding="UTF-8"?>
+  // ── sitemap-pages.xml (static pages) ──────────────────────────────────
+  const today = new Date().toISOString().split('T')[0];
+  const pagesSitemapXml = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-${sitemapUrls.map(u => `  <url>
+${pagesSitemapUrls.map(u => `  <url>
     <loc>${u.loc}</loc>
-    ${u.lastmod ? `<lastmod>${u.lastmod}</lastmod>` : ''}
+    <lastmod>${today}</lastmod>
     <changefreq>${u.changefreq}</changefreq>
     <priority>${u.priority}</priority>
   </url>`).join('\n')}
 </urlset>`;
 
-  fs.writeFileSync(path.join(distPath, 'sitemap.xml'), sitemapXml, 'utf-8');
-  console.log('✓ Generated sitemap.xml');
+  fs.writeFileSync(path.join(distPath, 'sitemap-pages.xml'), pagesSitemapXml, 'utf-8');
+  console.log('✓ Generated sitemap-pages.xml');
+
+  // ── sitemap-blog.xml (blog posts) ──────────────────────────────────────
+  const blogSitemapXml = `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+${blogSitemapUrls.length > 0
+      ? blogSitemapUrls.map(u => `  <url>
+    <loc>${u.loc}</loc>
+    ${u.lastmod ? `<lastmod>${u.lastmod}</lastmod>` : `<lastmod>${today}</lastmod>`}
+    <changefreq>${u.changefreq}</changefreq>
+    <priority>${u.priority}</priority>
+  </url>`).join('\n')
+      : '  <!-- No published blog posts yet -->'}
+</urlset>`;
+
+  fs.writeFileSync(path.join(distPath, 'sitemap-blog.xml'), blogSitemapXml, 'utf-8');
+  console.log(`✓ Generated sitemap-blog.xml (${blogSitemapUrls.length} posts)`);
+
+  // ── sitemap.xml (sitemap index) ────────────────────────────────────────
+  const sitemapIndexXml = `<?xml version="1.0" encoding="UTF-8"?>
+<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <sitemap>
+    <loc>https://myjobhunter.in/sitemap-pages.xml</loc>
+    <lastmod>${today}</lastmod>
+  </sitemap>
+  <sitemap>
+    <loc>https://myjobhunter.in/sitemap-blog.xml</loc>
+    <lastmod>${today}</lastmod>
+  </sitemap>
+</sitemapindex>`;
+
+  fs.writeFileSync(path.join(distPath, 'sitemap.xml'), sitemapIndexXml, 'utf-8');
+  console.log('✓ Generated sitemap.xml (sitemap index)');
 
   console.log('Static route pre-rendering complete successfully.');
 }
