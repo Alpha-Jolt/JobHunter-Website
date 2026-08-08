@@ -93,8 +93,6 @@ Disallow: /blog/admin
 
 # ── Sitemaps ────────────────────────────────────────────────────────────────────
 Sitemap: https://myjobhunter.in/sitemap.xml
-Sitemap: https://myjobhunter.in/sitemap-pages.xml
-Sitemap: https://myjobhunter.in/sitemap-blog.xml
 
 # ── LLMs.txt (context file for AI models) ──────────────────────────────────────
 # https://myjobhunter.in/llms.txt

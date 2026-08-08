@@ -9,9 +9,9 @@ const indexPath = path.join(distPath, 'index.html');
 
 // Read .env file for Supabase credentials
 const envPath = path.resolve(__dirname, '../.env');
-let supabaseUrl = '';
-let supabaseKey = '';
-let siteUrl = 'https://myjobhunter.in';
+let supabaseUrl = process.env.VITE_SUPABASE_URL || '';
+let supabaseKey = process.env.VITE_SUPABASE_ANON_KEY || '';
+let siteUrl = process.env.VITE_SITE_URL || 'https://myjobhunter.in';
 if (fs.existsSync(envPath)) {
   const envContent = fs.readFileSync(envPath, 'utf-8');
   envContent.split('\n').forEach(line => {
