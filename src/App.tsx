@@ -102,7 +102,7 @@ export default function App() {
       canonical.setAttribute('rel', 'canonical')
       document.head.appendChild(canonical)
     }
-    const currentUrl = 'https://myjobhunter.in' + (location.pathname === '/' ? '' : location.pathname)
+    const currentUrl = (import.meta.env.VITE_SITE_URL || 'https://myjobhunter.in') + (location.pathname === '/' ? '' : location.pathname)
     canonical.setAttribute('href', currentUrl)
 
     const ogTitle = document.querySelector('meta[property="og:title"]')

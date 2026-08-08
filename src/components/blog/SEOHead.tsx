@@ -85,10 +85,10 @@ export default function SEOHead({
       publisher: {
         '@type': 'Organization',
         name: 'JobHunter',
-        url: 'https://myjobhunter.in',
+        url: import.meta.env.VITE_SITE_URL || 'https://myjobhunter.in',
         logo: {
           '@type': 'ImageObject',
-          url: 'https://myjobhunter.in/logo.png',
+          url: `${import.meta.env.VITE_SITE_URL || 'https://myjobhunter.in'}/logo.png`,
         },
       },
       ...(category && {
@@ -109,10 +109,10 @@ export default function SEOHead({
       document.title = 'JobHunter — Land your Next Job on Autopilot'
       setMeta('meta[name="description"]', 'JobHunter scrapes real openings, tailors your resume to each one, and holds every application behind your approval. Human-in-the-loop, no fabrication. Building in public — Phase 1.')
       setMeta('meta[property="og:type"]', 'website')
-      setMeta('meta[property="og:url"]', 'https://myjobhunter.in/')
+      setMeta('meta[property="og:url"]', import.meta.env.VITE_SITE_URL || 'https://myjobhunter.in/')
       setMeta('meta[property="og:title"]', 'JobHunter — Land your Next Job on Autopilot')
       setMeta('meta[property="og:description"]', 'JobHunter scrapes real openings, tailors your resume to each one, and holds every application behind your approval. Human-in-the-loop, no fabrication.')
-      setLink('canonical', 'https://myjobhunter.in/')
+      setLink('canonical', import.meta.env.VITE_SITE_URL || 'https://myjobhunter.in/')
       document.getElementById('blog-post-jsonld')?.remove()
     }
   }, [title, description, url, image, publishedAt, authorName, category])

@@ -76,9 +76,10 @@ export default function BlogPost() {
     ? new Date(post.published_at).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })
     : 'Draft'
 
+  const siteUrl = import.meta.env.VITE_SITE_URL || 'https://myjobhunter.in'
   const canonicalUrl = post.blog_categories?.slug
-    ? `https://myjobhunter.in/blog/${post.blog_categories.slug}/${post.slug}`
-    : `https://myjobhunter.in/blog/${post.slug}`
+    ? `${siteUrl}/blog/${post.blog_categories.slug}/${post.slug}`
+    : `${siteUrl}/blog/${post.slug}`
 
   const metaDescription = post.excerpt ||
     post.subtitle ||

@@ -11,11 +11,13 @@ const indexPath = path.join(distPath, 'index.html');
 const envPath = path.resolve(__dirname, '../.env');
 let supabaseUrl = '';
 let supabaseKey = '';
+let siteUrl = 'https://myjobhunter.in';
 if (fs.existsSync(envPath)) {
   const envContent = fs.readFileSync(envPath, 'utf-8');
   envContent.split('\n').forEach(line => {
     if (line.startsWith('VITE_SUPABASE_URL=')) supabaseUrl = line.split('=')[1].trim();
     if (line.startsWith('VITE_SUPABASE_ANON_KEY=')) supabaseKey = line.split('=')[1].trim();
+    if (line.startsWith('VITE_SITE_URL=')) siteUrl = line.split('=')[1].trim();
   });
 }
 
@@ -63,13 +65,13 @@ const pages = [
     path: 'features',
     title: 'AI Job Search Automation Features | JobHunter',
     desc: 'Explore the key features of JobHunter, including multi-source job scraping, AI resume tailoring, human-in-the-loop approval, and scam detection.',
-    canonical: 'https://myjobhunter.in/features',
+    canonical: `${siteUrl}/features`,
     schema: {
       '@context': 'https://schema.org',
       '@type': 'WebPage',
       'name': 'JobHunter Features',
       'description': 'Explore the key features of JobHunter, including multi-source job scraping, AI resume tailoring, human-in-the-loop approval, and scam detection.',
-      'url': 'https://myjobhunter.in/features',
+      'url': `${siteUrl}/features`,
       'about': { '@type': 'SoftwareApplication', 'name': 'JobHunter' }
     }
   },
@@ -77,13 +79,13 @@ const pages = [
     path: 'for-who',
     title: 'Who is JobHunter For? — College Students, Grads & Mentors',
     desc: 'JobHunter is built for college students, recent graduates, and career changers looking to scale their job search, plus active mentoring opportunities.',
-    canonical: 'https://myjobhunter.in/for-who',
+    canonical: `${siteUrl}/for-who`,
     schema: {
       '@context': 'https://schema.org',
       '@type': 'WebPage',
       'name': 'Who JobHunter Is For',
       'description': 'JobHunter is built for college students, recent graduates, and career changers looking to scale their job search, plus active mentoring opportunities.',
-      'url': 'https://myjobhunter.in/for-who',
+      'url': `${siteUrl}/for-who`,
       'about': { '@type': 'SoftwareApplication', 'name': 'JobHunter' }
     }
   },
@@ -91,19 +93,19 @@ const pages = [
     path: 'referral',
     title: 'Invite Friends & Earn 20% Off — JobHunter Referral Program',
     desc: 'Share JobHunter with your network to earn 20% off your subscription and priority cohort access for you and your friends.',
-    canonical: 'https://myjobhunter.in/referral'
+    canonical: `${siteUrl}/referral`
   },
   {
     path: 'about',
     title: 'About JobHunter — Our Story, Brand & Mission',
     desc: 'Learn about JobHunter, our origami crane brand story, mission, and the team behind the AI-powered job acquisition platform.',
-    canonical: 'https://myjobhunter.in/about',
+    canonical: `${siteUrl}/about`,
     schema: {
       '@context': 'https://schema.org',
       '@type': 'Organization',
       'name': 'JobHunter',
-      'url': 'https://myjobhunter.in',
-      'logo': 'https://myjobhunter.in/logo.png',
+      'url': `${siteUrl}`,
+      'logo': `${siteUrl}/logo.png`,
       'description': 'AI-powered human-in-the-loop job acquisition platform that automates job discovery, tailors resumes with AI, and sends applications on your behalf.',
       'sameAs': [
         'https://github.com/alpha-jolt/jobhunter',
@@ -117,7 +119,7 @@ const pages = [
     path: 'faq',
     title: 'Frequently Asked Questions — JobHunter',
     desc: 'Find answers to common questions about JobHunter\'s core engine, AI safety, job boards scraped, data privacy, and the mentoring program.',
-    canonical: 'https://myjobhunter.in/faq',
+    canonical: `${siteUrl}/faq`,
     schema: {
       '@context': 'https://schema.org',
       '@type': 'FAQPage',
@@ -135,31 +137,31 @@ const pages = [
     path: 'privacy-policy',
     title: 'Privacy Policy — JobHunter',
     desc: 'Read our privacy policy to understand how we collect, process, and protect your personal data under DPDPA and GDPR.',
-    canonical: 'https://myjobhunter.in/privacy-policy'
+    canonical: `${siteUrl}/privacy-policy`
   },
   {
     path: 'terms-of-service',
     title: 'Terms of Service — JobHunter',
     desc: 'Read our terms of service governing your access to and use of the JobHunter platform and automated application services.',
-    canonical: 'https://myjobhunter.in/terms-of-service'
+    canonical: `${siteUrl}/terms-of-service`
   },
   {
     path: 'refund-policy',
     title: 'Refund and Cancellation Policy — JobHunter',
     desc: 'Read our refund and cancellation policy to understand terms for subscription cancellations, refunds, billing errors, and consumer rights.',
-    canonical: 'https://myjobhunter.in/refund-policy'
+    canonical: `${siteUrl}/refund-policy`
   },
   {
     path: 'blog',
     title: 'Blog — JobHunter',
     desc: 'JobHunter Blog — Job search tips, resume advice, career growth articles, and build-in-public updates.',
-    canonical: 'https://myjobhunter.in/blog',
+    canonical: `${siteUrl}/blog`,
     schema: {
       '@context': 'https://schema.org',
       '@type': 'Blog',
       'name': 'JobHunter Blog',
       'description': 'JobHunter Blog — Job search tips, resume advice, career growth articles, and build-in-public updates.',
-      'url': 'https://myjobhunter.in/blog'
+      'url': `${siteUrl}/blog`
     }
   }
 ];
@@ -170,7 +172,7 @@ const homepageSchema = {
   'name': 'JobHunter',
   'applicationCategory': 'BusinessApplication',
   'description': 'AI powered job acquisition platform',
-  'url': 'https://myjobhunter.in'
+  'url': `${siteUrl}`
 };
 
 if (!fs.existsSync(indexPath)) {
@@ -184,6 +186,7 @@ let originalHtml = fs.readFileSync(indexPath, 'utf-8');
 // Inject SoftwareApplication schema into homepage
 const homepageSchemaScript = `\n  <script type="application/ld+json">\n  ${JSON.stringify(homepageSchema, null, 2)}\n  </script>\n`;
 let homepageHtml = originalHtml.replace('</head>', `${homepageSchemaScript}</head>`);
+homepageHtml = homepageHtml.replace('<div id="root"></div>', `<div id="root"><h1 style="position:absolute;width:1px;height:1px;overflow:hidden;padding:0;margin:0;clip:rect(0,0,0,0);white-space:nowrap;border:0;">JobHunter — Land Your Next Job on Autopilot</h1></div>`);
 fs.writeFileSync(indexPath, homepageHtml, 'utf-8');
 console.log('✓ Injected homepage schema into /dist/index.html');
 
@@ -192,7 +195,7 @@ async function prerender() {
   const blogSitemapUrls = [];
 
   // Add home
-  pagesSitemapUrls.push({ loc: 'https://myjobhunter.in/', priority: '1.0', changefreq: 'weekly' });
+  pagesSitemapUrls.push({ loc: `${siteUrl}/`, priority: '1.0', changefreq: 'weekly' });
 
   // Generate subpages
   pages.forEach((page) => {
@@ -203,6 +206,7 @@ async function prerender() {
 
     let pageHtml = originalHtml
       .replace(/<title>[^<]*<\/title>/, `<title>${page.title}</title>`)
+      .replace('<div id="root"></div>', `<div id="root"><h1 style="position:absolute;width:1px;height:1px;overflow:hidden;padding:0;margin:0;clip:rect(0,0,0,0);white-space:nowrap;border:0;">${page.title}</h1></div>`)
       .replace(/<meta\s+name="description"\s+content="[^"]*"\s*\/?>/, `<meta name="description" content="${page.desc}" />`)
       .replace(/<link\s+rel="canonical"\s+href="[^"]*"\s*\/?>/, `<link rel="canonical" href="${page.canonical}" />`)
       // Update Open Graph tags
@@ -250,8 +254,8 @@ async function prerender() {
 
         const title = post.seo_title || post.title;
         const desc = post.seo_description || post.excerpt;
-        const canonical = `https://myjobhunter.in/blog/${post.slug}`;
-        const image = post.og_image_url || post.cover_image_url || 'https://myjobhunter.in/logo.png';
+        const canonical = `${siteUrl}/blog/${post.slug}`;
+        const image = post.og_image_url || post.cover_image_url || `${siteUrl}/logo.png`;
         const datePub = post.published_at || post.created_at;
 
         // Blog post specific schemas
@@ -262,7 +266,7 @@ async function prerender() {
           "description": desc,
           "image": image,
           "author": { "@type": "Person", "name": post.author_name },
-          "publisher": { "@type": "Organization", "name": "JobHunter", "logo": "https://myjobhunter.in/logo.png" },
+          "publisher": { "@type": "Organization", "name": "JobHunter", "logo": `${siteUrl}/logo.png` },
           "datePublished": datePub,
           "dateModified": post.updated_at,
           "mainEntityOfPage": { "@type": "WebPage", "@id": canonical }
@@ -272,14 +276,15 @@ async function prerender() {
           "@context": "https://schema.org",
           "@type": "BreadcrumbList",
           "itemListElement": [
-            { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://myjobhunter.in" },
-            { "@type": "ListItem", "position": 2, "name": "Blog", "item": "https://myjobhunter.in/blog" },
+            { "@type": "ListItem", "position": 1, "name": "Home", "item": `${siteUrl}` },
+            { "@type": "ListItem", "position": 2, "name": "Blog", "item": `${siteUrl}/blog` },
             { "@type": "ListItem", "position": 3, "name": title, "item": canonical }
           ]
         };
 
         let pageHtml = originalHtml
           .replace(/<title>[^<]*<\/title>/, `<title>${title} — JobHunter Blog</title>`)
+          .replace('<div id="root"></div>', `<div id="root"><h1 style="position:absolute;width:1px;height:1px;overflow:hidden;padding:0;margin:0;clip:rect(0,0,0,0);white-space:nowrap;border:0;">${title}</h1></div>`)
           .replace(/<meta\s+name="description"\s+content="[^"]*"\s*\/?>/, `<meta name="description" content="${desc}" />`)
           .replace(/<link\s+rel="canonical"\s+href="[^"]*"\s*\/?>/, `<link rel="canonical" href="${canonical}" />`)
           .replace(/<meta\s+property="og:title"\s+content="[^"]*"\s*\/?>/g, `<meta property="og:title" content="${title}" />`)
@@ -331,32 +336,42 @@ ${pagesSitemapUrls.map(u => `  <url>
   console.log('✓ Generated sitemap-pages.xml');
 
   // ── sitemap-blog.xml (blog posts) ──────────────────────────────────────
-  const blogSitemapXml = `<?xml version="1.0" encoding="UTF-8"?>
+  let blogSitemapEntry = '';
+  if (blogSitemapUrls.length > 0) {
+    const blogSitemapXml = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-${blogSitemapUrls.length > 0
-      ? blogSitemapUrls.map(u => `  <url>
+${blogSitemapUrls.map(u => `  <url>
     <loc>${u.loc}</loc>
     ${u.lastmod ? `<lastmod>${u.lastmod}</lastmod>` : `<lastmod>${today}</lastmod>`}
     <changefreq>${u.changefreq}</changefreq>
     <priority>${u.priority}</priority>
-  </url>`).join('\n')
-      : '  <!-- No published blog posts yet -->'}
+  </url>`).join('\n')}
 </urlset>`;
 
-  fs.writeFileSync(path.join(distPath, 'sitemap-blog.xml'), blogSitemapXml, 'utf-8');
-  console.log(`✓ Generated sitemap-blog.xml (${blogSitemapUrls.length} posts)`);
+    fs.writeFileSync(path.join(distPath, 'sitemap-blog.xml'), blogSitemapXml, 'utf-8');
+    console.log(`✓ Generated sitemap-blog.xml (${blogSitemapUrls.length} posts)`);
+    
+    blogSitemapEntry = `
+  <sitemap>
+    <loc>${siteUrl}/sitemap-blog.xml</loc>
+    <lastmod>${today}</lastmod>
+  </sitemap>`;
+  } else {
+    // If the file exists from a previous build, remove it so it returns 404
+    const blogSitemapPath = path.join(distPath, 'sitemap-blog.xml');
+    if (fs.existsSync(blogSitemapPath)) {
+      fs.unlinkSync(blogSitemapPath);
+    }
+    console.log(`✓ Skipped sitemap-blog.xml (0 posts)`);
+  }
 
   // ── sitemap.xml (sitemap index) ────────────────────────────────────────
   const sitemapIndexXml = `<?xml version="1.0" encoding="UTF-8"?>
 <sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <sitemap>
-    <loc>https://myjobhunter.in/sitemap-pages.xml</loc>
+    <loc>${siteUrl}/sitemap-pages.xml</loc>
     <lastmod>${today}</lastmod>
-  </sitemap>
-  <sitemap>
-    <loc>https://myjobhunter.in/sitemap-blog.xml</loc>
-    <lastmod>${today}</lastmod>
-  </sitemap>
+  </sitemap>${blogSitemapEntry}
 </sitemapindex>`;
 
   fs.writeFileSync(path.join(distPath, 'sitemap.xml'), sitemapIndexXml, 'utf-8');

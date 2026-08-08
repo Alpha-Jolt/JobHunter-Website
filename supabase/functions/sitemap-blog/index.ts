@@ -25,11 +25,12 @@ Deno.serve(async (req: Request) => {
     return new Response("Internal Server Error", { status: 500 });
   }
 
-  const urls = (posts || []).map((post: Record<string, unknown>) => {
+  const siteUrl = Deno.env.get("SITE_URL") || "https://myjobhunter.in";
+  let urls = (posts || []).map((post: Record<string, unknown>) => {
     const catSlug = (post.blog_categories as Record<string, string> | null)?.slug;
     const loc = catSlug
-      ? `https://myjobhunter.in/blog/${catSlug}/${post.slug}`
-      : `https://myjobhunter.in/blog/${post.slug}`;
+      ? `${siteUrl}/blog/${catSlug}/${post.slug}`
+      : `${siteUrl}/blog/${post.slug}`;
     const lastmod = post.published_at
       ? String(post.published_at).slice(0, 10)
       : new Date().toISOString().slice(0, 10);
@@ -41,6 +42,15 @@ Deno.serve(async (req: Request) => {
     <priority>0.8</priority>
   </url>`;
   }).join("\n");
+
+  if (!urls) {
+    urls = `  <url>
+    <loc>${siteUrl}/blog</loc>
+    <lastmod>${new Date().toISOString().slice(0, 10)}</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>`;
+  }
 
   const xml = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
