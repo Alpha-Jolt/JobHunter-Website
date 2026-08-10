@@ -299,7 +299,7 @@ function TypewriterHeading() {
   const phrase = useTypewriter(HERO_PHRASES)
   return (
     <>
-      Apply Smarter, Land Faster —<br />
+      Apply Smarter, Land Faster<br />
       <em>
         {phrase}
         <span
