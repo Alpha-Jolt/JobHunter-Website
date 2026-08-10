@@ -52,7 +52,7 @@ const faqs = [
   },
   {
     q: 'When does JobHunter launch?',
-    a: 'We\'re currently in Phase 0 — building and validating the core engine. Join the waitlist to get notified when early access opens.',
+    a: 'We\'re currently in Phase 0 — building and validating the core engine. Join the beta waitlist to get notified when early access opens.',
   },
   {
     q: 'Is my data safe?',
@@ -350,7 +350,7 @@ ${blogSitemapUrls.map(u => `  <url>
 
     fs.writeFileSync(path.join(distPath, 'sitemap-blog.xml'), blogSitemapXml, 'utf-8');
     console.log(`✓ Generated sitemap-blog.xml (${blogSitemapUrls.length} posts)`);
-    
+
     blogSitemapEntry = `
   <sitemap>
     <loc>${siteUrl}/sitemap-blog.xml</loc>

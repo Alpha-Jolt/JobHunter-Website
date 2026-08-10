@@ -59,7 +59,7 @@ Deno.serve(async (req: Request) => {
 
     if (!waitlistRow) {
       return new Response(
-        JSON.stringify({ error: "This email is not on the waitlist. Please join the waitlist first." }),
+        JSON.stringify({ error: "This email is not on the waitlist. Please join the beta waitlist first." }),
         { status: 404, headers: { ...corsHeaders, "Content-Type": "application/json" } }
       );
     }

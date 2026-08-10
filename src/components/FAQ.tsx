@@ -9,7 +9,7 @@ const faqs = [
   { q: 'Which job boards does JobHunter scrape?', a: 'Phase 1 covers Naukri and Indeed. LinkedIn and additional sources are planned for Phase 1. All scraped data stays in your private database — it is never exported.' },
   { q: 'How does the Skill Development Program work?', a: 'Verified professionals run one-on-one or group sessions tailored to your target roles or identified skill gaps. Complete the program and not get placed? Your fee is refunded automatically.' },
   { q: 'Can I become a mentor?', a: 'Yes. We\u2019re onboarding mentors for Phase 3. Head to the For Who page and fill in the mentor form — we\u2019ll reach out with details.' },
-  { q: 'When does JobHunter launch?', a: 'We\u2019re currently in Phase 1 — building and validating the core engine. Join the waitlist to get notified when early access opens.' },
+  { q: 'When does JobHunter launch?', a: 'We\u2019re currently in Phase 1 — building and validating the core engine. Join the beta waitlist to get notified when early access opens.' },
   { q: 'Is my data safe?', a: 'Yes. The scraped job dataset has no external export endpoints. GDPR and India\u2019s DPDPA consent and deletion workflows are on the Phase 4 roadmap.' },
 ]
 
@@ -90,7 +90,7 @@ export default function FAQ({ onOpenWaitlist }: Props) {
 
       <section className="cta-slim" aria-labelledby="faq-cta">
         <div className="cta-slim-inner reveal">
-          <p id="faq-cta">Still deciding? Join the waitlist — we&apos;ll reach out when Phase 1 opens.</p>
+          <p id="faq-cta">Still deciding? Join the beta waitlist — we&apos;ll reach out when Phase 1 opens.</p>
           <button type="button" className="btn btn-ink" onClick={onOpenWaitlist}>
             Join the waitlist
           </button>

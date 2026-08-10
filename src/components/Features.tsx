@@ -19,9 +19,6 @@ const BarChartIcon = () => (
 const ShieldIcon = () => (
   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" /></svg>
 )
-const SmartphoneIcon = () => (
-  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><rect width="14" height="20" x="5" y="2" rx="2" ry="2" /><path d="M12 18h.01" /></svg>
-)
 const GradIcon = () => (
   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z" /><path d="M6 12v5c3 3 9 3 12 0v-5" /></svg>
 )
@@ -56,7 +53,6 @@ const phases = [
     date: 'Q4 2026',
     features: [
       { id: 'scam-detection', icon: <ShieldIcon />, title: 'Scam detection', desc: 'Confidence scoring flags suspicious listings before you see them. Free-webmail HR contacts are treated as low-trust by default.' },
-      { id: 'whatsapp-integration', icon: <SmartphoneIcon />, title: 'WhatsApp integration', desc: 'Get notified, reply, and track conversations from WhatsApp — no browser required.' },
     ],
   },
   {
@@ -64,6 +60,7 @@ const phases = [
     date: '2027',
     features: [
       { id: 'skill-developer', icon: <GradIcon />, title: 'Skill developer', desc: 'A paid placement program run by verified professionals. Not placed? Your fee is refunded. Mentor scores are tied to real outcomes.' },
+      { id: 'mentorship-program', icon: <CheckIcon />, title: 'Mentorship program', desc: '1-on-1 mentorship with industry experts to guide your career path and help you land your dream job.' },
       { id: 'subscriptions-payments', icon: <CardIcon />, title: 'Subscriptions & payments', desc: 'Flexible plans for job seekers. Mentor commission and refund logic is automated — no manual trust required.' },
     ],
   },

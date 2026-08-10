@@ -6,9 +6,9 @@ const phases = [
   {
     phase: 'Phase 1', focus: 'Platform foundation', detail: 'Cross-platform app, Anti-Fabrication Layer, Notification', status: 'In progress', current: true
   },
-  { phase: 'Phase 2', focus: 'Intelligence layer', detail: 'Confidence scoring, scam detection, analytics, WhatsApp', status: 'Planned', current: false },
-  { phase: 'Phase 3', focus: 'Skill development & monetisation', detail: 'Program portal, mentor sessions, payments, subscriptions', status: 'Planned', current: false },
-  { phase: 'Phase 4', focus: 'Scale, compliance & partnerships', detail: 'Placement verification, GDPR / DPDPA, abuse prevention, integrations', status: 'Planned', current: false },
+  { phase: 'Phase 2', focus: 'Intelligence layer', detail: 'Confidence scoring, scam detection, analytics', status: 'Planned', current: false },
+  { phase: 'Phase 3', focus: 'Scale, compliance & partnerships', detail: 'Placement verification, GDPR / DPDPA, abuse prevention, integrations', status: 'Planned', current: false },
+  { phase: 'Phase 4', focus: 'Skill development & monetisation', detail: 'Program portal, mentor sessions, payments, subscriptions', status: 'Planned', current: false },
 ]
 
 export default function Roadmap() {
@@ -53,7 +53,7 @@ export default function Roadmap() {
         <div className="cta-inner">
           <div className="section-label" style={{ justifyContent: 'center' }}>Stay in the loop</div>
           <h2 id="roadmap-cta">Follow the build</h2>
-          <p>Join the waitlist and we&apos;ll email you as each phase ships. No fluff, no fake countdowns.</p>
+          <p>Join the beta waitlist and we&apos;ll email you as each phase ships. No fluff, no fake countdowns.</p>
           <div className="cta-form-wrap">
             <EmailCapture buttonLabel="Join the waitlist" source="roadmap-cta" />
           </div>

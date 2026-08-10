@@ -11,8 +11,8 @@ const corsHeaders = {
 
 const VALID_FEATURES = new Set([
   "multi-source-scraper", "ai-resume-tailoring", "automated-mail-sender",
-  "approval-queue", "application-tracker", "scam-detection",
-  "whatsapp-integration", "skill-developer", "subscriptions-payments",
+  "approval-queue", "application-tracker", "stealth-mode", "scam-detection",
+  "skill-developer", "mentorship-program", "subscriptions-payments",
 ]);
 
 Deno.serve(async (req: Request) => {

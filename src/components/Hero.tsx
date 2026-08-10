@@ -263,7 +263,7 @@ export default function Hero() {
           </div>
 
           <h1 id="hero-heading" className="hero-enter" style={{ '--d': '90ms' } as CSSProperties}>
-            Apply smart,<br /><em>not just fast.</em>
+            Apply Smarter and Faster,<br /><em>Human-in-loop Platform.</em>
           </h1>
 
           <p className="hero-sub hero-enter" style={{ '--d': '180ms' } as CSSProperties}>
@@ -275,7 +275,7 @@ export default function Hero() {
             <a
               id="hero-login-btn"
               href="https://app.myjobhunter.in"
-              className="btn btn-primary"
+              className="btn btn-ink"
               style={{ padding: '16px 80px', fontSize: '1.2rem', borderRadius: '100px', minWidth: '280px', textAlign: 'center' }}
             >
               <span><strong>Start Hunting Jobs</strong></span>
