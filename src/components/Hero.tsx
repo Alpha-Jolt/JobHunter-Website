@@ -17,6 +17,51 @@ const JOBS = [
   { role: 'Backend Developer', company: 'NIMBUS · PUNE', id: 'be' },
 ]
 
+const HERO_PHRASES = [
+  'Human-in-the-Loop.',
+  'You Stay in Control.',
+  'No Spam. Just Results.',
+  'AI-Powered. Human-Approved.',
+]
+
+function useTypewriter(phrases: string[], typingMs = 55, erasingMs = 28, pauseMs = 2200) {
+  const [text, setText] = useState(phrases[0])
+  const [phraseIdx, setPhraseIdx] = useState(0)
+  const [isTyping, setIsTyping] = useState(false)
+  const charIdx = useRef(phrases[0].length)
+
+  useEffect(() => {
+    const phrase = phrases[phraseIdx]
+    if (isTyping) {
+      if (charIdx.current < phrase.length) {
+        const t = setTimeout(() => {
+          charIdx.current++
+          setText(phrase.slice(0, charIdx.current))
+        }, typingMs)
+        return () => clearTimeout(t)
+      } else {
+        const t = setTimeout(() => setIsTyping(false), pauseMs)
+        return () => clearTimeout(t)
+      }
+    } else {
+      if (charIdx.current > 0) {
+        const t = setTimeout(() => {
+          charIdx.current--
+          setText(phrase.slice(0, charIdx.current))
+        }, erasingMs)
+        return () => clearTimeout(t)
+      } else {
+        const next = (phraseIdx + 1) % phrases.length
+        charIdx.current = 0
+        setPhraseIdx(next)
+        setIsTyping(true)
+      }
+    }
+  }, [text, isTyping, phraseIdx, phrases, typingMs, erasingMs, pauseMs])
+
+  return text
+}
+
 /** Readable cinematic beats (ms from cycle start). */
 const TIMELINE: [number, Stage][] = [
   [0, 'load'],
@@ -250,6 +295,30 @@ function ApprovalQueue() {
   )
 }
 
+function TypewriterHeading() {
+  const phrase = useTypewriter(HERO_PHRASES)
+  return (
+    <>
+      Apply Smarter, Land Faster —<br />
+      <em>
+        {phrase}
+        <span
+          aria-hidden="true"
+          style={{
+            display: 'inline-block',
+            width: '2px',
+            height: '0.85em',
+            background: 'currentColor',
+            marginLeft: '3px',
+            verticalAlign: 'middle',
+            animation: 'hero-cursor-blink 0.8s step-end infinite',
+          }}
+        />
+      </em>
+    </>
+  )
+}
+
 export default function Hero() {
   return (
     <section className="hero" aria-labelledby="hero-heading">
@@ -263,7 +332,7 @@ export default function Hero() {
           </div>
 
           <h1 id="hero-heading" className="hero-enter" style={{ '--d': '90ms' } as CSSProperties}>
-            Apply Smarter and Faster,<br /><em>Human-in-loop Platform.</em>
+            <TypewriterHeading />
           </h1>
 
           <p className="hero-sub hero-enter" style={{ '--d': '180ms' } as CSSProperties}>

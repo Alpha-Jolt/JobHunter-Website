@@ -316,6 +316,11 @@
   }
 }
 
+@keyframes hero-cursor-blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
+}
+
 .hero-badge {
   display: inline-flex;
   align-items: center;
