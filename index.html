@@ -30,11 +30,21 @@
   <title>JobHunter — Land your Next Job on Autopilot</title>
 
   <!-- Fonts: Fraunces (display) · Inter (body) · IBM Plex Mono (system) -->
+  <!-- dns-prefetch as fallback for browsers that don't support preconnect -->
+  <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+  <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <!-- Async font load: never blocks first paint. onload swaps rel to stylesheet once fetched. -->
   <link
+    rel="preload"
+    as="style"
     href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,460;9..144,500;9..144,600&family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;450;500;600;700&family=Fredoka:wght@600;700&display=swap"
-    rel="stylesheet" />
+    onload="this.onload=null;this.rel='stylesheet'"
+  />
+  <noscript>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,460;9..144,500;9..144,600&family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;450;500;600;700&family=Fredoka:wght@600;700&display=swap" />
+  </noscript>
 
   <!-- Canonical URL -->
   <link rel="canonical" href="https://myjobhunter.in/" />

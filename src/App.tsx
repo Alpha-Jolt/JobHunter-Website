@@ -1,27 +1,29 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, lazy, Suspense } from 'react'
 import { Routes, Route, useLocation, useNavigate, useSearchParams } from 'react-router-dom'
 import posthog from 'posthog-js'
+// ── Eagerly loaded: homepage above-the-fold components ────────────────────────
 import Nav from './components/Nav'
 import Hero from './components/Hero'
 import FeaturedOn from './components/FeaturedOn'
 import HowItWorks from './components/HowItWorks'
-import Features from './components/Features'
-import ForWho from './components/ForWho'
 import Principles from './components/Principles'
 import Testimonials from './components/Testimonials'
 import Roadmap from './components/Roadmap'
-import FAQ from './components/FAQ'
-import About from './components/About'
 import Footer from './components/Footer'
-import WaitlistModal from './components/WaitlistModal'
-import MentorModal from './components/MentorModal'
-import Referral from './components/Referral'
-import PrivacyPolicy from './components/PrivacyPolicy'
-import TermsOfService from './components/TermsOfService'
-import RefundPolicy from './components/RefundPolicy'
-import BlogIndex from './components/blog/BlogIndex'
-import BlogPost from './components/blog/BlogPost'
-import BlogAdmin from './components/blog/BlogAdmin'
+// ── Lazily loaded: secondary pages & modals (split into separate chunks) ──────
+const Features = lazy(() => import('./components/Features'))
+const ForWho = lazy(() => import('./components/ForWho'))
+const FAQ = lazy(() => import('./components/FAQ'))
+const About = lazy(() => import('./components/About'))
+const Referral = lazy(() => import('./components/Referral'))
+const PrivacyPolicy = lazy(() => import('./components/PrivacyPolicy'))
+const TermsOfService = lazy(() => import('./components/TermsOfService'))
+const RefundPolicy = lazy(() => import('./components/RefundPolicy'))
+const BlogIndex = lazy(() => import('./components/blog/BlogIndex'))
+const BlogPost = lazy(() => import('./components/blog/BlogPost'))
+const BlogAdmin = lazy(() => import('./components/blog/BlogAdmin'))
+const WaitlistModal = lazy(() => import('./components/WaitlistModal'))
+const MentorModal = lazy(() => import('./components/MentorModal'))
 import './App.css'
 
 const pageTitles: Record<string, string> = {
@@ -193,7 +195,8 @@ export default function App() {
       <Nav onOpenWaitlist={openWaitlist} />
 
       <main id="main-content">
-        <Routes>
+        <Suspense fallback={<div className="page-lazy-fallback" aria-hidden="true" />}>
+          <Routes>
           <Route path="/" element={
             <>
               <Hero />
@@ -223,6 +226,7 @@ export default function App() {
           <Route path="/blog/:slug" element={<BlogPost />} />
           <Route path="/blog/:category/:slug" element={<BlogPost />} />
         </Routes>
+        </Suspense>
       </main>
 
       <Footer />
