@@ -5,6 +5,7 @@
   "homepage": "https://alpha-jolt.github.io/JobHunter-Website",
   "type": "module",
   "scripts": {
+    "postinstall": "node scripts/ensure-rollup-native.cjs",
     "dev": "vite",
     "build": "tsc -b && vite build && node scripts/prerender.js",
     "lint": "eslint .",

@@ -64,6 +64,19 @@ export default function FAQ({ onOpenWaitlist }: Props) {
   return (
     <div ref={ref}>
       <div className="page-header">
+        {/* Structured Data */}
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          "mainEntity": faqs.map(item => ({
+            "@type": "Question",
+            "name": item.q,
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": item.a
+            }
+          }))
+        }) }} />
         <div className="page-header-inner narrow reveal">
           <div className="page-header-badge">
             <span className="hero-badge-dot" aria-hidden="true" />
