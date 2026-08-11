@@ -1,94 +1,98 @@
 # JobHunter robots.txt
 # https://myjobhunter.in/
-# This file is used by search engines to determine which pages on your site should be crawled.
 
 # As a condition of accessing this website, you agree to abide by the following
 # content signals:
+#
+# (a)  If a Content-Signal = yes, you may collect content for the corresponding use.
+# (b)  If a Content-Signal = no, you may not collect content for the corresponding use.
+# (c)  If the website operator does not include a Content-Signal for a corresponding
+#      use, the website operator neither grants nor restricts permission via
+#      Content-Signal with respect to the corresponding use.
+#
+# Content signals and their meanings:
+#   search:   building a search index and providing search results (hyperlinks + short excerpts).
+#             Does NOT include AI-generated search summaries.
+#   ai-input: inputting content into AI models (RAG, grounding, real-time generative AI answers).
+#   ai-train: training or fine-tuning AI models.
+#
+# ANY RESTRICTIONS EXPRESSED VIA CONTENT SIGNALS ARE EXPRESS RESERVATIONS OF RIGHTS
+# UNDER ARTICLE 4 OF THE EU DIRECTIVE 2019/790 ON COPYRIGHT IN THE DIGITAL SINGLE MARKET.
 
-# (a)  If a Content-Signal = yes, you may collect content for the corresponding
-#      use.
-# (b)  If a Content-Signal = no, you may not collect content for the
-#      corresponding use.
-# (c)  If the website operator does not include a Content-Signal for a
-#      corresponding use, the website operator neither grants nor restricts
-#      permission via Content-Signal with respect to the corresponding use.
-
-# The content signals and their meanings are:
-
-# search:   building a search index and providing search results (e.g., returning
-#           hyperlinks and short excerpts from your website's contents). Search does not
-#           include providing AI-generated search summaries.
-# ai-input: inputting content into one or more AI models (e.g., retrieval
-#           augmented generation, grounding, or other real-time taking of content for
-#           generative AI search answers).
-# ai-train: training or fine-tuning AI models.
-
-# ANY RESTRICTIONS EXPRESSED VIA CONTENT SIGNALS ARE EXPRESS RESERVATIONS OF
-# RIGHTS UNDER ARTICLE 4 OF THE EUROPEAN UNION DIRECTIVE 2019/790 ON COPYRIGHT
-# AND RELATED RIGHTS IN THE DIGITAL SINGLE MARKET.
-
+# ── Default: all crawlers ──────────────────────────────────────────────────────
 User-agent: *
-Content-Signal: search=yes,ai-train=yes
+# Content-Signal: search=yes, ai-input=yes, ai-train=yes
 Allow: /
+Disallow: /blog/admin
 Disallow: /?page=
 
+# ── Google ──────────────────────────────────────────────────────────────────────
 User-agent: Googlebot
 Allow: /
+Disallow: /blog/admin
 Disallow: /?page=
-
-User-agent: Bingbot
-Allow: /
-Disallow: /?page=
-
-User-agent: Slurp
-Allow: /
-
-User-agent: DuckDuckBot
-Allow: /
-
-User-agent: Baiduspider
-Allow: /
-
-User-agent: YandexBot
-Allow: /
-
-User-agent: Amazonbot
-Allow: /
-
-User-agent: Applebot-Extended
-Allow: /
-
-User-agent: Bytespider
-Allow: /
-
-User-agent: CCBot
-Allow: /
-
-User-agent: ClaudeBot
-Allow: /
 
 User-agent: Google-Extended
 Allow: /
+Disallow: /blog/admin
 
+# ── Bing ────────────────────────────────────────────────────────────────────────
+User-agent: Bingbot
+Allow: /
+Disallow: /blog/admin
+Disallow: /?page=
+
+# ── Yahoo / Slurp ───────────────────────────────────────────────────────────────
+User-agent: Slurp
+Allow: /
+Disallow: /blog/admin
+
+# ── DuckDuckGo ──────────────────────────────────────────────────────────────────
+User-agent: DuckDuckBot
+Allow: /
+Disallow: /blog/admin
+
+# ── Baidu ───────────────────────────────────────────────────────────────────────
+User-agent: Baiduspider
+Allow: /
+Disallow: /blog/admin
+
+# ── Yandex ──────────────────────────────────────────────────────────────────────
+User-agent: YandexBot
+Allow: /
+Disallow: /blog/admin
+
+# ── AI crawlers ─────────────────────────────────────────────────────────────────
 User-agent: GPTBot
 Allow: /
+Disallow: /blog/admin
+
+User-agent: ClaudeBot
+Allow: /
+Disallow: /blog/admin
+
+User-agent: Amazonbot
+Allow: /
+Disallow: /blog/admin
+
+User-agent: Applebot-Extended
+Allow: /
+Disallow: /blog/admin
 
 User-agent: meta-externalagent
 Allow: /
+Disallow: /blog/admin
 
-# Allow public marketing pages explicitly
+User-agent: Bytespider
 Allow: /
-Allow: /features
-Allow: /for-who
-Allow: /referral
-Allow: /terms-of-service
-Allow: /privacy-policy
-Allow: /refund-policy
-Allow: /privacy
-Allow: /terms
-Allow: /refund
-Allow: /faq
-Allow: /about
+Disallow: /blog/admin
 
-# sitemap
+User-agent: CCBot
+Allow: /
+Disallow: /blog/admin
+
+# ── Sitemaps ────────────────────────────────────────────────────────────────────
 Sitemap: https://myjobhunter.in/sitemap.xml
+
+# ── LLMs.txt (context file for AI models) ──────────────────────────────────────
+# https://myjobhunter.in/llms.txt

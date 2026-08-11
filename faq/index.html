@@ -12,6 +12,15 @@
     gtag('config', 'G-8410HHVV2S');
   </script>
 
+  <!-- Clarity tracking code for https://myjobhunter.in/ -->
+  <script>
+    (function (c, l, a, r, i, t, y) {
+      c[a] = c[a] || function () { (c[a].q = c[a].q || []).push(arguments) };
+      t = l.createElement(r); t.async = 1; t.src = "https://www.clarity.ms/tag/" + i + "?ref=bwt";
+      y = l.getElementsByTagName(r)[0]; y.parentNode.insertBefore(t, y);
+    })(window, document, "clarity", "script", "xqu37s84ta");
+  </script>
+
   <meta charset="UTF-8" />
   <link rel="icon" type="image/x-icon" href="/favicon.png" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -20,11 +29,22 @@
   <title>Frequently Asked Questions — JobHunter</title>
 
   <!-- Fonts: Fraunces (display) · Inter (body) · IBM Plex Mono (system) -->
+  <!-- dns-prefetch as fallback for browsers that don't support preconnect -->
+  <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+  <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link
+  <!-- Async font load: never blocks first paint. onload swaps rel to stylesheet once fetched. -->
+  <link rel="preload" as="style"
     href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,460;9..144,500;9..144,600&family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;450;500;600;700&family=Fredoka:wght@600;700&display=swap"
-    rel="stylesheet" />
+    onload="this.onload=null;this.rel='stylesheet'" />
+  <noscript>
+    <link rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,460;9..144,500;9..144,600&family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;450;500;600;700&family=Fredoka:wght@600;700&display=swap" />
+  </noscript>
+
+  <!-- Preload LCP candidate for spinning carousel -->
+  <link rel="preload" as="image" href="/spinning_carousel/1_No_Fabrication.png" fetchpriority="high" />
 
   <!-- Canonical URL -->
   <link rel="canonical" href="https://myjobhunter.in/faq" />
@@ -54,14 +74,22 @@
 
   <!-- Discord & Browser Accent Color -->
   <meta name="theme-color" content="#101012" />
-  <script type="module" crossorigin src="/assets/index-COQ3vopv.js"></script>
-  <link rel="stylesheet" crossorigin href="/assets/index-BkgHxH7q.css">
+  <script type="module" crossorigin src="/assets/index-Dm4JyqGq.js"></script>
+  <link rel="stylesheet" crossorigin href="/assets/index-mj9aJYws.css">
 
   <script type="application/ld+json">
   {
   "@context": "https://schema.org",
   "@type": "FAQPage",
   "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is JobHunter?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "JobHunter is an AI-powered, human-in-the-loop job acquisition platform. We automate job discovery, tailor your resume to each role without fabricating experience, and prepare applications for your explicit approval."
+      }
+    },
     {
       "@type": "Question",
       "name": "Is JobHunter free to use?",
@@ -115,7 +143,7 @@
       "name": "When does JobHunter launch?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "We're currently in Phase 0 — building and validating the core engine. Join the waitlist to get notified when early access opens."
+        "text": "We're currently in Phase 0 — building and validating the core engine. Join the beta waitlist to get notified when early access opens."
       }
     },
     {
@@ -132,7 +160,7 @@
 </head>
 
 <body>
-  <div id="root"></div>
+  <div id="root"><h1 style="position:absolute;width:1px;height:1px;overflow:hidden;padding:0;margin:0;clip:rect(0,0,0,0);white-space:nowrap;border:0;">Frequently Asked Questions — JobHunter</h1></div>
 </body>
 
 </html>

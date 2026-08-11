@@ -2,16 +2,26 @@
 
 > JobHunter is a human-in-the-loop job application platform that scrapes real openings, tailors your resume using AI (no fabrication), and holds every application behind your explicit approval before sending.
 
-Built in public — currently Phase 1 (Platform Foundation). Based in Coimbatore, India.
+Built in public — currently Phase 1 (Platform Foundation). Based in Coimbatore, India. Target users: college students, recent graduates, unemployed professionals, and freelancers in India.
 
-## Pages
+## Product Pages
 
 - [Home](https://myjobhunter.in/): Overview of the product, the approval queue demo, how-it-works steps, core principles, and the roadmap.
-- [Features](https://myjobhunter.in/features): Full feature list grouped by phase — Phase 0 (Core engine, completed), Phase 1 (In progress), Phase 2-3 (Planned).
+- [Features](https://myjobhunter.in/features): Full feature list grouped by phase — Phase 0 (Core engine, completed), Phase 1 (In progress), Phase 2–3 (Planned).
 - [For Who](https://myjobhunter.in/for-who): Target audience — college students, recent graduates, unemployed professionals, freelancers, and mentors.
 - [FAQ](https://myjobhunter.in/faq): Answers on AI safety, no-fabrication policy, which job boards are scraped, data privacy, and the mentoring program.
 - [Referral](https://myjobhunter.in/referral): Referral program — 20% off for both referrer and referee, no caps.
 - [About](https://myjobhunter.in/about): About the team and the mission.
+
+## Blog
+
+The JobHunter Blog publishes practical, experience-based articles on job search strategy, AI tools for career growth, resume writing, and building a product in public.
+
+- [Blog Index](https://myjobhunter.in/blog): All published posts, filterable by category.
+- Categories include: Career Advice, JobHunter Tips, Build in Public.
+- Blog posts use the URL pattern: `https://myjobhunter.in/blog/{category}/{post-slug}`
+- Each post includes: title, excerpt, author, published date, estimated read time, and Markdown content.
+- Blog content is original, human-written, and targeted at Indian job seekers and students.
 
 ## Legal
 
@@ -21,4 +31,6 @@ Built in public — currently Phase 1 (Platform Foundation). Based in Coimbatore
 
 ## Optional
 
-- [Sitemap](https://myjobhunter.in/sitemap.xml): Full list of indexable pages.
+- [Sitemap Index](https://myjobhunter.in/sitemap.xml): Index of all sitemaps.
+- [Pages Sitemap](https://myjobhunter.in/sitemap-pages.xml): All static marketing and legal pages.
+- [Blog Sitemap](https://myjobhunter.in/sitemap-blog.xml): All published blog posts (dynamically generated).
