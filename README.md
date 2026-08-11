@@ -2,7 +2,7 @@
 
 Pre-launch [Website](https://myjobhunter.in) for [JobHunter](https://app.myjobhunter.in), the end-to-end intelligent job acquisition platform for college students, unemployed professionals, and freelancers.
 
-JobHunter automates job discovery, tailors your resume using AI, sends applications on your behalf, and accelerates your employability through a structured skill development program — all within a single cross-platform product.
+JobHunter automates job discovery, Optimizes your resume using AI, sends applications on your behalf, and accelerates your employability through a structured skill development program — all within a single cross-platform product.
 
 The platform is built around one guarantee: **no false data ever enters your resume.** Every AI-generated document requires explicit user approval before it goes anywhere.
 
