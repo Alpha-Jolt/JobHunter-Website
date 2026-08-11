@@ -1,6 +1,6 @@
 # JobHunter — Website
 
-Pre-launch marketing website for [JobHunter](./README.md), the end-to-end intelligent job acquisition platform for college students, unemployed professionals, and freelancers.
+Pre-launch [Website](https://myjobhunter.in) for [JobHunter](https://app.myjobhunter.in), the end-to-end intelligent job acquisition platform for college students, unemployed professionals, and freelancers.
 
 JobHunter automates job discovery, tailors your resume using AI, sends applications on your behalf, and accelerates your employability through a structured skill development program — all within a single cross-platform product.
 
@@ -17,7 +17,7 @@ Onboards the user through a short questionnaire — skills, role, location, sala
 This data drives the scraper configuration.
 
 ### Scraper Engine
-Pulls job listings from LinkedIn, Naukri, Indeed, and other sources via n8n-orchestrated workflows.\
+Pulls job listings from Naukri, Indeed, and other sources.\
 All data is stored in a private PostgreSQL database. **The dataset is never exported externally.**
 
 ### Viewer

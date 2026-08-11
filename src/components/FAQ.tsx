@@ -11,6 +11,7 @@ const faqs = [
   { q: 'Can I become a mentor?', a: 'Yes. We\u2019re onboarding mentors for Phase 3. Head to the For Who page and fill in the mentor form — we\u2019ll reach out with details.' },
   { q: 'When does JobHunter launch?', a: 'We\u2019re currently in Phase 1 — building and validating the core engine. Join the beta waitlist to get notified when early access opens.' },
   { q: 'Is my data safe?', a: 'Yes. The scraped job dataset has no external export endpoints. GDPR and India\u2019s DPDPA consent and deletion workflows are on the Phase 4 roadmap.' },
+  { q: 'Is JobHunter (myjobhunter) restricted to the US?', a: 'No — JobHunter is not restricted to any single country. Our platform is currently optimised for the Indian job market, covering leading job boards like Naukri and Indeed India, making it the go-to AI job application tool for job seekers in India. That said, users from the United States, Canada, Australia, Germany, Spain, and several other countries are already among our most active visitors and early users. Whether you are a global professional targeting Indian companies, a remote-first role, or a multinational firm with operations in India, JobHunter works for you regardless of your location. As we progress through our roadmap, we plan to expand coverage to additional regional job boards and country-specific sources so that every job seeker — wherever they are — can benefit from fully automated, AI-powered job hunting.' },
 ]
 
 function FAQItem({
