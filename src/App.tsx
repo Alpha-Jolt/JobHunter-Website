@@ -15,6 +15,7 @@ const Features = lazy(() => import('./components/Features'))
 const ForWho = lazy(() => import('./components/ForWho'))
 const FAQ = lazy(() => import('./components/FAQ'))
 const About = lazy(() => import('./components/About'))
+const HowItWorksPage = lazy(() => import('./components/HowItWorksPage'))
 const Referral = lazy(() => import('./components/Referral'))
 const PrivacyPolicy = lazy(() => import('./components/PrivacyPolicy'))
 const TermsOfService = lazy(() => import('./components/TermsOfService'))
@@ -27,10 +28,11 @@ const MentorModal = lazy(() => import('./components/MentorModal'))
 import './App.css'
 
 const pageTitles: Record<string, string> = {
-  '/': 'JobHunter — Land Your Next Job on Autopilot',
+  '/': 'JobHunter — Human-in-the-loop AI Job Search Companion',
   '/features': 'Features — JobHunter',
   '/for-who': 'Who JobHunter Is For — Students, Grads, Professionals & Mentors',
   '/faq': 'Frequently Asked Questions — JobHunter',
+  '/how-it-works': 'How JobHunter Works — AI Job Search Companion',
   '/referral': 'Refer a Friend, Land Together — JobHunter Referral Program',
   '/about': 'About JobHunter — Our Story, Brand & Mission',
   '/privacy-policy': 'Privacy Policy — JobHunter',
@@ -41,14 +43,15 @@ const pageTitles: Record<string, string> = {
 }
 
 const pageDescriptions: Record<string, string> = {
-  '/': 'JobHunter scrapes real openings, tailors your resume to each one, and holds every application behind your approval. Human-in-the-loop, no fabrication. Building in public — Phase 1.',
+  '/': 'JobHunter is a human-in-the-loop AI job search companion. We scrape real openings, tailor your resume to each role without fabrication, and prepare applications for your explicit approval.',
   '/features': 'Multi-source scraping, AI resume tailoring that never fabricates, a human approval queue, and a rule-based mail sender — built in phases.',
   '/for-who': 'JobHunter is built for college students, recent graduates, unemployed professionals, and freelancers moving to full-time — plus mentors.',
   '/faq': 'Answers on JobHunter\'s core engine, AI safety and no-fabrication policy, which job boards are scraped, data privacy, and the mentoring program.',
+  '/how-it-works': 'Learn how JobHunter automates your job search: from smart scraping and AI resume tailoring to secure application submission via your email.',
   '/referral': 'Refer a friend to JobHunter — you both get 20% off and priority cohort access. No caps, no gimmicks.',
   '/about': 'Learn about JobHunter, our origami crane brand story, mission, and the team behind the AI-powered job acquisition platform.',
   '/privacy-policy': 'Read our privacy policy to understand how we collect, process, and protect your personal data under DPDPA and GDPR.',
-  '/terms-of-service': 'Read our terms of service governing your access to and use of the JobHunter platform and automated application services.',
+  '/terms-of-service': 'Read our terms of service governing your access to and use of the JobHunter platform and companion application services.',
   '/refund-policy': 'Read our refund and cancellation policy to understand terms for subscription cancellations, refunds, billing errors, and consumer rights.',
   '/blog': 'JobHunter Blog — Job search tips, resume advice, career growth articles, and build-in-public updates.',
   '/blog/admin': 'Blog Admin panel.',
@@ -210,6 +213,7 @@ export default function App() {
           <Route path="/features" element={<Features onOpenWaitlist={openWaitlist} />} />
           <Route path="/for-who" element={<ForWho onOpenMentorModal={handleOpenMentorModal} onOpenWaitlist={openWaitlist} />} />
           <Route path="/faq" element={<FAQ onOpenWaitlist={openWaitlist} />} />
+          <Route path="/how-it-works" element={<HowItWorksPage />} />
           <Route path="/about" element={<About onOpenWaitlist={openWaitlist} />} />
           <Route path="/referral" element={<Referral />} />
           <Route path="/privacy-policy" element={<PrivacyPolicy />} />

@@ -1,5 +1,10 @@
 import { useEffect } from 'react'
 
+export interface BreadcrumbItem {
+  name: string
+  url: string
+}
+
 interface SEOHeadProps {
   title: string
   description: string
@@ -8,6 +13,7 @@ interface SEOHeadProps {
   publishedAt?: string
   authorName?: string
   category?: string
+  breadcrumbs?: BreadcrumbItem[]
 }
 
 export default function SEOHead({
@@ -18,6 +24,7 @@ export default function SEOHead({
   publishedAt,
   authorName,
   category,
+  breadcrumbs,
 }: SEOHeadProps) {
   useEffect(() => {
     const fullTitle = `${title} — JobHunter Blog`
@@ -104,18 +111,41 @@ export default function SEOHead({
     script.textContent = JSON.stringify(jsonld)
     document.head.appendChild(script)
 
+    // JSON-LD BreadcrumbList structured data
+    const existingBcLd = document.getElementById('blog-breadcrumb-jsonld')
+    if (existingBcLd) existingBcLd.remove()
+
+    if (breadcrumbs && breadcrumbs.length > 0) {
+      const breadcrumbJsonld = {
+        '@context': 'https://schema.org',
+        '@type': 'BreadcrumbList',
+        itemListElement: breadcrumbs.map((crumb, index) => ({
+          '@type': 'ListItem',
+          position: index + 1,
+          name: crumb.name,
+          item: crumb.url,
+        })),
+      }
+      const bcScript = document.createElement('script')
+      bcScript.id = 'blog-breadcrumb-jsonld'
+      bcScript.type = 'application/ld+json'
+      bcScript.textContent = JSON.stringify(breadcrumbJsonld)
+      document.head.appendChild(bcScript)
+    }
+
     // Cleanup: restore defaults on unmount
     return () => {
-      document.title = 'JobHunter — Land your Next Job on Autopilot'
+      document.title = 'JobHunter — Human-in-the-loop AI Job Search Companion'
       setMeta('meta[name="description"]', 'JobHunter scrapes real openings, tailors your resume to each one, and holds every application behind your approval. Human-in-the-loop, no fabrication. Building in public — Phase 1.')
       setMeta('meta[property="og:type"]', 'website')
       setMeta('meta[property="og:url"]', import.meta.env.VITE_SITE_URL || 'https://myjobhunter.in/')
-      setMeta('meta[property="og:title"]', 'JobHunter — Land your Next Job on Autopilot')
+      setMeta('meta[property="og:title"]', 'JobHunter — Human-in-the-loop AI Job Search Companion')
       setMeta('meta[property="og:description"]', 'JobHunter scrapes real openings, tailors your resume to each one, and holds every application behind your approval. Human-in-the-loop, no fabrication.')
       setLink('canonical', import.meta.env.VITE_SITE_URL || 'https://myjobhunter.in/')
       document.getElementById('blog-post-jsonld')?.remove()
+      document.getElementById('blog-breadcrumb-jsonld')?.remove()
     }
-  }, [title, description, url, image, publishedAt, authorName, category])
+  }, [title, description, url, image, publishedAt, authorName, category, breadcrumbs])
 
   return null
 }

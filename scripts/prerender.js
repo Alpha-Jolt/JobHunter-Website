@@ -22,42 +22,18 @@ if (fs.existsSync(envPath)) {
 }
 
 const faqs = [
-  {
-    q: 'What is JobHunter?',
-    a: 'JobHunter is an AI-powered, human-in-the-loop job acquisition platform. We automate job discovery, tailor your resume to each role without fabricating experience, and prepare applications for your explicit approval.',
-  },
-  {
-    q: 'Is JobHunter free to use?',
-    a: 'The core job search and application automation features will be free during beta. Skill Development Programs (Phase 3) are paid, with a full refund if you don\'t get placed.',
-  },
-  {
-    q: 'Will the AI fabricate anything on my resume?',
-    a: 'Never. The AI curates and reorders your existing resume content to match each job description. It identifies skill gaps but never invents experience, skills, or credentials.',
-  },
-  {
-    q: 'Do applications go out without my approval?',
-    a: 'No. Every AI-generated resume variant and cover letter sits in an approval queue. Nothing is sent until you explicitly sign off on it.',
-  },
-  {
-    q: 'Which job boards does JobHunter scrape?',
-    a: 'Phase 0 covers Naukri and Indeed. LinkedIn and additional sources are planned for Phase 1. All scraped data stays in your private database — it is never exported.',
-  },
-  {
-    q: 'How does the Skill Development Program work?',
-    a: 'Verified working professionals run one-on-one or group sessions tailored to your job requirements or identified skill gaps. If you complete the program and don\'t get placed, your fee is refunded automatically.',
-  },
-  {
-    q: 'Can I become a mentor?',
-    a: 'Yes. We\'re onboarding mentors for Phase 3. Head to the For Who page and fill in the mentor interest form — we\'ll reach out with details.',
-  },
-  {
-    q: 'When does JobHunter launch?',
-    a: 'We\'re currently in Phase 0 — building and validating the core engine. Join the beta waitlist to get notified when early access opens.',
-  },
-  {
-    q: 'Is my data safe?',
-    a: 'Yes. The scraped job dataset has no external export endpoints. GDPR and India\'s DPDPA consent and deletion workflows are built into the Phase 4 roadmap.',
-  },
+  { q: 'What is JobHunter?', a: 'JobHunter is an AI-powered, human-in-the-loop job search companion. We automate job discovery, tailor your resume to each role without fabricating experience, and prepare applications for your explicit approval.' },
+  { q: 'How does JobHunter find jobs for me?', a: 'JobHunter scrapes relevant job listings from major platforms like Naukri and Indeed. We bring the best opportunities directly to your dashboard so you don\'t have to spend hours searching manually.' },
+  { q: 'Does JobHunter automatically apply to jobs?', a: 'No, and this is by design. JobHunter prepares your application, but every resume variant and cover letter sits in an approval queue. Nothing is sent without your explicit sign-off.' },
+  { q: 'Does JobHunter customize my resume for every job?', a: 'Yes. The AI analyzes each job description and curates your existing resume content to highlight the most relevant skills and experience. It never fabricates or invents credentials.' },
+  { q: 'Does JobHunter write my cover letter?', a: 'Yes. JobHunter generates a personalized cover letter for each role based on your tailored resume and the specific job requirements. You can review and edit it before sending.' },
+  { q: 'Can JobHunter apply using my Gmail or Outlook account?', a: 'Yes. Once you approve an application, JobHunter uses a secure bridge to send the email directly from your connected Gmail or Outlook account, so you own the communication thread.' },
+  { q: 'How is JobHunter different from LinkedIn or Indeed?', a: 'LinkedIn and Indeed are job boards where you manually search and apply. JobHunter is a job search companion that sits on top of those boards, automating the discovery, tailoring, and drafting process for you.' },
+  { q: 'Who is JobHunter built for?', a: 'JobHunter is designed for college students, recent graduates, unemployed professionals, and freelancers who need to scale their job search without losing quality or burning out.' },
+  { q: 'Is JobHunter free to use?', a: 'The core job search and application automation is free during beta. Advanced Skill Development Programs (Phase 3) will be paid, with a full refund guarantee if you don\'t get placed.' },
+  { q: 'Is JobHunter available outside India?', a: 'While our platform is currently optimized for the Indian job market (covering Naukri and Indeed India), it is not restricted. Job seekers globally can use JobHunter, and we plan to expand coverage to more international job boards soon.' },
+  { q: 'Is my data safe?', a: 'Absolutely. The scraped job dataset has no external export endpoints. We are building in public with privacy first, incorporating GDPR and India\'s DPDPA compliance into our roadmap.' },
+  { q: 'Can I become a mentor?', a: 'Yes. We\'re onboarding mentors for Phase 3. Head to the For Who page and fill in the mentor form to join our verified professional network.' },
 ];
 
 const pages = [
@@ -86,6 +62,20 @@ const pages = [
       'name': 'Who JobHunter Is For',
       'description': 'JobHunter is built for college students, recent graduates, and career changers looking to scale their job search, plus active mentoring opportunities.',
       'url': `${siteUrl}/for-who`,
+      'about': { '@type': 'SoftwareApplication', 'name': 'JobHunter' }
+    }
+  },
+  {
+    path: 'how-it-works',
+    title: 'How JobHunter Works — AI Job Search Companion',
+    desc: 'Learn how JobHunter automates your job search: from smart scraping and AI resume tailoring to secure application submission via your email.',
+    canonical: `${siteUrl}/how-it-works`,
+    schema: {
+      '@context': 'https://schema.org',
+      '@type': 'WebPage',
+      'name': 'How JobHunter Works',
+      'description': 'Learn how JobHunter automates your job search: from smart scraping and AI resume tailoring to secure application submission via your email.',
+      'url': `${siteUrl}/how-it-works`,
       'about': { '@type': 'SoftwareApplication', 'name': 'JobHunter' }
     }
   },
@@ -166,15 +156,6 @@ const pages = [
   }
 ];
 
-const homepageSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'SoftwareApplication',
-  'name': 'JobHunter',
-  'applicationCategory': 'BusinessApplication',
-  'description': 'AI powered job acquisition platform',
-  'url': `${siteUrl}`
-};
-
 if (!fs.existsSync(indexPath)) {
   console.error('Build output index.html not found! Run npm run build first.');
   process.exit(1);
@@ -182,13 +163,10 @@ if (!fs.existsSync(indexPath)) {
 
 // Read index.html
 let originalHtml = fs.readFileSync(indexPath, 'utf-8');
-
-// Inject SoftwareApplication schema into homepage
-const homepageSchemaScript = `\n  <script type="application/ld+json">\n  ${JSON.stringify(homepageSchema, null, 2)}\n  </script>\n`;
-let homepageHtml = originalHtml.replace('</head>', `${homepageSchemaScript}</head>`);
-homepageHtml = homepageHtml.replace('<div id="root"></div>', `<div id="root"><h1 style="position:absolute;width:1px;height:1px;overflow:hidden;padding:0;margin:0;clip:rect(0,0,0,0);white-space:nowrap;border:0;">JobHunter — Land Your Next Job on Autopilot</h1></div>`);
-fs.writeFileSync(indexPath, homepageHtml, 'utf-8');
-console.log('✓ Injected homepage schema into /dist/index.html');
+// Fix the hidden h1 in index.html for crawler rendering
+originalHtml = originalHtml.replace('<div id="root"></div>', `<div id="root"><h1 style="position:absolute;width:1px;height:1px;overflow:hidden;padding:0;margin:0;clip:rect(0,0,0,0);white-space:nowrap;border:0;">JobHunter — Human-in-the-loop AI Job Search Companion</h1></div>`);
+fs.writeFileSync(indexPath, originalHtml, 'utf-8');
+console.log('✓ Updated index.html with crawler h1');
 
 async function prerender() {
   const pagesSitemapUrls = [];

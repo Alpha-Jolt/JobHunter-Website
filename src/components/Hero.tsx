@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState, type CSSProperties } from 'react'
-// import EmailCapture from './EmailCapture'
+import { Link } from 'react-router-dom'
 
 /* ─────────────────────────────────────────────────────────────
    The Queue — signature product moment.
@@ -332,6 +332,7 @@ export default function Hero() {
           </div>
 
           <h1 id="hero-heading" className="hero-enter" style={{ '--d': '90ms' } as CSSProperties}>
+            <span style={{ position: 'absolute', width: '1px', height: '1px', overflow: 'hidden', clip: 'rect(0,0,0,0)' }}>JobHunter — Human-in-the-loop AI Job Search Companion</span>
             <TypewriterHeading />
           </h1>
 
@@ -352,13 +353,10 @@ export default function Hero() {
           </div>
 
           <div className="hero-links hero-enter" style={{ '--d': '360ms' } as CSSProperties}>
-            <a className="hero-textlink" href="#how-it-works" onClick={(e) => {
-              e.preventDefault()
-              document.getElementById('how-it-works')?.scrollIntoView({ behavior: 'smooth', block: 'start' })
-            }}>
+            <Link className="hero-textlink" to="/how-it-works">
               See how it works
               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14" /><path d="m12 5 7 7-7 7" /></svg>
-            </a>
+            </Link>
             <a className="hero-textlink" href="/features">
               Explore features
               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14" /><path d="m12 5 7 7-7 7" /></svg>

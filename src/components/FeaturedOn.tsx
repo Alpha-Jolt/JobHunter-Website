@@ -37,7 +37,7 @@ export default function FeaturedOn() {
             rel="noopener noreferrer"
           >
             <img
-              alt="JobHunter - We find you a job on autopilot mode | Product Hunt"
+              alt="JobHunter - Human-in-the-loop AI Job Search Companion | Product Hunt"
               width="250"
               height="54"
               src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=1186214&theme=light&t=1784360336451"
@@ -50,7 +50,7 @@ export default function FeaturedOn() {
           >
             <img
               src="https://peerlist.io/api/v1/projects/embed/PRJHLKLBOGGLPBDEMCPD6PPQQL7RKA?showUpvote=false&theme=light"
-              alt="JobHunter — Land Your Next Job on Autopilot"
+              alt="JobHunter — Human-in-the-loop AI Job Search Companion"
               style={{ width: 'auto', height: '54px' }}
             />
           </a>

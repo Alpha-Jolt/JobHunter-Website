@@ -4,7 +4,7 @@ import { createClient } from '@supabase/supabase-js'
 import BlogMarkdown from './BlogMarkdown'
 import BlogTOC from './BlogTOC'
 import BlogReactions from './BlogReactions'
-import SEOHead from './SEOHead'
+import SEOHead, { type BreadcrumbItem } from './SEOHead'
 
 const supabase = createClient(
   import.meta.env.VITE_SUPABASE_URL,
@@ -85,6 +85,16 @@ export default function BlogPost() {
     post.subtitle ||
     `${post.title} — read on the JobHunter Blog.`
 
+  // Build breadcrumbs: Home > Blog > [Category >] Post title
+  const breadcrumbs: BreadcrumbItem[] = [
+    { name: 'Home', url: siteUrl },
+    { name: 'Blog', url: `${siteUrl}/blog` },
+    ...(post.blog_categories
+      ? [{ name: post.blog_categories.name, url: `${siteUrl}/blog/${post.blog_categories.slug}` }]
+      : []),
+    { name: post.title, url: canonicalUrl },
+  ]
+
   return (
     <>
       <SEOHead
@@ -95,6 +105,7 @@ export default function BlogPost() {
         publishedAt={post.published_at}
         authorName={post.author_name}
         category={post.blog_categories?.name}
+        breadcrumbs={breadcrumbs}
       />
 
       <article className="blog-post" itemScope itemType="https://schema.org/Article">
@@ -106,6 +117,51 @@ export default function BlogPost() {
 
         <header className="blog-post-header">
           <div className="blog-post-header-inner page-container">
+            {/* Breadcrumb navigation */}
+            <nav className="blog-breadcrumb" aria-label="Breadcrumb">
+              <ol className="blog-breadcrumb-list" itemScope itemType="https://schema.org/BreadcrumbList">
+                <li className="blog-breadcrumb-item" itemProp="itemListElement" itemScope itemType="https://schema.org/ListItem">
+                  <Link to="/" className="blog-breadcrumb-link" itemProp="item">
+                    <span itemProp="name">Home</span>
+                  </Link>
+                  <meta itemProp="position" content="1" />
+                </li>
+                <li className="blog-breadcrumb-sep" aria-hidden="true">/</li>
+                <li className="blog-breadcrumb-item" itemProp="itemListElement" itemScope itemType="https://schema.org/ListItem">
+                  <Link to="/blog" className="blog-breadcrumb-link" itemProp="item">
+                    <span itemProp="name">Blog</span>
+                  </Link>
+                  <meta itemProp="position" content="2" />
+                </li>
+                {post.blog_categories && (
+                  <>
+                    <li className="blog-breadcrumb-sep" aria-hidden="true">/</li>
+                    <li className="blog-breadcrumb-item" itemProp="itemListElement" itemScope itemType="https://schema.org/ListItem">
+                      <Link
+                        to={`/blog/${post.blog_categories.slug}`}
+                        className="blog-breadcrumb-link"
+                        itemProp="item"
+                      >
+                        <span itemProp="name">{post.blog_categories.name}</span>
+                      </Link>
+                      <meta itemProp="position" content="3" />
+                    </li>
+                  </>
+                )}
+                <li className="blog-breadcrumb-sep" aria-hidden="true">/</li>
+                <li
+                  className="blog-breadcrumb-item blog-breadcrumb-current"
+                  itemProp="itemListElement"
+                  itemScope
+                  itemType="https://schema.org/ListItem"
+                  aria-current="page"
+                >
+                  <span itemProp="name">{post.title}</span>
+                  <meta itemProp="position" content={post.blog_categories ? '4' : '3'} />
+                </li>
+              </ol>
+            </nav>
+
             {post.blog_categories && (
               <Link
                 to={`/blog/${post.blog_categories.slug}`}
