@@ -202,7 +202,7 @@ export default function App() {
           <Routes>
           <Route path="/" element={
             <>
-              <Hero />
+              <Hero onOpenWaitlist={openWaitlist} />
               <FeaturedOn />
               <HowItWorks />
               <Principles />
@@ -213,7 +213,7 @@ export default function App() {
           <Route path="/features" element={<Features onOpenWaitlist={openWaitlist} />} />
           <Route path="/for-who" element={<ForWho onOpenMentorModal={handleOpenMentorModal} onOpenWaitlist={openWaitlist} />} />
           <Route path="/faq" element={<FAQ onOpenWaitlist={openWaitlist} />} />
-          <Route path="/how-it-works" element={<HowItWorksPage />} />
+          <Route path="/how-it-works" element={<HowItWorksPage onOpenWaitlist={openWaitlist} />} />
           <Route path="/about" element={<About onOpenWaitlist={openWaitlist} />} />
           <Route path="/referral" element={<Referral />} />
           <Route path="/privacy-policy" element={<PrivacyPolicy />} />

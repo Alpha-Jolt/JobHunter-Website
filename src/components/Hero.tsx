@@ -319,7 +319,11 @@ function TypewriterHeading() {
   )
 }
 
-export default function Hero() {
+interface Props {
+  onOpenWaitlist?: () => void
+}
+
+export default function Hero({ onOpenWaitlist }: Props) {
   return (
     <section className="hero" aria-labelledby="hero-heading">
       <div className="hero-atmosphere" aria-hidden="true" />
@@ -342,14 +346,14 @@ export default function Hero() {
           </p>
 
           <div className="hero-form-wrap hero-enter" style={{ '--d': '270ms' } as CSSProperties}>
-            <a
+            <button
               id="hero-login-btn"
-              href="https://app.myjobhunter.in"
+              onClick={onOpenWaitlist}
               className="btn btn-ink"
-              style={{ padding: '16px 80px', fontSize: '1.2rem', borderRadius: '100px', minWidth: '280px', textAlign: 'center' }}
+              style={{ padding: '16px 80px', fontSize: '1.2rem', borderRadius: '100px', minWidth: '280px', textAlign: 'center', border: 'none', cursor: 'pointer' }}
             >
-              <span><strong>Start Hunting Jobs</strong></span>
-            </a>
+              <span><strong>Sign up for Beta</strong></span>
+            </button>
           </div>
 
           <div className="hero-links hero-enter" style={{ '--d': '360ms' } as CSSProperties}>

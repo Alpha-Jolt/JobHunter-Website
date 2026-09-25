@@ -58,7 +58,11 @@ const steps = [
   },
 ]
 
-export default function HowItWorksPage() {
+interface Props {
+  onOpenWaitlist?: () => void
+}
+
+export default function HowItWorksPage({ onOpenWaitlist }: Props) {
   const ref = useReveal<HTMLDivElement>()
 
   const howToSchema = {
@@ -183,9 +187,9 @@ export default function HowItWorksPage() {
       <section className="cta-slim">
         <div className="cta-slim-inner reveal">
           <p>Ready to scale your job search with AI?</p>
-          <a href="https://app.myjobhunter.in" className="btn btn-ink" style={{ textDecoration: 'none' }}>
-            Start Hunting Jobs
-          </a>
+          <button onClick={onOpenWaitlist} className="btn btn-ink" style={{ textDecoration: 'none', border: 'none', cursor: 'pointer', fontSize: '1rem', padding: '12px 24px', borderRadius: '8px' }}>
+            Sign up for Beta
+          </button>
         </div>
       </section>
     </div>
