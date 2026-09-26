@@ -332,7 +332,7 @@ export default function Hero({ onOpenWaitlist }: Props) {
         <div className="hero-copy">
           <div className="hero-badge hero-enter" style={{ '--d': '0ms' } as CSSProperties}>
             <span className="hero-badge-dot" aria-hidden="true" />
-            Phase 1 — Building the Foundation
+            Successfully Completed Alpha with 100+ users
           </div>
 
           <h1 id="hero-heading" className="hero-enter" style={{ '--d': '90ms' } as CSSProperties}>

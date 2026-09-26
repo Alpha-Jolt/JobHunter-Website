@@ -36,13 +36,31 @@ Deno.serve(async (req: Request) => {
       );
     }
 
-    const { email, user_type, source, turnstile_token, referral_code: rawCode } = await req.json();
+    const { email, user_type, source, turnstile_token, referral_code: rawCode, referral_source, referral_source_other } = await req.json();
 
-    if (!email || !turnstile_token) {
+    if (!email || !turnstile_token || !referral_source) {
       return new Response(
         JSON.stringify({ error: "Missing required fields." }),
         { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
       );
+    }
+
+    const ALLOWED_SOURCES = [
+      'Google Search', 'Someone told me', 'Peerlist',
+      'Instagram', 'ChatGPT or other AI', 'LinkedIn', 'X (Twitter)', 'Product Hunt', 'Other'
+    ] as const;
+
+    if (!ALLOWED_SOURCES.includes(referral_source)) {
+      return new Response(
+        JSON.stringify({ error: "Invalid referral source." }),
+        { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
+    }
+
+    let sanitizedOther: string | null = null;
+    if (referral_source === 'Other' && referral_source_other) {
+      sanitizedOther = referral_source_other.replace(/<[^>]*>/g, '').trim().substring(0, 100);
+      if (sanitizedOther === '') sanitizedOther = null;
     }
 
     if (isDisposableEmail(email)) {
@@ -83,7 +101,12 @@ Deno.serve(async (req: Request) => {
       email,
       user_type: user_type ?? "job_seeker",
       source: source ?? "",
+      referral_source,
     };
+
+    if (referral_source === 'Other') {
+      upsertPayload.referral_source_other = sanitizedOther;
+    }
 
     if (referralCode) upsertPayload.referral_code = referralCode;
 
@@ -104,6 +127,8 @@ Deno.serve(async (req: Request) => {
       user_type: user_type ?? "job_seeker",
       source: source ?? "",
       referral_code: referralCode ?? undefined,
+      referral_source,
+      referral_source_other: referral_source === 'Other' && sanitizedOther ? sanitizedOther : undefined,
     });
 
     if (referralCode) {

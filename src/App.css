@@ -344,15 +344,16 @@
   align-items: center;
   gap: 9px;
   padding: 6px 13px;
-  background: var(--paper);
-  border: 1px solid var(--hairline-strong);
+  background: var(--ink);
+  border: 1px solid var(--ink);
   border-radius: 100px;
   font-family: var(--font-mono);
   font-size: 11.5px;
-  font-weight: 500;
+  font-weight: 800;
+  /* Change to 500 after Beta Promotion or tag change */
   letter-spacing: 0.07em;
   text-transform: uppercase;
-  color: var(--text-muted);
+  color: #fff;
   margin-bottom: 26px;
 }
 
@@ -360,7 +361,7 @@
   width: 7px;
   height: 7px;
   border-radius: 50%;
-  background: var(--ember);
+  background: #22c55e;
   animation: pulse 2.6s ease-in-out infinite;
 }
 
@@ -2610,6 +2611,8 @@
   color: var(--ink);
   box-shadow: 0 50px 100px -30px rgba(16, 16, 18, 0.4);
   animation: modalSlide 0.5s var(--ease);
+  max-height: calc(100vh - 40px);
+  overflow-y: auto;
 }
 
 @keyframes modalSlide {
@@ -2690,8 +2693,61 @@
   font-weight: 500;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--text-dim);
+  color: var(--text-muted);
   margin-bottom: 12px;
+}
+
+.modal-referral-source-wrapper {
+  margin-bottom: 12px;
+}
+
+.modal-referral-source-select {
+  width: 100%;
+  padding: 16px 20px;
+  font-size: 16px;
+  border-radius: var(--radius);
+  background: var(--bg-surface);
+  border: 1px solid var(--hairline-strong);
+  color: var(--text-primary);
+  appearance: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.modal-referral-source-select:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(255, 143, 52, 0.15);
+}
+
+.modal-referral-other-wrapper {
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.modal-referral-other-wrapper.show {
+  max-height: 100px;
+  opacity: 1;
+  margin-bottom: 12px;
+}
+
+.modal-referral-other-input {
+  width: 100%;
+  padding: 16px 20px;
+  font-size: 16px;
+  border-radius: var(--radius);
+  background: var(--bg-surface);
+  border: 1px solid var(--hairline-strong);
+  color: var(--text-primary);
+  transition: all 0.2s ease;
+}
+
+.modal-referral-other-input:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(255, 143, 52, 0.15);
 }
 
 .modal-email-capture .email-form {
@@ -5238,7 +5294,8 @@
   min-width: 0;
   position: relative;
   z-index: 50;
-  padding: 20px 0 24px 0; /* Removed large right padding so the heading fits */
+  padding: 20px 0 24px 0;
+  /* Removed large right padding so the heading fits */
 }
 
 .prc-content-viewport {
@@ -5363,8 +5420,10 @@
 .prc-track {
   position: absolute;
   inset: 0;
-  left: 120px; /* Offset the left padding */
-  right: 80px; /* Offset the right padding */
+  left: 120px;
+  /* Offset the left padding */
+  right: 80px;
+  /* Offset the right padding */
   transform-style: preserve-3d;
   transform: translateX(7%);
 }

@@ -113,17 +113,13 @@ export default function Footer() {
                 <span className="contact-label">Support</span>
                 <a href="mailto:support@myjobhunter.in" className="contact-value">support@myjobhunter.in</a>
               </li>
-              <li>
-                <span className="contact-label">Legal</span>
-                <a href="mailto:legal@myjobhunter.in" className="contact-value">legal@myjobhunter.in</a>
-              </li>
             </ul>
           </div>
         </div>
 
         <div className="footer-bottom">
           <p className="footer-copy">
-            © {new Date().getFullYear()} JobHunter — Prelaunch
+            © {new Date().getFullYear()} JobHunter — Beta
           </p>
           <span className="footer-status" role="status" aria-live="polite">
             <span className="footer-status-dot" aria-hidden="true" />

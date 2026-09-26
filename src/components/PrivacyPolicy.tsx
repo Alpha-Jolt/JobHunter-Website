@@ -543,7 +543,7 @@ export default function PrivacyPolicy() {
             <strong>11.1</strong> The Platform is intended exclusively for users who are <strong>16 years of age or older</strong>.
           </p>
           <p>
-            <strong>11.2</strong> In compliance with the DPDPA, which requires verifiable parental or guardian consent before processing personal data of individuals under 18, we implement age verification at the point of registration. We do not knowingly collect personal data from individuals under 18.
+            <strong>11.2</strong> In compliance with the DPDPA, which requires verifiable parental or guardian consent before processing personal data of individuals under 18, we implement age verification at the point of registration. We do not knowingly collect personal data from individuals under 16.
           </p>
           <p>
             <strong>11.3</strong> If we become aware that personal data of a minor has been collected without appropriate consent, we will delete it promptly.

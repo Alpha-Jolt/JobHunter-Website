@@ -61,9 +61,7 @@ export default function FeaturedOn() {
               <span style={{ fontSize: '16px', fontWeight: 800, letterSpacing: '-0.015em', color: '#0f172a' }}>LaunchPad<span style={{ color: '#f97316' }}>India</span></span>
             </span>
           </a>
-          <a href="https://www.welaunch.sh/products/jobhunter" target="_blank" rel="noopener noreferrer">
-            <img src="https://www.welaunch.sh/welaunch-badge.svg" alt="Featured on welaunch.sh" width="200" height="50" />
-          </a>
+
         </div>
       </div>
     </section>

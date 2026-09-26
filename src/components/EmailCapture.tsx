@@ -10,6 +10,9 @@ interface Props {
   className?: string
   referralCode?: string
   onEmailChange?: (email: string) => void
+  referralSource?: string
+  referralSourceOther?: string
+  children?: React.ReactNode
 }
 
 declare global {
@@ -38,6 +41,9 @@ export default function EmailCapture({
   className,
   referralCode,
   onEmailChange,
+  referralSource,
+  referralSourceOther,
+  children,
 }: Props) {
   const [email, setEmail] = useState('')
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle')
@@ -108,6 +114,12 @@ export default function EmailCapture({
       return
     }
 
+    if (referralSource !== undefined && !referralSource) {
+      setStatus('error')
+      setMsg('Please select how you heard about us.')
+      return
+    }
+
     let turnstileToken: string | null = null
     if (isTurnstileConfigured) {
       turnstileToken = widgetIdRef.current
@@ -136,6 +148,8 @@ export default function EmailCapture({
           source,
           turnstile_token: turnstileToken ?? 'dev-bypass',
           ...(referralCode ? { referral_code: referralCode } : {}),
+          referral_source: referralSource,
+          referral_source_other: referralSourceOther,
         }),
       })
 
@@ -157,6 +171,8 @@ export default function EmailCapture({
           user_type: userType,
           source: source,
           referral_code: referralCode,
+          referral_source: referralSource,
+          referral_source_other: referralSourceOther,
         })
       } catch (err) {
         console.error('Failed to capture PostHog event:', err)
@@ -188,6 +204,7 @@ export default function EmailCapture({
           disabled={status === 'loading' || status === 'success'}
           aria-label="Email address"
         />
+        {children}
         <button
           type="submit"
           className="btn btn-primary"

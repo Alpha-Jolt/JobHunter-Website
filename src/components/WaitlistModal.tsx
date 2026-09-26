@@ -9,6 +9,8 @@ interface Props {
 
 export default function WaitlistModal({ isOpen, onClose, referralCode }: Props) {
   const [showConfetti, setShowConfetti] = useState(false)
+  const [referralSource, setReferralSource] = useState('')
+  const [referralSourceOther, setReferralSourceOther] = useState('')
   const closeRef = useRef<HTMLButtonElement>(null)
   const previouslyFocused = useRef<HTMLElement | null>(null)
 
@@ -53,7 +55,7 @@ export default function WaitlistModal({ isOpen, onClose, referralCode }: Props) 
 
         <div className="modal-badge">
           <span className="hero-badge-dot" aria-hidden="true" />
-          Building in public — Phase 1
+          Successfully Completed Alpha
         </div>
 
         {referralCode && (
@@ -76,8 +78,9 @@ export default function WaitlistModal({ isOpen, onClose, referralCode }: Props) 
 
         <h2 className="modal-title" id="waitlist-modal-title">Join the waitlist</h2>
         <p className="modal-desc">
-          We&apos;re building the core engine in the open. Leave your email and we&apos;ll reach out
-          the moment early access opens — no spam, no fake countdowns.
+          We&apos;ve successfully completed our Alpha phase with over <strong>100+ early users</strong>.
+          <br></br>
+          Leave your email and we&apos;ll reach out the moment Beta access opens — no spam, no fake countdowns.
         </p>
 
         <div className="modal-form-section">
@@ -88,7 +91,52 @@ export default function WaitlistModal({ isOpen, onClose, referralCode }: Props) 
             onSuccess={handleSuccess}
             className="modal-email-capture"
             referralCode={referralCode}
-          />
+            referralSource={referralSource}
+            referralSourceOther={referralSourceOther}
+          >
+            <div style={{ display: 'flex', flexDirection: 'column', textAlign: 'left', marginTop: '2px' }}>
+              <label className="modal-label" htmlFor="referral-source-select">How did you hear about us?</label>
+              <div className="modal-referral-source-wrapper">
+                <select
+                  id="referral-source-select"
+                  className="modal-referral-source-select"
+                  value={referralSource}
+                  onChange={(e) => {
+                    setReferralSource(e.target.value)
+                    if (e.target.value !== 'Other') {
+                      setReferralSourceOther('')
+                    }
+                  }}
+                  aria-required="true"
+                >
+                  <option value="" disabled>-- Select an option --</option>
+                  <option value="Google Search">Google Search</option>
+                  <option value="Someone told me">Someone told me</option>
+                  <option value="Peerlist">Peerlist</option>
+                  <option value="Instagram">Instagram</option>
+                  <option value="ChatGPT or other AI">ChatGPT or other AI</option>
+                  <option value="LinkedIn">LinkedIn</option>
+                  <option value="X (Twitter)">X (Twitter)</option>
+                  <option value="Product Hunt">Product Hunt</option>
+                  <option value="Other">Other</option>
+                </select>
+              </div>
+
+              <div className={`modal-referral-other-wrapper ${referralSource === 'Other' ? 'show' : ''}`}>
+                {referralSource === 'Other' && (
+                  <input
+                    type="text"
+                    className="modal-referral-other-input"
+                    placeholder="Tell us more (optional)"
+                    maxLength={100}
+                    value={referralSourceOther}
+                    onChange={(e) => setReferralSourceOther(e.target.value)}
+                    aria-label="Other referral source"
+                  />
+                )}
+              </div>
+            </div>
+          </EmailCapture>
           {referralCode && (
             <p className="modal-referral-code-note">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ marginRight: 6, verticalAlign: 'middle', marginTop: -2 }}>
