@@ -1,5 +1,6 @@
-import { useState, useEffect, type CSSProperties } from 'react'
+import { useState, type CSSProperties } from 'react'
 import EmailCapture from './EmailCapture'
+import WaitlistSuccessModal from './WaitlistSuccessModal'
 
 interface Props {
   isOpen: boolean
@@ -7,42 +8,21 @@ interface Props {
   triggerRect: DOMRect | null
 }
 
-const ConfettiOverlay = () => {
-  const [pieces, setPieces] = useState<{ left: string, backgroundColor: string, animationDelay: string }[]>([])
-
-  useEffect(() => {
-    const generated = [...Array(20)].map(() => ({
-      left: `${Math.random() * 100}%`,
-      backgroundColor: ['#101012', '#FCFCFC'][Math.floor(Math.random() * 2)],
-      animationDelay: `${Math.random() * 2}s`
-    }))
-    const timer = setTimeout(() => setPieces(generated), 0)
-    return () => clearTimeout(timer)
-  }, [])
-
-  return (
-    <div className="confetti-container">
-      {pieces.map((style, i) => (
-        <div key={i} className="confetti-piece" style={style} />
-      ))}
-    </div>
-  )
-}
 
 export default function MentorModal({ isOpen, onClose, triggerRect }: Props) {
-  const [showConfetti, setShowConfetti] = useState(false)
+  const [showSuccess, setShowSuccess] = useState(false)
+  const [submittedEmail, setSubmittedEmail] = useState('')
 
-  const handleSuccess = () => {
-    setShowConfetti(true)
-    setTimeout(() => {
-      setShowConfetti(false)
-      onClose()
-    }, 2500)
+  const handleSuccess = (email: string) => {
+    setSubmittedEmail(email)
+    onClose()
+    setTimeout(() => setShowSuccess(true), 120)
   }
 
   if (!isOpen) return null
 
   return (
+    <>
     <div
       className="modal-overlay"
       onClick={onClose}
@@ -106,8 +86,14 @@ export default function MentorModal({ isOpen, onClose, triggerRect }: Props) {
           />
         </div>
 
-        {showConfetti && <ConfettiOverlay />}
       </div>
     </div>
+
+    <WaitlistSuccessModal
+      isOpen={showSuccess}
+      onClose={() => setShowSuccess(false)}
+      email={submittedEmail}
+    />
+    </>
   )
 }

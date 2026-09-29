@@ -6,7 +6,7 @@ interface Props {
   placeholder?: string
   source?: string
   userType?: 'job_seeker' | 'mentor'
-  onSuccess?: () => void
+  onSuccess?: (email: string) => void
   className?: string
   referralCode?: string
   onEmailChange?: (email: string) => void
@@ -181,7 +181,7 @@ export default function EmailCapture({
       setStatus('success')
       setMsg("You're on the list! We'll reach out when we launch.")
       setEmail('')
-      if (onSuccess) onSuccess()
+      if (onSuccess) onSuccess(email)
     } catch {
       setStatus('error')
       setMsg('Network error. Please try again.')

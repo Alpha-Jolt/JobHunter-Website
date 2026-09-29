@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react'
 import EmailCapture from './EmailCapture'
+import WaitlistSuccessModal from './WaitlistSuccessModal'
 
 interface Props {
   isOpen: boolean
@@ -8,7 +9,8 @@ interface Props {
 }
 
 export default function WaitlistModal({ isOpen, onClose, referralCode }: Props) {
-  const [showConfetti, setShowConfetti] = useState(false)
+  const [showSuccess, setShowSuccess] = useState(false)
+  const [submittedEmail, setSubmittedEmail] = useState('')
   const [referralSource, setReferralSource] = useState('')
   const [referralSourceOther, setReferralSourceOther] = useState('')
   const closeRef = useRef<HTMLButtonElement>(null)
@@ -30,17 +32,17 @@ export default function WaitlistModal({ isOpen, onClose, referralCode }: Props) 
     }
   }, [isOpen, onClose])
 
-  const handleSuccess = () => {
-    setShowConfetti(true)
-    setTimeout(() => {
-      setShowConfetti(false)
-      onClose()
-    }, 2500)
+  const handleSuccess = (email?: string) => {
+    if (email) setSubmittedEmail(email)
+    onClose()
+    // Small delay so the close animation completes before success modal appears
+    setTimeout(() => setShowSuccess(true), 120)
   }
 
   if (!isOpen) return null
 
   return (
+    <>
     <div className="modal-overlay" onClick={onClose} role="presentation">
       <div
         className="modal-content"
@@ -89,6 +91,7 @@ export default function WaitlistModal({ isOpen, onClose, referralCode }: Props) 
             buttonLabel="Join Early Beta Access"
             placeholder="your@email.com"
             onSuccess={handleSuccess}
+            onEmailChange={(e) => setSubmittedEmail(e)}
             className="modal-email-capture"
             referralCode={referralCode}
             referralSource={referralSource}
@@ -149,32 +152,15 @@ export default function WaitlistModal({ isOpen, onClose, referralCode }: Props) 
         </div>
 
         <p className="modal-footer-note">No spam · No credit card · Unsubscribe anytime</p>
-
-        {showConfetti && <ConfettiOverlay />}
       </div>
     </div>
+
+    <WaitlistSuccessModal
+      isOpen={showSuccess}
+      onClose={() => setShowSuccess(false)}
+      email={submittedEmail}
+    />
+    </>
   )
 }
 
-function ConfettiOverlay() {
-  const [pieces, setPieces] = useState<{ left: string, backgroundColor: string, animationDelay: string, animationDuration: string }[]>([])
-
-  useEffect(() => {
-    const generated = [...Array(50)].map((_, i) => ({
-      left: `${Math.random() * 100}%`,
-      backgroundColor: ['#E5510A', '#101012', '#FCFCFC'][i % 3],
-      animationDelay: `${Math.random() * 3}s`,
-      animationDuration: `${2 + Math.random() * 2}s`,
-    }))
-    const timer = setTimeout(() => setPieces(generated), 0)
-    return () => clearTimeout(timer)
-  }, [])
-
-  return (
-    <div className="confetti-container">
-      {pieces.map((style, i) => (
-        <div key={i} className="confetti-piece" style={style} />
-      ))}
-    </div>
-  )
-}
