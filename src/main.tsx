@@ -28,3 +28,17 @@ createRoot(document.getElementById('root')!).render(
     </BrowserRouter>
   </StrictMode>,
 )
+
+// Remove the static crawler content fallback after React has mounted.
+// Crawlers read it during initial HTML parse; JS users get the React app.
+// aria-hidden="true" + off-screen CSS already protects real users,
+// but removing it keeps the DOM clean.
+const removeCrawlerContent = () => {
+  const crawlerEl = document.getElementById('crawler-content')
+  if (crawlerEl) crawlerEl.remove()
+}
+if (typeof window.requestIdleCallback === 'function') {
+  window.requestIdleCallback(removeCrawlerContent, { timeout: 2000 })
+} else {
+  setTimeout(removeCrawlerContent, 200)
+}

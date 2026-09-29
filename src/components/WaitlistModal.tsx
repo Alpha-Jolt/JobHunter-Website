@@ -1,16 +1,14 @@
 import { useState, useEffect, useRef } from 'react'
 import EmailCapture from './EmailCapture'
-import WaitlistSuccessModal from './WaitlistSuccessModal'
 
 interface Props {
   isOpen: boolean
   onClose: () => void
+  onSuccess: (email: string) => void
   referralCode?: string
 }
 
-export default function WaitlistModal({ isOpen, onClose, referralCode }: Props) {
-  const [showSuccess, setShowSuccess] = useState(false)
-  const [submittedEmail, setSubmittedEmail] = useState('')
+export default function WaitlistModal({ isOpen, onClose, onSuccess, referralCode }: Props) {
   const [referralSource, setReferralSource] = useState('')
   const [referralSourceOther, setReferralSourceOther] = useState('')
   const closeRef = useRef<HTMLButtonElement>(null)
@@ -32,17 +30,13 @@ export default function WaitlistModal({ isOpen, onClose, referralCode }: Props) 
     }
   }, [isOpen, onClose])
 
-  const handleSuccess = (email?: string) => {
-    if (email) setSubmittedEmail(email)
-    onClose()
-    // Small delay so the close animation completes before success modal appears
-    setTimeout(() => setShowSuccess(true), 120)
+  const handleSuccess = (email: string) => {
+    onSuccess(email)
   }
 
   if (!isOpen) return null
 
   return (
-    <>
     <div className="modal-overlay" onClick={onClose} role="presentation">
       <div
         className="modal-content"
@@ -91,7 +85,6 @@ export default function WaitlistModal({ isOpen, onClose, referralCode }: Props) 
             buttonLabel="Join Early Beta Access"
             placeholder="your@email.com"
             onSuccess={handleSuccess}
-            onEmailChange={(e) => setSubmittedEmail(e)}
             className="modal-email-capture"
             referralCode={referralCode}
             referralSource={referralSource}
@@ -154,13 +147,5 @@ export default function WaitlistModal({ isOpen, onClose, referralCode }: Props) 
         <p className="modal-footer-note">No spam · No credit card · Unsubscribe anytime</p>
       </div>
     </div>
-
-    <WaitlistSuccessModal
-      isOpen={showSuccess}
-      onClose={() => setShowSuccess(false)}
-      email={submittedEmail}
-    />
-    </>
   )
 }
-

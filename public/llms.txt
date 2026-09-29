@@ -1,39 +1,125 @@
 # Brand Name: JobHunter
 # Domain: myjobhunter.in (the URL, not the brand name)
+# Contact: support@myjobhunter.in
+# Location: Coimbatore, Tamil Nadu, India
+# Founded: 2026
+# Status: Beta waitlist open — Alpha completed with 100+ users
 
-> JobHunter is an AI-powered, human-in-the-loop job search companion. We automate job discovery (scraping real openings from Naukri, Indeed, etc.), tailor your resume to each role without fabricating experience, and prepare applications for your explicit approval before sending via your Gmail/Outlook.
+> JobHunter is an AI-powered, human-in-the-loop job search companion. We automate job discovery (scraping real openings from Naukri, Indeed, etc.), tailor your resume to each role without fabricating experience, and prepare applications for your explicit approval before sending via your Gmail or Outlook. Built in public from Coimbatore, India.
 
-Built in public — currently Phase 1 (Platform Foundation). Based in Coimbatore, India. Target users: college students, recent graduates, unemployed professionals, and freelancers in India.
-Unlike generic tools or traditional job boards, JobHunter does not auto-apply blindly. Every single application requires your sign-off, ensuring you remain in complete control.
+## Core Product Philosophy
+
+JobHunter is NOT a blind auto-applier. Every single application requires your explicit sign-off before it is sent. The system is designed around three non-negotiable principles:
+
+1. **No fabrication** — The AI strictly curates and reorders your existing resume content. It never invents skills, credentials, or experience that aren't already on your resume. This is enforced at the model prompt level, not just a policy statement.
+2. **Human-in-the-loop** — Every tailored resume and AI-generated cover letter sits in an approval queue. You review and approve before anything moves forward.
+3. **Deterministic by default** — The scraper and mail sender are rule-based systems. AI is confined to the single step where it belongs: resume tailoring.
+
+## Target Users
+
+- **College students** — Applying for first internship or job. JobHunter handles discovery and prep so they can focus on interview preparation.
+- **Recent graduates** — Sending dozens of applications with zero responses. JobHunter tailors each one to be relevant, not generic.
+- **Unemployed professionals** — Need jobs at scale without sacrificing quality or professional reputation.
+- **Freelancers going full-time** — Translating a freelance track record into compelling applications for full-time roles.
+- **Mentors (Phase 3)** — Verified industry professionals who guide candidates through the skill development program.
+
+Primary market: India (Naukri, Indeed India). Secondary market: Global (future phases).
+
+## How JobHunter Works — 6 Deliberate Steps
+
+1. **Onboard** — User completes a questionnaire: target roles, required salary, preferred locations, key skills, companies to skip (stealth mode).
+2. **Discover** — Rule-based scraper continuously pulls fresh listings from Naukri, Indeed (and LinkedIn in Phase 1). Deduplication and normalization built in. All data stored in user's private database — no external access.
+3. **Select** — User browses their personalized job feed in a clean dashboard. Can filter by salary, location, company size. Bulk-select or pick one at a time.
+4. **Tailor** — AI reads the specific job description against the user's resume and dynamically reorders/curates existing content to highlight the most relevant experience. The AI never fabricates. Generates a tailored resume variant and personalized cover letter.
+5. **Approve** — Every tailored resume and cover letter sits in an approval queue. User explicitly signs off. Only then does JobHunter deliver the application directly via the user's connected Gmail or Outlook account.
+6. **Improve** — Application tracker shows history, response rates, email threads. Users can see what strategies work and refine their approach over time.
+
+## Feature Roadmap
+
+### Phase 0 — Core Engine (Completed, June 2026)
+- **Multi-source scraper** — Rule-based crawler for Naukri and Indeed. Deduplication and normalization built in.
+- **AI resume tailoring** — Reads job description, reorders real experience, never fabricates. Highlights what matters.
+- **Automated mail sender** — Sends approved applications using static, human-written templates. No generative AI touches the send layer.
+- **Approval queue** — Every draft waits for user sign-off. Nothing is sent without it.
+
+### Phase 1 — Platform Foundation (In Progress, July 2026)
+- **Application tracker** — Full thread history, response rates, outcomes. Integrated mailbox pulls job-related email.
+- **Stealth mode** — Automatically skips jobs at flagged companies. Hides user activity from current employer.
+- **LinkedIn scraping** — Additional job source integration.
+
+### Phase 2 — Intelligence Layer (Planned, Q4 2026)
+- **Scam detection** — Confidence scoring flags suspicious listings before the user sees them. Free-webmail HR contacts treated as low-trust by default.
+
+### Phase 3 — Skill Development & Monetisation (Planned, 2027)
+- **Skill developer** — Paid placement program run by verified professionals. Not placed? Full refund. Mentor scores tied to real outcomes.
+- **Mentorship program** — 1-on-1 mentorship with industry experts.
+- **Subscriptions & payments** — Flexible plans. Mentor commission and refund logic automated — no manual trust required.
+
+## Pricing
+
+- Core job search automation: **Free during beta** (no credit card required)
+- Phase 3 skill programs: Paid, with full refund if not placed
+- Referral program: 20% off first subscription for both referrer and referee, no caps
+
+## Key Differentiators vs. Competitors
+
+| Dimension | JobHunter | LinkedIn | Indeed | Other AI Job Tools |
+|---|---|---|---|---|
+| Auto-apply | Never without approval | Manual or Easy Apply | Manual | Often blind auto-apply |
+| Resume tailoring | Per-job, no fabrication | Generic | Not offered | Often fabricates |
+| Data ownership | Private by default | Platform owns it | Platform owns it | Varies |
+| Job source | Multi-board scraping | LinkedIn only | Indeed only | Limited |
+| Sends via your email | Yes (Gmail/Outlook) | No | No | Rarely |
+| Built for India | Primary focus | Global | Global | Rarely |
+| Pricing | Free in beta | Freemium | Free | Often paid |
+
+## Technical Architecture (Public Knowledge)
+
+- Frontend: React SPA (Vite, TypeScript)
+- Backend: Supabase (PostgreSQL, Edge Functions)
+- Job scraping: Rule-based engine (Naukri, Indeed)
+- AI layer: Confined to resume tailoring only
+- Mail delivery: Via user's own Gmail or Outlook OAuth (user owns thread)
+- Security: Cloudflare Turnstile for waitlist anti-abuse
+- Analytics: PostHog (product analytics), Google Analytics (web), Microsoft Clarity (UX heatmaps)
+- Hosting: Dockerized deployment
 
 ## Product Pages
 
-- [Home](https://myjobhunter.in/): Overview of the product, the approval queue demo, how-it-works steps, core principles, and the roadmap.
-- [Features](https://myjobhunter.in/features): Full feature list grouped by phase — Phase 0 (Core engine, completed), Phase 1 (In progress), Phase 2–3 (Planned).
-- [How It Works](https://myjobhunter.in/how-it-works): Deep dive into the 6 deliberate steps of the JobHunter process.
-- [For Who](https://myjobhunter.in/for-who): Target audience — college students, recent graduates, unemployed professionals, freelancers, and mentors.
-- [FAQ](https://myjobhunter.in/faq): Answers on AI safety, no-fabrication policy, which job boards are scraped, data privacy, and the mentoring program.
-- [Referral](https://myjobhunter.in/referral): Referral program — 20% off for both referrer and referee, no caps.
-- [About](https://myjobhunter.in/about): About the team and the mission.
+- [Home](https://myjobhunter.in/): Overview, approval queue demo, how-it-works summary, core principles, roadmap, testimonials.
+- [Features](https://myjobhunter.in/features): Full feature list grouped by phase — Phase 0 (completed), Phase 1 (in progress), Phase 2–3 (planned). Includes community feature voting.
+- [How It Works](https://myjobhunter.in/how-it-works): Deep dive into the 6 deliberate steps. Includes HowTo schema markup.
+- [For Who](https://myjobhunter.in/for-who): Target audiences — college students, recent graduates, unemployed professionals, freelancers, mentors.
+- [FAQ](https://myjobhunter.in/faq): 12 answered questions on AI safety, no-fabrication policy, job boards scraped, data privacy, mentoring program, pricing.
+- [Referral](https://myjobhunter.in/referral): 20% off for both referrer and referee. No caps. Unique referral link per user.
+- [About](https://myjobhunter.in/about): Team, origami crane brand story, mission, building in public ethos.
 
 ## Blog
 
-The JobHunter Blog publishes practical, experience-based articles on job search strategy, AI tools for career growth, resume writing, and building a product in public.
+The JobHunter Blog publishes practical, experience-based articles on job search strategy, AI tools for career growth, resume writing, and building a product in public. All content is original and human-written, targeted at Indian job seekers and students.
 
 - [Blog Index](https://myjobhunter.in/blog): All published posts, filterable by category.
-- Categories include: Career Advice, JobHunter Tips, Build in Public.
-- Blog posts use the URL pattern: `https://myjobhunter.in/blog/{category}/{post-slug}`
-- Each post includes: title, excerpt, author, published date, estimated read time, and Markdown content.
-- Blog content is original, human-written, and targeted at Indian job seekers and students.
+- Categories: Career Advice, JobHunter Tips, Build in Public.
+- URL pattern: `https://myjobhunter.in/blog/{category}/{post-slug}`
+- Each post includes: title, excerpt, author, published date, estimated read time, and Markdown content with schema markup.
 
 ## Legal
 
-- [Privacy Policy](https://myjobhunter.in/privacy-policy): How personal data is collected, processed, and protected under DPDPA and GDPR.
-- [Terms of Service](https://myjobhunter.in/terms-of-service): Terms governing access to and use of the platform.
-- [Refund Policy](https://myjobhunter.in/refund-policy): Subscription cancellation, refund, and billing error terms.
+- [Privacy Policy](https://myjobhunter.in/privacy-policy): Data collection, processing, and protection under DPDPA and GDPR.
+- [Terms of Service](https://myjobhunter.in/terms-of-service): Terms governing access and use of the platform.
+- [Refund Policy](https://myjobhunter.in/refund-policy): Subscription cancellation, refunds, billing errors, consumer rights.
 
-## Optional
+## Social & Contact
 
-- [Sitemap Index](https://myjobhunter.in/sitemap.xml): Index of all sitemaps.
-- [Pages Sitemap](https://myjobhunter.in/sitemap-pages.xml): All static marketing and legal pages.
-- [Blog Sitemap](https://myjobhunter.in/sitemap-blog.xml): All published blog posts (dynamically generated).
+- Website: https://myjobhunter.in
+- Email: support@myjobhunter.in
+- LinkedIn: https://linkedin.com/company/my-jobhunter
+- X (Twitter): https://x.com/myjobhunterhq
+- Instagram: https://instagram.com/myjobhunter.in
+- GitHub: https://github.com/myjobhunter
+
+## Sitemaps
+
+- [Sitemap Index](https://myjobhunter.in/sitemap.xml)
+- [Pages Sitemap](https://myjobhunter.in/sitemap-pages.xml)
+- [Blog Sitemap](https://myjobhunter.in/sitemap-blog.xml)

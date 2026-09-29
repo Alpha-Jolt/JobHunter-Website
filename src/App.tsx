@@ -25,6 +25,7 @@ const BlogPost = lazy(() => import('./components/blog/BlogPost'))
 const BlogAdmin = lazy(() => import('./components/blog/BlogAdmin'))
 const WaitlistModal = lazy(() => import('./components/WaitlistModal'))
 const MentorModal = lazy(() => import('./components/MentorModal'))
+const WaitlistSuccessModal = lazy(() => import('./components/WaitlistSuccessModal'))
 import './App.css'
 
 const pageTitles: Record<string, string> = {
@@ -57,6 +58,21 @@ const pageDescriptions: Record<string, string> = {
   '/blog/admin': 'Blog Admin panel.',
 }
 
+/** Breadcrumb data for each marketing page. */
+const pageBreadcrumbs: Record<string, { name: string; url: string }[]> = {
+  '/': [{ name: 'Home', url: 'https://myjobhunter.in/' }],
+  '/features': [{ name: 'Home', url: 'https://myjobhunter.in/' }, { name: 'Features', url: 'https://myjobhunter.in/features' }],
+  '/for-who': [{ name: 'Home', url: 'https://myjobhunter.in/' }, { name: 'For Who', url: 'https://myjobhunter.in/for-who' }],
+  '/faq': [{ name: 'Home', url: 'https://myjobhunter.in/' }, { name: 'FAQ', url: 'https://myjobhunter.in/faq' }],
+  '/how-it-works': [{ name: 'Home', url: 'https://myjobhunter.in/' }, { name: 'How It Works', url: 'https://myjobhunter.in/how-it-works' }],
+  '/referral': [{ name: 'Home', url: 'https://myjobhunter.in/' }, { name: 'Referral', url: 'https://myjobhunter.in/referral' }],
+  '/about': [{ name: 'Home', url: 'https://myjobhunter.in/' }, { name: 'About', url: 'https://myjobhunter.in/about' }],
+  '/privacy-policy': [{ name: 'Home', url: 'https://myjobhunter.in/' }, { name: 'Privacy Policy', url: 'https://myjobhunter.in/privacy-policy' }],
+  '/terms-of-service': [{ name: 'Home', url: 'https://myjobhunter.in/' }, { name: 'Terms of Service', url: 'https://myjobhunter.in/terms-of-service' }],
+  '/refund-policy': [{ name: 'Home', url: 'https://myjobhunter.in/' }, { name: 'Refund Policy', url: 'https://myjobhunter.in/refund-policy' }],
+  '/blog': [{ name: 'Home', url: 'https://myjobhunter.in/' }, { name: 'Blog', url: 'https://myjobhunter.in/blog' }],
+}
+
 /** Sanitize URL param: only accept 6-10 uppercase alphanumeric characters. */
 function sanitizeRefCode(raw: string | null): string | null {
   if (!raw) return null
@@ -77,6 +93,8 @@ export default function App() {
   const [isMentorModalOpen, setIsMentorModalOpen] = useState(false)
   const [mentorTriggerRect, setMentorTriggerRect] = useState<DOMRect | null>(null)
   const [referralCode, setReferralCode] = useState<string | null>(null)
+  const [showSuccess, setShowSuccess] = useState(false)
+  const [successEmail, setSuccessEmail] = useState('')
 
   const location = useLocation()
   const navigate = useNavigate()
@@ -93,36 +111,75 @@ export default function App() {
       return
     }
 
+    const isAdminRoute = location.pathname === '/blog/admin'
     const title = pageTitles[location.pathname] || pageTitles['/']
     const desc = pageDescriptions[location.pathname] || pageDescriptions['/']
+    const siteUrl = import.meta.env.VITE_SITE_URL || 'https://myjobhunter.in'
+    const currentUrl = siteUrl + (location.pathname === '/' ? '' : location.pathname)
 
     document.title = title
 
+    // ── robots meta — noindex admin route for security ──────────
+    let robotsMeta = document.querySelector('meta[name="robots"]')
+    if (!robotsMeta) {
+      robotsMeta = document.createElement('meta')
+      robotsMeta.setAttribute('name', 'robots')
+      document.head.appendChild(robotsMeta)
+    }
+    robotsMeta.setAttribute('content', isAdminRoute ? 'noindex, nofollow' : 'index, follow')
+
+    // ── description ─────────────────────────────────────────────
     const metaDesc = document.querySelector('meta[name="description"]')
     if (metaDesc) metaDesc.setAttribute('content', desc)
 
+    // ── canonical ────────────────────────────────────────────────
     let canonical = document.querySelector('link[rel="canonical"]')
     if (!canonical) {
       canonical = document.createElement('link')
       canonical.setAttribute('rel', 'canonical')
       document.head.appendChild(canonical)
     }
-    const currentUrl = (import.meta.env.VITE_SITE_URL || 'https://myjobhunter.in') + (location.pathname === '/' ? '' : location.pathname)
     canonical.setAttribute('href', currentUrl)
 
+    // ── Open Graph ───────────────────────────────────────────────
     const ogTitle = document.querySelector('meta[property="og:title"]')
     if (ogTitle) ogTitle.setAttribute('content', title)
     const ogDesc = document.querySelector('meta[property="og:description"]')
     if (ogDesc) ogDesc.setAttribute('content', desc)
     const ogUrl = document.querySelector('meta[property="og:url"]')
     if (ogUrl) ogUrl.setAttribute('content', currentUrl)
+    const ogType = document.querySelector('meta[property="og:type"]')
+    if (ogType) ogType.setAttribute('content', 'website')
 
-    const twitterTitle = document.querySelector('meta[property="twitter:title"]')
+    // ── Twitter / X ──────────────────────────────────────────────
+    const twitterTitle = document.querySelector('meta[name="twitter:title"], meta[property="twitter:title"]')
     if (twitterTitle) twitterTitle.setAttribute('content', title)
-    const twitterDesc = document.querySelector('meta[property="twitter:description"]')
+    const twitterDesc = document.querySelector('meta[name="twitter:description"], meta[property="twitter:description"]')
     if (twitterDesc) twitterDesc.setAttribute('content', desc)
-    const twitterUrl = document.querySelector('meta[property="twitter:url"]')
+    const twitterUrl = document.querySelector('meta[name="twitter:url"], meta[property="twitter:url"]')
     if (twitterUrl) twitterUrl.setAttribute('content', currentUrl)
+
+    // ── Per-page BreadcrumbList JSON-LD ──────────────────────────
+    const crumbs = pageBreadcrumbs[location.pathname]
+    const existingBcLd = document.getElementById('page-breadcrumb-jsonld')
+    if (existingBcLd) existingBcLd.remove()
+
+    if (crumbs && crumbs.length > 0) {
+      const bcScript = document.createElement('script')
+      bcScript.id = 'page-breadcrumb-jsonld'
+      bcScript.type = 'application/ld+json'
+      bcScript.textContent = JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'BreadcrumbList',
+        'itemListElement': crumbs.map((c, i) => ({
+          '@type': 'ListItem',
+          'position': i + 1,
+          'name': c.name,
+          'item': c.url,
+        })),
+      })
+      document.head.appendChild(bcScript)
+    }
 
     posthog.capture('$pageview', {
       $current_url: window.location.href,
@@ -192,6 +249,18 @@ export default function App() {
 
   const openWaitlist = () => setIsModalOpen(true)
 
+  const handleWaitlistSuccess = (email: string) => {
+    setSuccessEmail(email)
+    setIsModalOpen(false)
+    setShowSuccess(true)
+  }
+
+  const handleMentorSuccess = (email: string) => {
+    setSuccessEmail(email)
+    setIsMentorModalOpen(false)
+    setShowSuccess(true)
+  }
+
   return (
     <div className="app">
       <ScrollToTop />
@@ -238,12 +307,19 @@ export default function App() {
       <WaitlistModal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
+        onSuccess={handleWaitlistSuccess}
         referralCode={referralCode ?? undefined}
       />
       <MentorModal
         isOpen={isMentorModalOpen}
         onClose={() => setIsMentorModalOpen(false)}
+        onSuccess={handleMentorSuccess}
         triggerRect={mentorTriggerRect}
+      />
+      <WaitlistSuccessModal
+        isOpen={showSuccess}
+        onClose={() => setShowSuccess(false)}
+        email={successEmail}
       />
     </div>
   )

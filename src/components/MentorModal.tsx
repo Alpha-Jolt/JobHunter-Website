@@ -1,28 +1,22 @@
-import { useState, type CSSProperties } from 'react'
+import { type CSSProperties } from 'react'
 import EmailCapture from './EmailCapture'
-import WaitlistSuccessModal from './WaitlistSuccessModal'
 
 interface Props {
   isOpen: boolean
   onClose: () => void
+  onSuccess: (email: string) => void
   triggerRect: DOMRect | null
 }
 
 
-export default function MentorModal({ isOpen, onClose, triggerRect }: Props) {
-  const [showSuccess, setShowSuccess] = useState(false)
-  const [submittedEmail, setSubmittedEmail] = useState('')
-
+export default function MentorModal({ isOpen, onClose, onSuccess, triggerRect }: Props) {
   const handleSuccess = (email: string) => {
-    setSubmittedEmail(email)
-    onClose()
-    setTimeout(() => setShowSuccess(true), 120)
+    onSuccess(email)
   }
 
   if (!isOpen) return null
 
   return (
-    <>
     <div
       className="modal-overlay"
       onClick={onClose}
@@ -88,12 +82,5 @@ export default function MentorModal({ isOpen, onClose, triggerRect }: Props) {
 
       </div>
     </div>
-
-    <WaitlistSuccessModal
-      isOpen={showSuccess}
-      onClose={() => setShowSuccess(false)}
-      email={submittedEmail}
-    />
-    </>
   )
 }
