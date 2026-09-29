@@ -150,7 +150,7 @@ export default function WaitlistSuccessModal({ isOpen, onClose, email }: Props) 
             We'll reach out the moment Beta opens — no spam, no fake countdowns.
             {email && (
               <>
-                {' '}Confirmation sent to{' '}
+                {' '}Invitation will be sent to{' '}
                 <strong className="success-modal-email">{email}</strong>.
               </>
             )}
