@@ -100,7 +100,7 @@ const pages = [
       'sameAs': [
         'https://github.com/alpha-jolt/jobhunter',
         'https://instagram.com/myjobhunter.in',
-        'https://linkedin.com/company/my-jobhunter',
+        'https://linkedin.com/company/myjobhunter.si',
         'https://x.com/myjobhunterhq'
       ]
     }
